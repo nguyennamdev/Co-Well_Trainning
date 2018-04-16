@@ -9,10 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface ViewController : UIViewController <UITextFieldDelegate>
+
 @property (weak, nonatomic) IBOutlet UITextField *firstNameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *lastNameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *birthDayTextField;
-
 @property (weak, nonatomic) IBOutlet UITextField *numberCardTextField;
 @property (weak, nonatomic) IBOutlet UITextField *addressTextField;
 

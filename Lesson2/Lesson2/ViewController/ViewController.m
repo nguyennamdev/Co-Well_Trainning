@@ -26,15 +26,13 @@ int currentTextFieldIsEditting;
     [super viewDidLoad];
     [self initToolBar];
     [self addDatePickerToBirthDayTextField];
-    
-    // some delegate of text field
-    self.firstNameTextField.delegate = self;
-    self.lastNameTextField.delegate = self;
-    self.birthDayTextField.delegate = self;
-    self.numberCardTextField.delegate = self;
-    self.addressTextField.delegate = self;
+ 
     // init array
     textFields = @[_firstNameTextField, _lastNameTextField, _birthDayTextField, _numberCardTextField, _addressTextField];
+    
+    for (UITextField *element in textFields) {
+        element.delegate = self;
+    }
 }
 
 - (void)initToolBar{
@@ -56,7 +54,7 @@ int currentTextFieldIsEditting;
 }
 
 - (void)addDatePickerToBirthDayTextField{
-    datePicker = [[UIDatePicker alloc]init];
+    datePicker = [[UIDatePicker alloc] init];
     datePicker = [[UIDatePicker alloc] init];
     datePicker.minimumDate = [NSDate date];
     datePicker.datePickerMode = UIDatePickerModeCountDownTimer;
