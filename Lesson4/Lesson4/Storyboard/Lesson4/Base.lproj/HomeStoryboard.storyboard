@@ -32,8 +32,8 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="c1F-hO-M8X">
                                 <rect key="frame" x="16" y="133" width="343" height="133"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <string key="text">Năm 2012 chứng kiến sự bùng lên mạnh mẽ của ngành giải trí điện tử và ứng dụng di động tại Việt Nam. Là một trong những lựa chọn hàng đầu trong lĩnh vực công nghệ nội dung số, nghề làm game và ứng dụng di động thu hút giới trẻ không chỉ vì mức lương cao ngất mà còn môi trường làm việc chuyên nghiệp và hội nhập quốc tế.</string>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <mutableString key="text">Năm 2012 chứng kiến sự bùng lên mạnh mẽ của ngành giải trí điện tử và ứng dụng di động tại Việt Nam. Là một trong những lựa chọn hàng đầu trong lĩnh vực công nghệ nội dung số, nghề làm game và ứng dụng di động thu hút giới trẻ không chỉ vì mức lương cao ngất mà còn môi trường làm việc chuyên nghiệp và hội nhập quốc tế.</mutableString>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -54,7 +54,7 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="JGf-fP-j6c">
                                 <rect key="frame" x="16" y="549" width="343" height="83"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <string key="text">Trụ sở Hà Nội: Tầng 4 - Tòa nhà VTC Online, số 18 Tam Trinh Hà Nội
 Điện thoại 024 6681 0043
 </string>
@@ -99,7 +99,9 @@
                     <navigationItem key="navigationItem" id="qMX-xh-pq7"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="contactTextView" destination="JGf-fP-j6c" id="SCS-aL-Bci"/>
                         <outlet property="imageCollectionView" destination="PVB-Hu-bP1" id="Htr-Jx-0OD"/>
+                        <outlet property="introTextView" destination="c1F-hO-M8X" id="pHa-h2-9Lj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>

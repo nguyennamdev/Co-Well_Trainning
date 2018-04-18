@@ -45,7 +45,7 @@
             </objects>
             <point key="canvasLocation" x="1209" y="-361"/>
         </scene>
-        <!--Add-->
+        <!--Add Edit View Controller-->
         <scene sceneID="chD-D6-p0w">
             <objects>
                 <viewController storyboardIdentifier="AddEditViewController" id="xwD-b0-C00" customClass="AddEditViewController" sceneMemberID="viewController">
@@ -100,7 +100,7 @@
                                     <action selector="genderSegmentedValueChanged:" destination="xwD-b0-C00" eventType="valueChanged" id="ufx-FC-UVN"/>
                                 </connections>
                             </segmentedControl>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="16" minValue="0.0" maxValue="30" translatesAutoresizingMaskIntoConstraints="NO" id="DNk-jX-nGW">
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="18" minValue="16" maxValue="30" translatesAutoresizingMaskIntoConstraints="NO" id="DNk-jX-nGW">
                                 <rect key="frame" x="120" y="403" width="226" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
@@ -146,15 +146,6 @@
                         <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                         <viewLayoutGuide key="safeArea" id="f7s-1z-VWs"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Add" id="P3y-8R-Rik">
-                        <barButtonItem key="backBarButtonItem" title="  " id="kaI-ah-3vB"/>
-                        <barButtonItem key="rightBarButtonItem" title="Done" id="BEV-FK-2G5">
-                            <color key="tintColor" red="0.9903837741" green="0.98107840150000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <connections>
-                                <action selector="addEditStudentComplete:" destination="xwD-b0-C00" id="3rj-wo-wbO"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
                     <connections>
                         <outlet property="ageSlider" destination="DNk-jX-nGW" id="QHG-M7-sCb"/>
                         <outlet property="genderSegmentedControl" destination="Cf1-8e-7BV" id="DKa-UW-SnV"/>

@@ -8,7 +8,9 @@
 
 #import "SettingTableViewController.h"
 #import "Define.h"
-
+#import "Setting.h"
+#import "NSUserDefaults+Color.h"
+#import "SettingTextViewController.h"
 
 @interface SettingTableViewController ()
 
@@ -31,14 +33,13 @@
         [[Setting alloc]init:@"Background colors" elements:[NSArray arrayWithObjects:[UIColor blueColor],
                                                                       [UIColor greenColor],
                                                                       [UIColor grayColor],
+                                                                      [UIColor whiteColor],
                                                                       [UIColor purpleColor],
                                                                       [UIColor orangeColor],
                                                                       nil]],
-        [[Setting alloc]init:@"Text colors" elements:[NSArray arrayWithObjects:[UIColor blackColor],
-                                                                [UIColor redColor],
-                                                                [UIColor magentaColor],
-                                                                [UIColor cyanColor]
-                                                                , nil]],
+        [[Setting alloc]init:@"Text" elements:[NSArray arrayWithObjects:@"Giới thiệu",
+                                               @"Liên hệ"
+                                               , nil]],
         nil];
     
 }
@@ -55,8 +56,11 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellId" forIndexPath:indexPath];
-//    cell =  arrSetting[indexPath.section].element[indexPath.row];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    if (indexPath.section == 0){
+         cell.backgroundColor =  arrSetting[indexPath.section].element[indexPath.row];
+    }else if (indexPath.section == 1){
+        cell.textLabel.text = arrSetting[indexPath.section].element[indexPath.row];
+    }
     return cell;
 }
 
@@ -65,7 +69,19 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    if (indexPath.section == 0){
+        UIColor *colorSelected = arrSetting[indexPath.section].element[indexPath.row];
+        // save colorSelected by NSUserDefaults
+        [[NSUserDefaults standardUserDefaults]setColorForKey:COLOR_SETTING color:colorSelected];
+        // switch to homeViewController
+        [self.tabBarController setSelectedIndex:0];
+    }else if (indexPath.section == 1){
+        SettingTextViewController *settingTextViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SettingText"];
+        // push title and index of row to settingTextVC
+        settingTextViewController.titleNav = arrSetting[indexPath.section].element[indexPath.row];
+        settingTextViewController.row = indexPath.row;
+        [self.navigationController pushViewController:settingTextViewController animated:false];
+    }
 }
 
 

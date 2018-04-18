@@ -9,6 +9,8 @@
 #import "HomeViewController.h"
 #import "ImageCollectionViewCell.h"
 #import "Define.h"
+#import "NSUserDefaults+Color.h"
+
 
 @interface HomeViewController ()
 @end
@@ -27,6 +29,29 @@
     
     // hide navigationBar
     [self.navigationController.navigationBar setHidden:YES];
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    // get UIColor by NSUserDefaults
+    UIColor *colorResult = [[NSUserDefaults standardUserDefaults]getColorForKey:COLOR_SETTING];
+    if (colorResult == NULL){
+        self.view.backgroundColor = [UIColor whiteColor];
+    }else{
+        self.view.backgroundColor = colorResult;
+    }
+    [self getTextByNSUserDefaults];
+}
+
+// MARK: get text by NSUserDefaults
+- (void)getTextByNSUserDefaults{
+    NSString *introText = [[NSUserDefaults standardUserDefaults] objectForKey:INTRO_SETTING];
+    NSString *contactText = [[NSUserDefaults standardUserDefaults] objectForKey:CONTACT_SETTING];
+    if (introText != NULL){
+        self.introTextView.text = introText;
+    }
+    if (contactText != NULL){
+        self.contactTextView.text = contactText;
+    }
 }
 
 // MARK: init arrImage

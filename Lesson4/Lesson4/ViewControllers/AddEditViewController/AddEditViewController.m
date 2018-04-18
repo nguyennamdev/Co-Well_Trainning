@@ -32,6 +32,7 @@
         self.navigationItem.title = @"Detail Student";
     }
     [self initBackButton];
+    [self initRightBarButtonItem];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -54,12 +55,18 @@
     self.navigationItem.leftBarButtonItem = myBackButton;
 }
 
+- (void)initRightBarButtonItem{
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(addEditStudentComplete:)];
+    doneButton.tintColor = [UIColor whiteColor];
+    [self.navigationItem setRightBarButtonItem:doneButton];
+}
+
 // MARK: Actions
 - (void)backToRootView{
     [self.navigationController popToRootViewControllerAnimated:true];
 }
 
-- (IBAction)addEditStudentComplete:(UIBarButtonItem *)sender {
+- (void)addEditStudentComplete:(UIBarButtonItem *)sender {
     // get data
     NSString *rollNo = _rollNoTextField.text;
     NSString *name = _profileNameTextField.text;

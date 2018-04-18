@@ -17,5 +17,9 @@
 #define PHONE_NUMBER @"phoneNumber"
 #define IMAGE @"image"
 #define DEFAULT_COLOR_BLUE [UIColor colorWithRed:.196 green:0.3098 blue:0.52 alpha:1.0]
+#define COLOR_SETTING @"colorSetting"
+#define INTRO_SETTING @"introSetting"
+#define CONTACT_SETTING @"contactSetting"
+
 
 #endif /* Define_h */

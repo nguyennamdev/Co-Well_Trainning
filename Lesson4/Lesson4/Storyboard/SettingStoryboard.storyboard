@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -38,6 +39,33 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pcy-A5-9cQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2617" y="54"/>
+        </scene>
+        <!--Setting Text View Controller-->
+        <scene sceneID="vV3-j5-iJu">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UMO-8F-g60" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController storyboardIdentifier="SettingText" id="O13-Bk-Mxe" customClass="SettingTextViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="b9q-C5-Al0">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Input text" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9mY-0t-KKd">
+                                <rect key="frame" x="39" y="202" width="297" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                        <viewLayoutGuide key="safeArea" id="0UU-q2-fat"/>
+                    </view>
+                    <connections>
+                        <outlet property="contentTextField" destination="9mY-0t-KKd" id="tjm-kA-q5b"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="3345" y="54"/>
         </scene>
         <!--Setting-->
         <scene sceneID="s2L-Ba-ltF">

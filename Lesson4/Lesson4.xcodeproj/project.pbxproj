@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		849A9DE620844ECA0031F754 /* NSUserDefaults+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = 849A9DE520844ECA0031F754 /* NSUserDefaults+Color.m */; };
+		849A9DEA208451940031F754 /* SettingTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 849A9DE9208451940031F754 /* SettingTextViewController.m */; };
 		84D81B0E2082E23D00ACD002 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D81B0D2082E23D00ACD002 /* AppDelegate.m */; };
 		84D81B112082E23D00ACD002 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D81B102082E23D00ACD002 /* HomeViewController.m */; };
 		84D81B142082E23D00ACD002 /* ListStudentTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D81B132082E23D00ACD002 /* ListStudentTableViewController.m */; };
@@ -26,6 +28,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		849A9DE420844ECA0031F754 /* NSUserDefaults+Color.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaults+Color.h"; sourceTree = "<group>"; };
+		849A9DE520844ECA0031F754 /* NSUserDefaults+Color.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSUserDefaults+Color.m"; sourceTree = "<group>"; };
+		849A9DE8208451940031F754 /* SettingTextViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingTextViewController.h; sourceTree = "<group>"; };
+		849A9DE9208451940031F754 /* SettingTextViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingTextViewController.m; sourceTree = "<group>"; };
 		84D81B092082E23D00ACD002 /* Lesson4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lesson4.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84D81B0C2082E23D00ACD002 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		84D81B0D2082E23D00ACD002 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -67,6 +73,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		849A9DE320844E9C0031F754 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				849A9DE420844ECA0031F754 /* NSUserDefaults+Color.h */,
+				849A9DE520844ECA0031F754 /* NSUserDefaults+Color.m */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		849A9DE7208451420031F754 /* SettingTextViewController */ = {
+			isa = PBXGroup;
+			children = (
+				849A9DE8208451940031F754 /* SettingTextViewController.h */,
+				849A9DE9208451940031F754 /* SettingTextViewController.m */,
+			);
+			path = SettingTextViewController;
+			sourceTree = "<group>";
+		};
+		849A9DEB208451990031F754 /* TapbarViewController */ = {
+			isa = PBXGroup;
+			children = (
+				84D81B3B20830ABC00ACD002 /* TabbarViewController.h */,
+				84D81B3C20830ABC00ACD002 /* TabbarViewController.m */,
+			);
+			path = TapbarViewController;
+			sourceTree = "<group>";
+		};
 		84D81B002082E23D00ACD002 = {
 			isa = PBXGroup;
 			children = (
@@ -90,10 +123,10 @@
 				84D81B272082E49A00ACD002 /* Common */,
 				84D81B262082E49500ACD002 /* Models */,
 				84D81B252082E48D00ACD002 /* ViewControllers */,
+				849A9DE320844E9C0031F754 /* Category */,
+				84D81B4720838BC700ACD002 /* Storyboard */,
 				84D81B0C2082E23D00ACD002 /* AppDelegate.h */,
 				84D81B0D2082E23D00ACD002 /* AppDelegate.m */,
-				84D81B4720838BC700ACD002 /* Storyboard */,
-				84D81B152082E23D00ACD002 /* Main.storyboard */,
 				84D81B182082E23E00ACD002 /* Assets.xcassets */,
 				84D81B1A2082E23E00ACD002 /* LaunchScreen.storyboard */,
 				84D81B1D2082E23E00ACD002 /* Info.plist */,
@@ -105,12 +138,11 @@
 		84D81B252082E48D00ACD002 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				84D81B3E208345C900ACD002 /* AddEditViewController */,
+				849A9DEB208451990031F754 /* TapbarViewController */,
 				84D81B2B2082E5BE00ACD002 /* HomeViewController */,
 				84D81B2C2082E5C800ACD002 /* ListStudentTableViewController */,
 				84D81B2D2082E5EC00ACD002 /* SettingTableViewController */,
-				84D81B3B20830ABC00ACD002 /* TabbarViewController.h */,
-				84D81B3C20830ABC00ACD002 /* TabbarViewController.m */,
+				84D81B3E208345C900ACD002 /* AddEditViewController */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -157,6 +189,7 @@
 			children = (
 				84D81B282082E5A400ACD002 /* SettingTableViewController.h */,
 				84D81B292082E5A400ACD002 /* SettingTableViewController.m */,
+				849A9DE7208451420031F754 /* SettingTextViewController */,
 			);
 			path = SettingTableViewController;
 			sourceTree = "<group>";
@@ -184,6 +217,7 @@
 			children = (
 				84D81B4820838CC900ACD002 /* HomeStoryboard.storyboard */,
 				84D81B4520838BC300ACD002 /* ListStudentStoryboard.storyboard */,
+				84D81B152082E23D00ACD002 /* Main.storyboard */,
 				84D81B4B20838D4700ACD002 /* SettingStoryboard.storyboard */,
 			);
 			path = Storyboard;
@@ -267,8 +301,10 @@
 				84D81B0E2082E23D00ACD002 /* AppDelegate.m in Sources */,
 				84D81B41208345FD00ACD002 /* AddEditViewController.m in Sources */,
 				84D81B1F2082E23E00ACD002 /* main.m in Sources */,
+				849A9DEA208451940031F754 /* SettingTextViewController.m in Sources */,
 				84D81B112082E23D00ACD002 /* HomeViewController.m in Sources */,
 				84D81B3D20830ABC00ACD002 /* TabbarViewController.m in Sources */,
+				849A9DE620844ECA0031F754 /* NSUserDefaults+Color.m in Sources */,
 				84D81B382082FF2700ACD002 /* Student.m in Sources */,
 				84D81B342082F5FD00ACD002 /* ImageCollectionViewCell.m in Sources */,
 				84D81B4F2083944F00ACD002 /* Setting.m in Sources */,

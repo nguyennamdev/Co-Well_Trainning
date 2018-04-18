@@ -13,6 +13,8 @@
 }
 
 @property (weak, nonatomic) IBOutlet UICollectionView *imageCollectionView;
+@property (weak, nonatomic) IBOutlet UITextView *introTextView;
+@property (weak, nonatomic) IBOutlet UITextView *contactTextView;
 
 
 @end
