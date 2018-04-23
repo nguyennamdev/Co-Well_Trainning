@@ -31,6 +31,8 @@
     self.textView.textAlignment = NSTextAlignmentCenter;
 }
 
+
+
 // MARK: textView delegate
 
 - (void)textViewDidChange:(UITextView *)textView{

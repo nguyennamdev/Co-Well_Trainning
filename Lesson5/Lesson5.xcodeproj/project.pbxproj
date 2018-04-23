@@ -55,6 +55,7 @@
 			isa = PBXGroup;
 			children = (
 				84B8492A2086043C00A33D8F /* ViewController.m */,
+				84B849292086043C00A33D8F /* ViewController.h */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -116,7 +117,6 @@
 				84F289F42087882800AAE5BA /* ThirdViewController */,
 				84049CA520875A6800CD3FC2 /* SecoundViewController */,
 				84049CA420875A5D00CD3FC2 /* ViewController */,
-				84B849292086043C00A33D8F /* ViewController.h */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
