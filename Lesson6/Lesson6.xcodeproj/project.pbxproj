@@ -10,7 +10,6 @@
 		84060F8E2088E368000C086A /* lactroi.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 84060F8D2088E2AF000C086A /* lactroi.mp4 */; };
 		841DB86A2088B42A009EA61B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 841DB8692088B42A009EA61B /* AppDelegate.m */; };
 		841DB86D2088B42A009EA61B /* MediaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 841DB86C2088B42A009EA61B /* MediaViewController.m */; };
-		841DB8702088B42A009EA61B /* AddressBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 841DB86F2088B42A009EA61B /* AddressBookViewController.m */; };
 		841DB8732088B42A009EA61B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 841DB8712088B42A009EA61B /* Main.storyboard */; };
 		841DB8752088B42A009EA61B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 841DB8742088B42A009EA61B /* Assets.xcassets */; };
 		841DB8782088B42A009EA61B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 841DB8762088B42A009EA61B /* LaunchScreen.storyboard */; };
@@ -18,6 +17,7 @@
 		841DB8862088B594009EA61B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 841DB8852088B594009EA61B /* AVFoundation.framework */; };
 		841DB8882088B5A3009EA61B /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 841DB8872088B5A3009EA61B /* CoreAudio.framework */; };
 		841DB88A2088D383009EA61B /* audio.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 841DB8892088D382009EA61B /* audio.mp3 */; };
+		84CF475E208C267D00A04878 /* ContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CF475D208C267D00A04878 /* ContactViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,8 +27,6 @@
 		841DB8692088B42A009EA61B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		841DB86B2088B42A009EA61B /* MediaViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MediaViewController.h; sourceTree = "<group>"; };
 		841DB86C2088B42A009EA61B /* MediaViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MediaViewController.m; sourceTree = "<group>"; };
-		841DB86E2088B42A009EA61B /* AddressBookViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddressBookViewController.h; sourceTree = "<group>"; };
-		841DB86F2088B42A009EA61B /* AddressBookViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddressBookViewController.m; sourceTree = "<group>"; };
 		841DB8722088B42A009EA61B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		841DB8742088B42A009EA61B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		841DB8772088B42A009EA61B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -37,6 +35,8 @@
 		841DB8852088B594009EA61B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		841DB8872088B5A3009EA61B /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		841DB8892088D382009EA61B /* audio.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = audio.mp3; sourceTree = "<group>"; };
+		84CF475C208C267D00A04878 /* ContactViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContactViewController.h; sourceTree = "<group>"; };
+		84CF475D208C267D00A04878 /* ContactViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContactViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,7 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				841DB8822088B4E8009EA61B /* MediaViewController */,
-				841DB8832088B4F0009EA61B /* AddressBookViewController */,
+				84CF475B208C266300A04878 /* ContactViewController */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -101,15 +101,6 @@
 				841DB86C2088B42A009EA61B /* MediaViewController.m */,
 			);
 			path = MediaViewController;
-			sourceTree = "<group>";
-		};
-		841DB8832088B4F0009EA61B /* AddressBookViewController */ = {
-			isa = PBXGroup;
-			children = (
-				841DB86E2088B42A009EA61B /* AddressBookViewController.h */,
-				841DB86F2088B42A009EA61B /* AddressBookViewController.m */,
-			);
-			path = AddressBookViewController;
 			sourceTree = "<group>";
 		};
 		841DB8842088B594009EA61B /* Frameworks */ = {
@@ -128,6 +119,15 @@
 				841DB8892088D382009EA61B /* audio.mp3 */,
 			);
 			path = Media;
+			sourceTree = "<group>";
+		};
+		84CF475B208C266300A04878 /* ContactViewController */ = {
+			isa = PBXGroup;
+			children = (
+				84CF475C208C267D00A04878 /* ContactViewController.h */,
+				84CF475D208C267D00A04878 /* ContactViewController.m */,
+			);
+			path = ContactViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -203,7 +203,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				841DB8702088B42A009EA61B /* AddressBookViewController.m in Sources */,
+				84CF475E208C267D00A04878 /* ContactViewController.m in Sources */,
 				841DB86A2088B42A009EA61B /* AppDelegate.m in Sources */,
 				841DB87B2088B42A009EA61B /* main.m in Sources */,
 				841DB86D2088B42A009EA61B /* MediaViewController.m in Sources */,

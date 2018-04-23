@@ -36,10 +36,13 @@ AVPlayerLayer *videoLayer;
     
     // Disable stop and play button
     [_playButton setEnabled:NO];
+    
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error: nil];
+    
     [self setupAudioRecoreder];
     [self setupAudioLocal];
     [self setupVideoPlayer];
-    
+
 }
 
 // MARK: setup audioRecorder
@@ -49,10 +52,6 @@ AVPlayerLayer *videoLayer;
     
     // create output file url
     NSURL *outputFileURL = [NSURL fileURLWithPathComponents:pathComponents];
-    
-    // setup audio session
-    AVAudioSession *session = [AVAudioSession sharedInstance];
-    [session setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
     
     // declare settingDictionary
     NSMutableDictionary *settingDict = [[NSMutableDictionary alloc]init];
@@ -80,6 +79,7 @@ AVPlayerLayer *videoLayer;
     _audioPlayer2 = [[AVAudioPlayer alloc]initWithData:fileData error:&error];
     self.audioPlayer2.numberOfLoops = 0;
     self.audioPlayer2.delegate = self;
+    self.audioPlayer2.volume = 1;
     [self.audioPlayer2 prepareToPlay];
 }
 
@@ -96,7 +96,6 @@ AVPlayerLayer *videoLayer;
     _videoPlayerView.backgroundColor = [UIColor clearColor];
     [_videoPlayerView.layer addSublayer:videoLayer];
 }
-
 
 // MARK: Actions
 
