@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8494B10920907EB000BBEB7E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8494B10820907EB000BBEB7E /* CoreLocation.framework */; };
+		8494B10B209085AE00BBEB7E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8494B10A209085AE00BBEB7E /* MapKit.framework */; };
+		8494B10F2090BEA500BBEB7E /* ServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8494B10E2090BEA500BBEB7E /* ServiceViewController.m */; };
+		8494B1112090C8BF00BBEB7E /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8494B1102090C8BF00BBEB7E /* MobileCoreServices.framework */; };
+		8494B1142090CA7A00BBEB7E /* RestApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8494B1132090CA7A00BBEB7E /* RestApiManager.m */; };
 		84B1A4872090127C00F50D18 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B1A4862090127C00F50D18 /* AppDelegate.m */; };
 		84B1A48D2090127D00F50D18 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84B1A48B2090127D00F50D18 /* Main.storyboard */; };
 		84B1A48F2090127D00F50D18 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84B1A48E2090127D00F50D18 /* Assets.xcassets */; };
@@ -22,6 +27,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8494B10820907EB000BBEB7E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		8494B10A209085AE00BBEB7E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		8494B10D2090BEA500BBEB7E /* ServiceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServiceViewController.h; sourceTree = "<group>"; };
+		8494B10E2090BEA500BBEB7E /* ServiceViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServiceViewController.m; sourceTree = "<group>"; };
+		8494B1102090C8BF00BBEB7E /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		8494B1122090CA7A00BBEB7E /* RestApiManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RestApiManager.h; sourceTree = "<group>"; };
+		8494B1132090CA7A00BBEB7E /* RestApiManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RestApiManager.m; sourceTree = "<group>"; };
 		84B1A4822090127C00F50D18 /* Lesson7_HW.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lesson7_HW.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84B1A4852090127C00F50D18 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		84B1A4862090127C00F50D18 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -43,6 +55,7 @@
 		84B1A4B120901FFD00F50D18 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		84B1A4B62090323300F50D18 /* AddEditStudentDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddEditStudentDelegate.h; sourceTree = "<group>"; };
 		84B1A4B8209074FC00F50D18 /* student.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = student.sqlite; sourceTree = "<group>"; };
+		84D8A7C020917C8F00AF3B6E /* Define.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Define.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +63,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8494B1112090C8BF00BBEB7E /* MobileCoreServices.framework in Frameworks */,
+				8494B10B209085AE00BBEB7E /* MapKit.framework in Frameworks */,
+				8494B10920907EB000BBEB7E /* CoreLocation.framework in Frameworks */,
 				84B1A4A32090152A00F50D18 /* libsqlite3.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -57,6 +73,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8494B10C2090BE7C00BBEB7E /* ServiceViewController */ = {
+			isa = PBXGroup;
+			children = (
+				8494B10D2090BEA500BBEB7E /* ServiceViewController.h */,
+				8494B10E2090BEA500BBEB7E /* ServiceViewController.m */,
+			);
+			path = ServiceViewController;
+			sourceTree = "<group>";
+		};
 		84B1A4792090127C00F50D18 = {
 			isa = PBXGroup;
 			children = (
@@ -77,6 +102,7 @@
 		84B1A4842090127C00F50D18 /* Lesson7_HW */ = {
 			isa = PBXGroup;
 			children = (
+				84D8A7BF20917C7E00AF3B6E /* Common */,
 				84B1A49B209012E300F50D18 /* Database */,
 				84B1A49D209012F900F50D18 /* Models */,
 				84B1A49C209012ED00F50D18 /* ViewControllers */,
@@ -105,8 +131,9 @@
 		84B1A49C209012ED00F50D18 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				8494B10C2090BE7C00BBEB7E /* ServiceViewController */,
 				84B1A4A720901F6800F50D18 /* StudentTableViewController */,
-				84B1A4AF20901FEA00F50D18 /* Location */,
+				84B1A4AF20901FEA00F50D18 /* LocationViewController */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -116,6 +143,8 @@
 			children = (
 				84B1A4A420901DCA00F50D18 /* Student.h */,
 				84B1A4A520901DCA00F50D18 /* Student.m */,
+				8494B1122090CA7A00BBEB7E /* RestApiManager.h */,
+				8494B1132090CA7A00BBEB7E /* RestApiManager.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -123,6 +152,9 @@
 		84B1A4A12090152900F50D18 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8494B1102090C8BF00BBEB7E /* MobileCoreServices.framework */,
+				8494B10A209085AE00BBEB7E /* MapKit.framework */,
+				8494B10820907EB000BBEB7E /* CoreLocation.framework */,
 				84B1A4A22090152A00F50D18 /* libsqlite3.tbd */,
 			);
 			name = Frameworks;
@@ -133,7 +165,6 @@
 			children = (
 				84B1A4A820901F7F00F50D18 /* StudentTableViewController.h */,
 				84B1A4A920901F7F00F50D18 /* StudentTableViewController.m */,
-				84B1A4AB20901FAF00F50D18 /* AddEditStudentViewController */,
 			);
 			path = StudentTableViewController;
 			sourceTree = "<group>";
@@ -147,13 +178,14 @@
 			path = AddEditStudentViewController;
 			sourceTree = "<group>";
 		};
-		84B1A4AF20901FEA00F50D18 /* Location */ = {
+		84B1A4AF20901FEA00F50D18 /* LocationViewController */ = {
 			isa = PBXGroup;
 			children = (
-				84B1A4B020901FFD00F50D18 /* ViewController.h */,
 				84B1A4B120901FFD00F50D18 /* ViewController.m */,
+				84B1A4B020901FFD00F50D18 /* ViewController.h */,
+				84B1A4AB20901FAF00F50D18 /* AddEditStudentViewController */,
 			);
-			path = Location;
+			path = LocationViewController;
 			sourceTree = "<group>";
 		};
 		84B1A4B52090321200F50D18 /* Delegates */ = {
@@ -162,6 +194,14 @@
 				84B1A4B62090323300F50D18 /* AddEditStudentDelegate.h */,
 			);
 			path = Delegates;
+			sourceTree = "<group>";
+		};
+		84D8A7BF20917C7E00AF3B6E /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				84D8A7C020917C8F00AF3B6E /* Define.h */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -238,8 +278,10 @@
 			files = (
 				84B1A4B220901FFD00F50D18 /* ViewController.m in Sources */,
 				84B1A4AA20901F7F00F50D18 /* StudentTableViewController.m in Sources */,
+				8494B10F2090BEA500BBEB7E /* ServiceViewController.m in Sources */,
 				84B1A4952090127D00F50D18 /* main.m in Sources */,
 				84B1A4AE20901FD000F50D18 /* AddEditStudentViewController.m in Sources */,
+				8494B1142090CA7A00BBEB7E /* RestApiManager.m in Sources */,
 				84B1A4A620901DCA00F50D18 /* Student.m in Sources */,
 				84B1A4872090127C00F50D18 /* AppDelegate.m in Sources */,
 				84B1A4A02090130800F50D18 /* DBManager.m in Sources */,
