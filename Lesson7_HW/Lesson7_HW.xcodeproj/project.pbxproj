@@ -22,7 +22,7 @@
 		84B1A4A620901DCA00F50D18 /* Student.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B1A4A520901DCA00F50D18 /* Student.m */; };
 		84B1A4AA20901F7F00F50D18 /* StudentTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B1A4A920901F7F00F50D18 /* StudentTableViewController.m */; };
 		84B1A4AE20901FD000F50D18 /* AddEditStudentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B1A4AD20901FD000F50D18 /* AddEditStudentViewController.m */; };
-		84B1A4B220901FFD00F50D18 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B1A4B120901FFD00F50D18 /* ViewController.m */; };
+		84B1A4B220901FFD00F50D18 /* LocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B1A4B120901FFD00F50D18 /* LocationViewController.m */; };
 		84B1A4B92090750100F50D18 /* student.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 84B1A4B8209074FC00F50D18 /* student.sqlite */; };
 /* End PBXBuildFile section */
 
@@ -51,8 +51,8 @@
 		84B1A4A920901F7F00F50D18 /* StudentTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StudentTableViewController.m; sourceTree = "<group>"; };
 		84B1A4AC20901FD000F50D18 /* AddEditStudentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddEditStudentViewController.h; sourceTree = "<group>"; };
 		84B1A4AD20901FD000F50D18 /* AddEditStudentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddEditStudentViewController.m; sourceTree = "<group>"; };
-		84B1A4B020901FFD00F50D18 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		84B1A4B120901FFD00F50D18 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		84B1A4B020901FFD00F50D18 /* LocationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocationViewController.h; sourceTree = "<group>"; };
+		84B1A4B120901FFD00F50D18 /* LocationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocationViewController.m; sourceTree = "<group>"; };
 		84B1A4B62090323300F50D18 /* AddEditStudentDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddEditStudentDelegate.h; sourceTree = "<group>"; };
 		84B1A4B8209074FC00F50D18 /* student.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = student.sqlite; sourceTree = "<group>"; };
 		84D8A7C020917C8F00AF3B6E /* Define.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Define.h; sourceTree = "<group>"; };
@@ -165,6 +165,7 @@
 			children = (
 				84B1A4A820901F7F00F50D18 /* StudentTableViewController.h */,
 				84B1A4A920901F7F00F50D18 /* StudentTableViewController.m */,
+				84B1A4AB20901FAF00F50D18 /* AddEditStudentViewController */,
 			);
 			path = StudentTableViewController;
 			sourceTree = "<group>";
@@ -181,9 +182,8 @@
 		84B1A4AF20901FEA00F50D18 /* LocationViewController */ = {
 			isa = PBXGroup;
 			children = (
-				84B1A4B120901FFD00F50D18 /* ViewController.m */,
-				84B1A4B020901FFD00F50D18 /* ViewController.h */,
-				84B1A4AB20901FAF00F50D18 /* AddEditStudentViewController */,
+				84B1A4B020901FFD00F50D18 /* LocationViewController.h */,
+				84B1A4B120901FFD00F50D18 /* LocationViewController.m */,
 			);
 			path = LocationViewController;
 			sourceTree = "<group>";
@@ -276,7 +276,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84B1A4B220901FFD00F50D18 /* ViewController.m in Sources */,
+				84B1A4B220901FFD00F50D18 /* LocationViewController.m in Sources */,
 				84B1A4AA20901F7F00F50D18 /* StudentTableViewController.m in Sources */,
 				8494B10F2090BEA500BBEB7E /* ServiceViewController.m in Sources */,
 				84B1A4952090127D00F50D18 /* main.m in Sources */,
