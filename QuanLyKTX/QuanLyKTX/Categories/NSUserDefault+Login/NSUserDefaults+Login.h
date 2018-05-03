@@ -12,5 +12,7 @@
 
 - (void)setUserLogin:(BOOL)isLogin;
 - (BOOL)getIsLoggedIn;
+- (void)setUserId:(NSInteger)userId;
+- (NSInteger)getUserId;
 
 @end

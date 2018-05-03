@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="vFZ-dE-JhC">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Student Table View Controller-->
+        <scene sceneID="8T6-em-WjI">
+            <objects>
+                <tableViewController id="obi-Sj-lzp" customClass="StudentTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="EDh-wZ-vie">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="studentCellId" id="R9t-2b-B8p">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="R9t-2b-B8p" id="Wt0-8u-9aZ">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="obi-Sj-lzp" id="Hqp-sL-pI1"/>
+                            <outlet property="delegate" destination="obi-Sj-lzp" id="epS-b7-1ne"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="93w-TA-ZTv">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Vat-z3-2qE">
+                            <connections>
+                                <segue destination="IpS-vo-20J" kind="show" id="o6X-zl-3uB"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dWj-vi-GcO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2762" y="-224"/>
+        </scene>
+        <!--Add Edit View Controller-->
+        <scene sceneID="elQ-K1-puI">
+            <objects>
+                <viewController id="IpS-vo-20J" customClass="AddEditViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="vLW-ik-E7v">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <viewLayoutGuide key="safeArea" id="VRc-YV-juv"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="AG8-Ip-g5X">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="2WZ-0l-rqE"/>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UN1-qb-gvo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1879" y="-224"/>
+        </scene>
+        <!--Student-->
+        <scene sceneID="C30-Ch-zge">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="vFZ-dE-JhC" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Student" image="student" id="ZdP-Hl-Uuk"/>
+                    <toolbarItems/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="t1O-3a-oQy">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="obi-Sj-lzp" kind="relationship" relationship="rootViewController" id="yic-dp-op7"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mHe-rf-OIw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3476" y="-224"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="student" width="32" height="32"/>
+    </resources>
+</document>

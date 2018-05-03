@@ -20,4 +20,13 @@
     return [self boolForKey:IS_LOG_IN];
 }
 
+- (void)setUserId:(NSInteger)userId{
+    [self setInteger:userId forKey:ADMIN_ID];
+    [self synchronize];
+}
+
+- (NSInteger)getUserId{
+    return [self integerForKey:ADMIN_ID];
+}
+
 @end

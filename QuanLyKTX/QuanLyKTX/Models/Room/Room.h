@@ -10,14 +10,14 @@
 
 @interface Room : NSObject
 
-@property (strong, nonatomic) NSNumber *roomId;
-@property (strong, nonatomic) NSNumber *managerId;
-@property (strong, nonatomic) NSString *roomName;
-@property (strong, nonatomic) NSNumber *maxQuantity;
-@property (strong, nonatomic) NSNumber *currentQuantity;
-@property (strong, nonatomic) NSDate *createdDate;
-@property (strong, nonatomic) NSDate *updatedDate;
+@property (strong, nonatomic, nonnull) NSNumber *  roomId;
+@property (strong, nonatomic, nullable) NSNumber *managerId;
+@property (strong, nonatomic, nonnull) NSString *roomName;
+@property (strong, nonatomic, nonnull) NSNumber *maxQuantity;
+@property (strong, nonatomic, nonnull) NSNumber *currentQuantity;
+@property (strong, nonatomic, nonnull) NSDate *createdDate;
+@property (strong, nonatomic, nonnull) NSDate *updatedDate;
 
-- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
+- (instancetype _Nonnull )initWithDictionary:(NSDictionary *_Nonnull)dictionary;
 
 @end

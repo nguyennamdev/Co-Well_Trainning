@@ -20,14 +20,25 @@
 		8419494F209979F60038C6B0 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8419494E209979F60038C6B0 /* libsqlite3.tbd */; };
 		8419495320997A620038C6B0 /* DBManager+Tables.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419495220997A620038C6B0 /* DBManager+Tables.m */; };
 		8419495820997D4D0038C6B0 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419495720997D4D0038C6B0 /* LoginViewController.m */; };
-		84853E102099B93500554D09 /* quanlyktx.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 84853E0F2099B92B00554D09 /* quanlyktx.sqlite */; };
 		84853E142099BDB000554D09 /* UIViewController+Alert.m in Sources */ = {isa = PBXBuildFile; fileRef = 84853E132099BDB000554D09 /* UIViewController+Alert.m */; };
 		84853E192099BFAB00554D09 /* NSUserDefaults+Login.m in Sources */ = {isa = PBXBuildFile; fileRef = 84853E182099BFAB00554D09 /* NSUserDefaults+Login.m */; };
-		849F219C2099AACD008AA849 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 849F219A2099AACD008AA849 /* MenuViewController.m */; };
-		849F219D2099AACD008AA849 /* MenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849F219B2099AACD008AA849 /* MenuViewController.xib */; };
-		849F21A72099B05F008AA849 /* MainNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 849F21A52099B05F008AA849 /* MainNavigationController.m */; };
-		849F21A82099B05F008AA849 /* MainNavigationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849F21A62099B05F008AA849 /* MainNavigationController.xib */; };
-		849F21AC2099B10A008AA849 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 849F21AB2099B10A008AA849 /* BaseViewController.m */; };
+		849A71C4209AEA8000E03544 /* StudentTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 849A71C2209AEA8000E03544 /* StudentTableViewController.m */; };
+		849A71C5209AEA8000E03544 /* StudentTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849A71C3209AEA8000E03544 /* StudentTableViewController.xib */; };
+		849A71CE209AEAC400E03544 /* RoomCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 849A71CC209AEAC400E03544 /* RoomCollectionViewController.m */; };
+		849A71CF209AEAC400E03544 /* RoomCollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849A71CD209AEAC400E03544 /* RoomCollectionViewController.xib */; };
+		849A71D8209AEB0B00E03544 /* SettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 849A71D6209AEB0B00E03544 /* SettingTableViewController.m */; };
+		849A71D9209AEB0B00E03544 /* SettingTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849A71D7209AEB0B00E03544 /* SettingTableViewController.xib */; };
+		849A71DD209AEB2500E03544 /* AdminViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 849A71DB209AEB2500E03544 /* AdminViewController.m */; };
+		849A71DE209AEB2500E03544 /* AdminViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849A71DC209AEB2500E03544 /* AdminViewController.xib */; };
+		849A71E7209AEC5F00E03544 /* CustomTabbarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 849A71E5209AEC5F00E03544 /* CustomTabbarViewController.m */; };
+		849A71E8209AEC5F00E03544 /* CustomTabbarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849A71E6209AEC5F00E03544 /* CustomTabbarViewController.xib */; };
+		849A71ED209AF26200E03544 /* RoomCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 849A71EB209AF26200E03544 /* RoomCollectionViewCell.m */; };
+		849A71EE209AF26200E03544 /* RoomCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849A71EC209AF26200E03544 /* RoomCollectionViewCell.xib */; };
+		849A71F1209B04B800E03544 /* RoomStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 849A71EF209B04B800E03544 /* RoomStoryboard.storyboard */; };
+		849A71F6209B08D000E03544 /* AddEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 849A71F4209B08D000E03544 /* AddEditViewController.m */; };
+		849A71F7209B08D000E03544 /* AddEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849A71F5209B08D000E03544 /* AddEditViewController.xib */; };
+		84D16F1F209B20D900D3B52D /* quanly.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 84D16F1E209B20D900D3B52D /* quanly.sqlite */; };
+		84D16F23209B4A3A00D3B52D /* StudentStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84D16F22209B4A3A00D3B52D /* StudentStoryboard.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,19 +66,35 @@
 		8419495220997A620038C6B0 /* DBManager+Tables.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "DBManager+Tables.m"; sourceTree = "<group>"; };
 		8419495620997D4D0038C6B0 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		8419495720997D4D0038C6B0 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
-		84853E0F2099B92B00554D09 /* quanlyktx.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = quanlyktx.sqlite; sourceTree = "<group>"; };
 		84853E122099BDB000554D09 /* UIViewController+Alert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Alert.h"; sourceTree = "<group>"; };
 		84853E132099BDB000554D09 /* UIViewController+Alert.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Alert.m"; sourceTree = "<group>"; };
 		84853E172099BFAB00554D09 /* NSUserDefaults+Login.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaults+Login.h"; sourceTree = "<group>"; };
 		84853E182099BFAB00554D09 /* NSUserDefaults+Login.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSUserDefaults+Login.m"; sourceTree = "<group>"; };
-		849F21992099AACD008AA849 /* MenuViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
-		849F219A2099AACD008AA849 /* MenuViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
-		849F219B2099AACD008AA849 /* MenuViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuViewController.xib; sourceTree = "<group>"; };
-		849F21A42099B05F008AA849 /* MainNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainNavigationController.h; sourceTree = "<group>"; };
-		849F21A52099B05F008AA849 /* MainNavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainNavigationController.m; sourceTree = "<group>"; };
-		849F21A62099B05F008AA849 /* MainNavigationController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainNavigationController.xib; sourceTree = "<group>"; };
-		849F21AA2099B10A008AA849 /* BaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
-		849F21AB2099B10A008AA849 /* BaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
+		849A71C1209AEA8000E03544 /* StudentTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StudentTableViewController.h; sourceTree = "<group>"; };
+		849A71C2209AEA8000E03544 /* StudentTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StudentTableViewController.m; sourceTree = "<group>"; };
+		849A71C3209AEA8000E03544 /* StudentTableViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StudentTableViewController.xib; sourceTree = "<group>"; };
+		849A71CB209AEAC400E03544 /* RoomCollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoomCollectionViewController.h; sourceTree = "<group>"; };
+		849A71CC209AEAC400E03544 /* RoomCollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RoomCollectionViewController.m; sourceTree = "<group>"; };
+		849A71CD209AEAC400E03544 /* RoomCollectionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RoomCollectionViewController.xib; sourceTree = "<group>"; };
+		849A71D5209AEB0B00E03544 /* SettingTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingTableViewController.h; sourceTree = "<group>"; };
+		849A71D6209AEB0B00E03544 /* SettingTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingTableViewController.m; sourceTree = "<group>"; };
+		849A71D7209AEB0B00E03544 /* SettingTableViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingTableViewController.xib; sourceTree = "<group>"; };
+		849A71DA209AEB2500E03544 /* AdminViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AdminViewController.h; sourceTree = "<group>"; };
+		849A71DB209AEB2500E03544 /* AdminViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdminViewController.m; sourceTree = "<group>"; };
+		849A71DC209AEB2500E03544 /* AdminViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AdminViewController.xib; sourceTree = "<group>"; };
+		849A71E4209AEC5F00E03544 /* CustomTabbarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomTabbarViewController.h; sourceTree = "<group>"; };
+		849A71E5209AEC5F00E03544 /* CustomTabbarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomTabbarViewController.m; sourceTree = "<group>"; };
+		849A71E6209AEC5F00E03544 /* CustomTabbarViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomTabbarViewController.xib; sourceTree = "<group>"; };
+		849A71EA209AF26200E03544 /* RoomCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoomCollectionViewCell.h; sourceTree = "<group>"; };
+		849A71EB209AF26200E03544 /* RoomCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RoomCollectionViewCell.m; sourceTree = "<group>"; };
+		849A71EC209AF26200E03544 /* RoomCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RoomCollectionViewCell.xib; sourceTree = "<group>"; };
+		849A71F0209B04B800E03544 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = QuanLyKTX/Storyboards/Base.lproj/RoomStoryboard.storyboard; sourceTree = "<group>"; };
+		849A71F3209B08D000E03544 /* AddEditViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddEditViewController.h; sourceTree = "<group>"; };
+		849A71F4209B08D000E03544 /* AddEditViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddEditViewController.m; sourceTree = "<group>"; };
+		849A71F5209B08D000E03544 /* AddEditViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddEditViewController.xib; sourceTree = "<group>"; };
+		84D16F1E209B20D900D3B52D /* quanly.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = quanly.sqlite; sourceTree = "<group>"; };
+		84D16F21209B331500D3B52D /* RoomActionDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoomActionDelegate.h; sourceTree = "<group>"; };
+		84D16F22209B4A3A00D3B52D /* StudentStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = StudentStoryboard.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,13 +129,15 @@
 		8419491D20996EE30038C6B0 /* QuanLyKTX */ = {
 			isa = PBXGroup;
 			children = (
+				84D16F1E209B20D900D3B52D /* quanly.sqlite */,
 				8419493420996EF70038C6B0 /* Common */,
 				8419493520996F1A0038C6B0 /* Database */,
 				8419493720996F280038C6B0 /* Models */,
+				849A71E9209AF24000E03544 /* Cells */,
 				8419493620996F220038C6B0 /* ViewControllers */,
 				8419495420997CDF0038C6B0 /* Storyboards */,
 				84853E112099BD6300554D09 /* Categories */,
-				849F218D2099A3F4008AA849 /* AppDelegate */,
+				849F218D2099A3F4008AA849 /* Delegates */,
 				8419492720996EE40038C6B0 /* Assets.xcassets */,
 				8419492C20996EE40038C6B0 /* Info.plist */,
 				8419492D20996EE40038C6B0 /* main.m */,
@@ -127,7 +156,6 @@
 		8419493520996F1A0038C6B0 /* Database */ = {
 			isa = PBXGroup;
 			children = (
-				84853E0F2099B92B00554D09 /* quanlyktx.sqlite */,
 				8419495020997A470038C6B0 /* DBManager+Tables */,
 				8419494820996FBD0038C6B0 /* DBManager */,
 			);
@@ -137,9 +165,13 @@
 		8419493620996F220038C6B0 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				849F21A92099B0F5008AA849 /* BaseViewController */,
-				849F21A32099AF8F008AA849 /* MainNavigationController */,
-				849F21932099A800008AA849 /* MenuViewController */,
+				84D16F24209B4E1E00D3B52D /* AddEditStudentViewController */,
+				849A71F2209B08B400E03544 /* AddEditRoomViewController */,
+				849A71CA209AEAB300E03544 /* RoomCollectionViewController */,
+				849A71C0209AEA1D00E03544 /* StudentTableViewController */,
+				849A71D4209AEAF900E03544 /* SettingTableViewController */,
+				849A71DF209AEB2B00E03544 /* AdminViewController */,
+				849A71E0209AEC0600E03544 /* CustomTabbarViewController */,
 				8419495520997D260038C6B0 /* LoginViewController */,
 			);
 			path = ViewControllers;
@@ -221,6 +253,8 @@
 		8419495420997CDF0038C6B0 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
+				84D16F22209B4A3A00D3B52D /* StudentStoryboard.storyboard */,
+				849A71EF209B04B800E03544 /* RoomStoryboard.storyboard */,
 				8419492420996EE40038C6B0 /* Main.storyboard */,
 				8419492920996EE40038C6B0 /* LaunchScreen.storyboard */,
 			);
@@ -263,7 +297,78 @@
 			path = "NSUserDefault+Login";
 			sourceTree = "<group>";
 		};
-		849F218D2099A3F4008AA849 /* AppDelegate */ = {
+		849A71C0209AEA1D00E03544 /* StudentTableViewController */ = {
+			isa = PBXGroup;
+			children = (
+				849A71C1209AEA8000E03544 /* StudentTableViewController.h */,
+				849A71C2209AEA8000E03544 /* StudentTableViewController.m */,
+				849A71C3209AEA8000E03544 /* StudentTableViewController.xib */,
+			);
+			path = StudentTableViewController;
+			sourceTree = "<group>";
+		};
+		849A71CA209AEAB300E03544 /* RoomCollectionViewController */ = {
+			isa = PBXGroup;
+			children = (
+				849A71CB209AEAC400E03544 /* RoomCollectionViewController.h */,
+				849A71CC209AEAC400E03544 /* RoomCollectionViewController.m */,
+				849A71CD209AEAC400E03544 /* RoomCollectionViewController.xib */,
+			);
+			name = RoomCollectionViewController;
+			path = "New Group1";
+			sourceTree = "<group>";
+		};
+		849A71D4209AEAF900E03544 /* SettingTableViewController */ = {
+			isa = PBXGroup;
+			children = (
+				849A71D5209AEB0B00E03544 /* SettingTableViewController.h */,
+				849A71D6209AEB0B00E03544 /* SettingTableViewController.m */,
+				849A71D7209AEB0B00E03544 /* SettingTableViewController.xib */,
+			);
+			path = SettingTableViewController;
+			sourceTree = "<group>";
+		};
+		849A71DF209AEB2B00E03544 /* AdminViewController */ = {
+			isa = PBXGroup;
+			children = (
+				849A71DA209AEB2500E03544 /* AdminViewController.h */,
+				849A71DB209AEB2500E03544 /* AdminViewController.m */,
+				849A71DC209AEB2500E03544 /* AdminViewController.xib */,
+			);
+			path = AdminViewController;
+			sourceTree = "<group>";
+		};
+		849A71E0209AEC0600E03544 /* CustomTabbarViewController */ = {
+			isa = PBXGroup;
+			children = (
+				849A71E4209AEC5F00E03544 /* CustomTabbarViewController.h */,
+				849A71E5209AEC5F00E03544 /* CustomTabbarViewController.m */,
+				849A71E6209AEC5F00E03544 /* CustomTabbarViewController.xib */,
+			);
+			path = CustomTabbarViewController;
+			sourceTree = "<group>";
+		};
+		849A71E9209AF24000E03544 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				849A71EA209AF26200E03544 /* RoomCollectionViewCell.h */,
+				849A71EB209AF26200E03544 /* RoomCollectionViewCell.m */,
+				849A71EC209AF26200E03544 /* RoomCollectionViewCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		849A71F2209B08B400E03544 /* AddEditRoomViewController */ = {
+			isa = PBXGroup;
+			children = (
+				849A71F3209B08D000E03544 /* AddEditViewController.h */,
+				849A71F4209B08D000E03544 /* AddEditViewController.m */,
+				849A71F5209B08D000E03544 /* AddEditViewController.xib */,
+			);
+			path = AddEditRoomViewController;
+			sourceTree = "<group>";
+		};
+		849A71F8209B110200E03544 /* AppDelegate */ = {
 			isa = PBXGroup;
 			children = (
 				8419491F20996EE30038C6B0 /* AppDelegate.m */,
@@ -272,33 +377,28 @@
 			path = AppDelegate;
 			sourceTree = "<group>";
 		};
-		849F21932099A800008AA849 /* MenuViewController */ = {
+		849F218D2099A3F4008AA849 /* Delegates */ = {
 			isa = PBXGroup;
 			children = (
-				849F21992099AACD008AA849 /* MenuViewController.h */,
-				849F219A2099AACD008AA849 /* MenuViewController.m */,
-				849F219B2099AACD008AA849 /* MenuViewController.xib */,
+				84D16F20209B32E200D3B52D /* RoomActionDelegate */,
+				849A71F8209B110200E03544 /* AppDelegate */,
 			);
-			path = MenuViewController;
+			path = Delegates;
 			sourceTree = "<group>";
 		};
-		849F21A32099AF8F008AA849 /* MainNavigationController */ = {
+		84D16F20209B32E200D3B52D /* RoomActionDelegate */ = {
 			isa = PBXGroup;
 			children = (
-				849F21A42099B05F008AA849 /* MainNavigationController.h */,
-				849F21A52099B05F008AA849 /* MainNavigationController.m */,
-				849F21A62099B05F008AA849 /* MainNavigationController.xib */,
+				84D16F21209B331500D3B52D /* RoomActionDelegate.h */,
 			);
-			path = MainNavigationController;
+			path = RoomActionDelegate;
 			sourceTree = "<group>";
 		};
-		849F21A92099B0F5008AA849 /* BaseViewController */ = {
+		84D16F24209B4E1E00D3B52D /* AddEditStudentViewController */ = {
 			isa = PBXGroup;
 			children = (
-				849F21AA2099B10A008AA849 /* BaseViewController.h */,
-				849F21AB2099B10A008AA849 /* BaseViewController.m */,
 			);
-			path = BaseViewController;
+			path = AddEditStudentViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -359,12 +459,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84853E102099B93500554D09 /* quanlyktx.sqlite in Resources */,
-				849F21A82099B05F008AA849 /* MainNavigationController.xib in Resources */,
+				849A71DE209AEB2500E03544 /* AdminViewController.xib in Resources */,
+				849A71CF209AEAC400E03544 /* RoomCollectionViewController.xib in Resources */,
+				849A71C5209AEA8000E03544 /* StudentTableViewController.xib in Resources */,
+				849A71D9209AEB0B00E03544 /* SettingTableViewController.xib in Resources */,
 				8419492B20996EE40038C6B0 /* LaunchScreen.storyboard in Resources */,
-				849F219D2099AACD008AA849 /* MenuViewController.xib in Resources */,
 				8419492820996EE40038C6B0 /* Assets.xcassets in Resources */,
+				849A71EE209AF26200E03544 /* RoomCollectionViewCell.xib in Resources */,
+				84D16F1F209B20D900D3B52D /* quanly.sqlite in Resources */,
 				8419492620996EE40038C6B0 /* Main.storyboard in Resources */,
+				849A71F1209B04B800E03544 /* RoomStoryboard.storyboard in Resources */,
+				849A71F7209B08D000E03544 /* AddEditViewController.xib in Resources */,
+				84D16F23209B4A3A00D3B52D /* StudentStoryboard.storyboard in Resources */,
+				849A71E8209AEC5F00E03544 /* CustomTabbarViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -377,18 +484,22 @@
 			files = (
 				84853E142099BDB000554D09 /* UIViewController+Alert.m in Sources */,
 				8419494720996FA40038C6B0 /* Setting.m in Sources */,
-				849F21AC2099B10A008AA849 /* BaseViewController.m in Sources */,
+				849A71E7209AEC5F00E03544 /* CustomTabbarViewController.m in Sources */,
+				849A71DD209AEB2500E03544 /* AdminViewController.m in Sources */,
+				849A71CE209AEAC400E03544 /* RoomCollectionViewController.m in Sources */,
 				8419493F20996F8B0038C6B0 /* Room.m in Sources */,
 				8419492E20996EE40038C6B0 /* main.m in Sources */,
 				8419495320997A620038C6B0 /* DBManager+Tables.m in Sources */,
+				849A71C4209AEA8000E03544 /* StudentTableViewController.m in Sources */,
 				8419492020996EE30038C6B0 /* AppDelegate.m in Sources */,
 				8419495820997D4D0038C6B0 /* LoginViewController.m in Sources */,
+				849A71ED209AF26200E03544 /* RoomCollectionViewCell.m in Sources */,
 				8419493B20996F5C0038C6B0 /* Admin.m in Sources */,
 				8419494320996F980038C6B0 /* Student.m in Sources */,
-				849F21A72099B05F008AA849 /* MainNavigationController.m in Sources */,
+				849A71D8209AEB0B00E03544 /* SettingTableViewController.m in Sources */,
+				849A71F6209B08D000E03544 /* AddEditViewController.m in Sources */,
 				84853E192099BFAB00554D09 /* NSUserDefaults+Login.m in Sources */,
 				8419494B20996FCB0038C6B0 /* DBManager.m in Sources */,
-				849F219C2099AACD008AA849 /* MenuViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -409,6 +520,14 @@
 				8419492A20996EE40038C6B0 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		849A71EF209B04B800E03544 /* RoomStoryboard.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				849A71F0209B04B800E03544 /* Base */,
+			);
+			name = RoomStoryboard.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

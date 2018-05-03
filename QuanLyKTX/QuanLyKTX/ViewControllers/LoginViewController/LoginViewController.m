@@ -11,8 +11,6 @@
 #import "DBManager+Tables.h"
 #import "Admin.h"
 #import "Define.h"
-#import "MenuViewController.h"
-#import "MainNavigationController.h"
 #import "UIViewController+Alert.h"
 #import "NSUserDefaults+Login.h"
 
@@ -62,18 +60,12 @@
         NSString *query = [NSString stringWithFormat:@"select * from tblAdmin where userName = '%@' and password = '%@'", _userNameTextField.text, _passwordTextField.text];
         NSArray *result = [self.dbManager loadDataFromDatabase:query];
         if (result.count > 0){
-            NSLog(@"Logged in");
-            [self convertArrayResultToAdmin:result];
-            // set user is logged in
+            // get user id
+            NSInteger userId = [[result.firstObject objectAtIndex:0] integerValue];
+            // save user id 
+            [[NSUserDefaults standardUserDefaults] setUserId:userId];
+            // save user is logged in
             [[NSUserDefaults standardUserDefaults] setUserLogin:true];
-            
-            // get navigation to set menu vc is root view controller
-            UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
-            MainNavigationController *mainNavigation = (MainNavigationController *)rootViewController;
-            // init MenuController
-
-            MenuViewController *menuVC = [[MenuViewController alloc]init];
-            mainNavigation.viewControllers = @[menuVC];
             // dismiss login view controller
             [self dismissViewControllerAnimated:true completion:nil];
         }else{
@@ -82,26 +74,7 @@
     }
 }
 
-// MARK: Functions
-// Convert Array result from database to a admin object
-- (void)convertArrayResultToAdmin:(NSArray *)array{
-    NSInteger indexOfId = [_dbManager.arrColumnsName indexOfObject:ADMIN_ID];
-    NSInteger indexOfUserName = [_dbManager.arrColumnsName indexOfObject:USER_NAME];
-    NSInteger indexOfPassword = [_dbManager.arrColumnsName indexOfObject:PASSWORD];
-    NSInteger indexOfFirstName = [_dbManager.arrColumnsName indexOfObject:FIRST_NAME];
-    NSInteger indexOfLastName = [_dbManager.arrColumnsName indexOfObject:LAST_NAME];
-    NSInteger indexOfCreatedDate = [_dbManager.arrColumnsName indexOfObject:ADMIN_CREATED_DATE];
-    NSInteger indexOfUpdateDate = [_dbManager.arrColumnsName indexOfObject:ADMIN_UPDATED_DATE];
-    // init admin object
-    self.admin = [[Admin alloc]init];
-    self.admin.admin_id = [array.firstObject objectAtIndex:indexOfId];
-    self.admin.userName = [array.firstObject objectAtIndex:indexOfUserName];
-    self.admin.password = [array.firstObject objectAtIndex:indexOfPassword];
-    self.admin.firstName = [array.firstObject objectAtIndex:indexOfFirstName];
-    self.admin.lastName = [array.firstObject objectAtIndex:indexOfLastName];
-    self.admin.createdDate = [array.firstObject objectAtIndex:indexOfCreatedDate];
-    self.admin.updatedDate = [array.firstObject objectAtIndex:indexOfUpdateDate];
-}
+
 
 
 @end

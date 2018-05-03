@@ -20,10 +20,9 @@
 #define ADMIN_ID @"id"
 #define USER_NAME @"userName"
 #define PASSWORD @"password"
-#define ADMIN_CREATED_DATE @"dateCreated"
-#define ADMIN_UPDATED_DATE @"dateUpdated"
 // const for room model
-#define ROOM_ID @"roomId"
+#define ROOM_ID @"room_id"
+#define ROOM_ID_MANAGER @"idManager"
 #define ROOM_NAME @"roomName"
 #define ROOM_MAX_QUANTITY @"maxQuantity"
 #define ROOM_CURRENT_QUANTITY  @"currentQuantity"
