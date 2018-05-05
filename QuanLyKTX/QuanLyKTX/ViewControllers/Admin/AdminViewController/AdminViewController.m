@@ -10,10 +10,13 @@
 #import "NSUserDefaults+Login.h"
 #import "DBManager.h"
 #import "LoginViewController.h"
+#import "AddNewAccountViewController.h"
+#import "EditPasswordViewController.h"
 
 @interface AdminViewController ()
 @property (strong, nonatomic) DBManager *dbManager;
 @property (nonatomic) NSInteger userId;
+@property (strong, nonatomic) NSString *userName;
 @end
 
 @implementation AdminViewController
@@ -34,14 +37,14 @@
 }
 
 - (void)loadInfoUser{
-    // load user data by userId
     self.userId = [[NSUserDefaults standardUserDefaults] getUserId] ;
     NSString *query = [NSString stringWithFormat:@"SELECT * FROM tblAdmin where id = %ld",self.userId];
     NSArray *arrResult = [self.dbManager loadDataFromDatabase:query];
-    
-    self.userNameTextField.text = [arrResult.firstObject objectAtIndex:1];
+    self.userNameLabel.text = [arrResult.firstObject objectAtIndex:1];
     self.firstNameTextField.text = [arrResult.firstObject objectAtIndex:3];
     self.lastNameTextField.text = [arrResult.firstObject objectAtIndex:4];
+    // set value for userName property
+    self.userName = [arrResult.firstObject objectAtIndex:1];
 }
 
 - (void)userLogout:(UIBarButtonItem *)sender {
@@ -49,8 +52,25 @@
      [self performSelector:@selector(showLogginViewController) withObject:nil afterDelay:0.01];
 }
 - (IBAction)editInfoUser:(UIBarButtonItem *)sender {
-//    NSString *query
+    NSString *firstName = _firstNameTextField.text;
+    NSString *lastName = _lastNameTextField.text;
+    NSString *query = [NSString stringWithFormat:@"Update tblAdmin set firstName = '%@', lastName = '%@', updatedDate = '%@' where id = %ld", firstName, lastName, [NSDate date], self.userId];
+    [self.dbManager executeQuery:query];
 }
+
+- (IBAction)createNewAccount:(UIButton *)sender {
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"AdminStoryboard" bundle:nil];
+    AddNewAccountViewController *addNewAccountViewController = [sb instantiateViewControllerWithIdentifier:@"addNewAccount"];
+    [self.navigationController pushViewController:addNewAccountViewController animated:true];
+}
+
+- (IBAction)changePassword:(UIButton *)sender {
+    EditPasswordViewController *adminEditPasswordViewController = [[EditPasswordViewController alloc]init];
+    adminEditPasswordViewController.userName = self.userName;
+    [self.navigationController pushViewController:adminEditPasswordViewController animated:true];
+}
+
+
 
 // MARK: Function show login view controller
 - (void)showLogginViewController{

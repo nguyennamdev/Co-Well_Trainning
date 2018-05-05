@@ -10,8 +10,8 @@
 
 @interface AdminViewController : UIViewController
 
-@property (weak, nonatomic) IBOutlet UITextField *userNameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *firstNameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *lastNameTextField;
+@property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
 
 @end

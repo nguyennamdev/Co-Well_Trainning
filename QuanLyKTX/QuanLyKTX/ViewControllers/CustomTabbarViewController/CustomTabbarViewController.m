@@ -24,6 +24,8 @@
     if ([[NSUserDefaults standardUserDefaults] getIsLoggedIn] == false){
          [self performSelector:@selector(showLogginViewController) withObject:nil afterDelay:0.01];
     }
+//    self.viewControllers = @[];
+    
 }
 
 // MARK: Function show login view controller

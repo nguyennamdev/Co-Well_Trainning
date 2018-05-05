@@ -9,9 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface AddEditViewController : UIViewController
+
 @property (weak, nonatomic) IBOutlet UITextField *roomNameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *maxQuantityTextField;
-@property (weak, nonatomic) IBOutlet UISlider *currentQuantitySlider;
 @property (weak, nonatomic) IBOutlet UILabel *currentQuantityLabel;
 @property (nonatomic) NSInteger roomIdToEdit;
 

@@ -13,6 +13,7 @@
 #import "Define.h"
 #import "UIViewController+Alert.h"
 #import "NSUserDefaults+Login.h"
+#import "UITextField+LeftView.h"
 
 @interface LoginViewController ()
 @property (strong, nonatomic) DBManager *dbManager;
@@ -27,30 +28,21 @@
     [self setupLeftViewUserNameTextField];
     [self setupLeftViewPasswordTextField];
     
-    self.dbManager = [[DBManager alloc]initWithDatabaseFileName:@"quanlyktx.sqlite"];
-    
+    self.dbManager = [[DBManager alloc]initWithDatabaseFileName:@"quanly.sqlite"];
 }
 
 // MARK: Setup left view for textFields
 - (void)setupLeftViewUserNameTextField{
     UIImage *image = [UIImage imageNamed:@"user"];
-    [self setLeftView:image for:_userNameTextField];
+    [self.userNameTextField setImageForLeftView:image leftViewFrame:CGRectMake(0, 0, 31, 26) andImageFrame:CGRectMake(0, 5, 26, 26)];
+    
 }
 
 - (void)setupLeftViewPasswordTextField{
-    UIImage *image = [UIImage imageNamed:@"lock"];
-    [self setLeftView:image for:_passwordTextField];
+    UIImage *image = [UIImage imageNamed:@"padlock"];
+    [self.passwordTextField setImageForLeftView:image leftViewFrame:CGRectMake(0, 0, 31, 26) andImageFrame:CGRectMake(0, 5, 26, 26)];
 }
 
-- (void)setLeftView:(UIImage *)image for:(UITextField *)textField{
-    UIView *leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 31, 26)];
-    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 5, 26, 26)];
-    [leftView addSubview:imageView];
-    imageView.center = leftView.center;
-    imageView.image = image;
-    [textField setLeftView:leftView];
-    textField.leftViewMode = UITextFieldViewModeAlways;
-}
 
 // MARK: Actions
 - (IBAction)loginUser:(UIButton *)sender{

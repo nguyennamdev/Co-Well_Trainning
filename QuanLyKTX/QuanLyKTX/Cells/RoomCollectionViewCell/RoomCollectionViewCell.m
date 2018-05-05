@@ -15,7 +15,7 @@
     [super awakeFromNib];
     // Initialization code
     // 222,203,164
-    self.backgroundColor = [UIColor colorWithRed:222/255.0 green:203/255.0 blue:164/255.0 alpha:0.5];
+    self.backgroundColor = [UIColor colorWithRed:200/255.0 green:203/255.0 blue:184/255.0 alpha:0.5];
     self.layer.cornerRadius = 5;
     self.clipsToBounds = true;
     self.layer.opacity = 0.5;

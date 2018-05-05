@@ -28,7 +28,7 @@
 #define ROOM_CURRENT_QUANTITY  @"currentQuantity"
 #define ROOM_MANAGER_ID @"idManager"
 // const for student model
-#define STUDENT_ID @"studentId"
+#define STUDENT_ID @"student_id"
 #define BIRHDAY @"birthday"
 #define HOME_TOWN @"homeTown"
 #define CLASS @"class"

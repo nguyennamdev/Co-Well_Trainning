@@ -35,14 +35,13 @@ static NSString * const reuseIdentifier = @"roomCellId";
     
     // Register cell classes
     [self.collectionView registerNib:[UINib nibWithNibName:@"RoomCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:reuseIdentifier];
-    //62,81,81
-    [self.collectionView setBackgroundColor:[UIColor colorWithRed:62/255.0 green:81/255.0 blue:81/255.0 alpha:1]];
+//    [self.collectionView setBackgroundColor:[UIColor colorWithRed:62/255.0 green:81/255.0 blue:81/255.0 alpha:1]];
     
     //    [self.dbManager showTables];
-    _roomIdToEdit = -1;
 }
 
 - (void)viewWillAppear:(BOOL)animated{
+    _roomIdToEdit = -1;
     [self fetchRoomInDatabase];
 }
 

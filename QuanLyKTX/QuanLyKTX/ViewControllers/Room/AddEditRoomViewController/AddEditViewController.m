@@ -19,7 +19,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.view.backgroundColor = [UIColor colorWithRed:62/255.0 green:81/255.0 blue:81/255.0 alpha:1];
     // set delegate for textFields
     _roomNameTextField.delegate = self;
     _maxQuantityTextField.delegate = self;
@@ -33,22 +32,35 @@
         self.navigationItem.title = @"Edit room";
         [self loadInfoToEdit];
     }
+    // custom navigation bar
+    UIBarButtonItem *backButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"back"] style:UIBarButtonItemStylePlain target:self action:@selector(backToRootView:)];
+    [self.navigationItem setLeftBarButtonItem:backButtonItem];
+    
 }
 
 // MARK: Function load data to edit
 - (void)loadInfoToEdit{
-    NSString *query = [NSString stringWithFormat:@"Select roomName, maxQuantity, currentQuantity, updatedDate from tblRoom where room_id = %ld", _roomIdToEdit];
+    NSString *query = [NSString stringWithFormat:@"Select roomName, maxQuantity, updatedDate from tblRoom where room_id = %ld", _roomIdToEdit];
     // load the relevant data
     NSArray *arrResult = [self.dbManager loadDataFromDatabase:query];
     self.roomNameTextField.text = [arrResult.firstObject objectAtIndex:0];
     self.maxQuantityTextField.text = [arrResult.firstObject objectAtIndex:1];
-    self.currentQuantityLabel.text = [arrResult.firstObject objectAtIndex:2];
-    self.currentQuantitySlider.maximumValue = [self.maxQuantityTextField.text floatValue];
-    self.currentQuantitySlider.value = [[arrResult.firstObject objectAtIndex:2] integerValue];
-    NSLog(@"%@", [arrResult.firstObject objectAtIndex:3]);
+    self.currentQuantityLabel.text = [NSString stringWithFormat:@"%ld", [self countCurrentQuantityByRoomId:_roomIdToEdit]];
+    NSLog(@"%@", [arrResult.firstObject objectAtIndex:2]);
+}
+
+- (NSInteger)countCurrentQuantityByRoomId:(NSInteger )roomId{
+    NSString *query = [NSString stringWithFormat:@"SELECT COUNT(*) FROM tblStudent where room_id = %ld", roomId];
+    NSArray *arrResult = [self.dbManager loadDataFromDatabase:query];
+    NSInteger countResult = [[arrResult.firstObject objectAtIndex:0] integerValue];
+    return countResult;
 }
 
 // MARK: Actions
+- (IBAction)backToRootView:(id)sender{
+    [self.navigationController popViewControllerAnimated:true];
+}
+
 - (IBAction)completeAddEditRoom:(UIBarButtonItem *)sender {
     if ([_roomNameTextField.text isEqualToString:@""] || [_maxQuantityTextField.text isEqualToString:@""]){
         [self presentAlertControllerWithCancelAction:@"Error" andMessage:@"You must enter data"];
@@ -57,9 +69,9 @@
         if (self.roomIdToEdit == -1){
             NSDate *createdDate = [NSDate date];
             NSDate *updatedDate = [NSDate date];
-            query = [NSString stringWithFormat:@"INSERT INTO tblRoom (roomName, maxQuantity, currentQuantity, createdDate, updatedDate) VALUES ('%@', %d, %d, '%@', '%@')", _roomNameTextField.text, [_maxQuantityTextField.text intValue] , (int)_currentQuantitySlider.value, createdDate, updatedDate];
+            query = [NSString stringWithFormat:@"INSERT INTO tblRoom (roomName, maxQuantity, currentQuantity, createdDate, updatedDate) VALUES ('%@', %d, %d, '%@', '%@')", _roomNameTextField.text, [_maxQuantityTextField.text intValue] , 0 , createdDate, updatedDate];
         }else{
-            query = [NSString stringWithFormat:@"UPDATE tblRoom set roomName = '%@', maxQuantity = %d, currentQuantity = %d, updatedDate = '%@'", _roomNameTextField.text, [_maxQuantityTextField.text intValue], (int)_currentQuantitySlider.value, [NSDate date]];
+            query = [NSString stringWithFormat:@"UPDATE tblRoom set roomName = '%@', maxQuantity = %d, currentQuantity = %ld,updatedDate = '%@'", _roomNameTextField.text, [_maxQuantityTextField.text intValue], [self countCurrentQuantityByRoomId:self.roomIdToEdit], [NSDate date]];
         }
         // execute query
          [_dbManager executeQuery:query];
@@ -78,16 +90,10 @@
     [self.view endEditing:TRUE];
 }
 
-
 // MARK: Implement UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     [textField resignFirstResponder];
     return true;
 }
 
-- (void)textFieldDidEndEditing:(UITextField *)textField{
-    if ([textField isEqual:_maxQuantityTextField]){
-        _currentQuantitySlider.maximumValue = [_maxQuantityTextField.text floatValue];
-    }
-}
 @end
