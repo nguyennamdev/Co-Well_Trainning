@@ -45,8 +45,9 @@
     NSArray *arrResult = [self.dbManager loadDataFromDatabase:query];
     self.roomNameTextField.text = [arrResult.firstObject objectAtIndex:0];
     self.maxQuantityTextField.text = [arrResult.firstObject objectAtIndex:1];
-    self.currentQuantityLabel.text = [NSString stringWithFormat:@"%ld", [self countCurrentQuantityByRoomId:_roomIdToEdit]];
     NSLog(@"%@", [arrResult.firstObject objectAtIndex:2]);
+    self.currentQuantityLabel.text = [NSString stringWithFormat:@"%ld", [self countCurrentQuantityByRoomId:_roomIdToEdit]];
+    
 }
 
 - (NSInteger)countCurrentQuantityByRoomId:(NSInteger )roomId{
@@ -71,7 +72,7 @@
             NSDate *updatedDate = [NSDate date];
             query = [NSString stringWithFormat:@"INSERT INTO tblRoom (roomName, maxQuantity, currentQuantity, createdDate, updatedDate) VALUES ('%@', %d, %d, '%@', '%@')", _roomNameTextField.text, [_maxQuantityTextField.text intValue] , 0 , createdDate, updatedDate];
         }else{
-            query = [NSString stringWithFormat:@"UPDATE tblRoom set roomName = '%@', maxQuantity = %d, currentQuantity = %ld,updatedDate = '%@'", _roomNameTextField.text, [_maxQuantityTextField.text intValue], [self countCurrentQuantityByRoomId:self.roomIdToEdit], [NSDate date]];
+            query = [NSString stringWithFormat:@"UPDATE tblRoom set roomName = '%@', maxQuantity = %d,updatedDate = '%@' where room_id = %ld", _roomNameTextField.text, [_maxQuantityTextField.text intValue], [NSDate date], self.roomIdToEdit];
         }
         // execute query
          [_dbManager executeQuery:query];

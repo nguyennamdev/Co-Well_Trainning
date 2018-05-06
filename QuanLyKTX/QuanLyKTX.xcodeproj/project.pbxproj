@@ -29,6 +29,7 @@
 		8496E530209C053D0016B885 /* AddNewAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8496E52F209C053D0016B885 /* AddNewAccountViewController.m */; };
 		8496E537209C156C0016B885 /* UITextField+LeftView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8496E536209C156C0016B885 /* UITextField+LeftView.m */; };
 		8496E53B209C1BCE0016B885 /* UITextField+PlaceHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 8496E53A209C1BCE0016B885 /* UITextField+PlaceHolder.m */; };
+		849A1AA4209EA08700B5424A /* UIViewController+LoadAllStudent.m in Sources */ = {isa = PBXBuildFile; fileRef = 849A1AA3209EA08700B5424A /* UIViewController+LoadAllStudent.m */; };
 		849A71C4209AEA8000E03544 /* StudentTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 849A71C2209AEA8000E03544 /* StudentTableViewController.m */; };
 		849A71C5209AEA8000E03544 /* StudentTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849A71C3209AEA8000E03544 /* StudentTableViewController.xib */; };
 		849A71CE209AEAC400E03544 /* RoomCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 849A71CC209AEAC400E03544 /* RoomCollectionViewController.m */; };
@@ -46,6 +47,7 @@
 		849A71F7209B08D000E03544 /* AddEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849A71F5209B08D000E03544 /* AddEditViewController.xib */; };
 		84D16F1F209B20D900D3B52D /* quanly.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 84D16F1E209B20D900D3B52D /* quanly.sqlite */; };
 		84D16F23209B4A3A00D3B52D /* StudentStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84D16F22209B4A3A00D3B52D /* StudentStoryboard.storyboard */; };
+		84E2DC24209DBD4700D964EB /* AddEditStudentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E2DC23209DBD4700D964EB /* AddEditStudentViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -89,6 +91,8 @@
 		8496E536209C156C0016B885 /* UITextField+LeftView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITextField+LeftView.m"; sourceTree = "<group>"; };
 		8496E539209C1BCE0016B885 /* UITextField+PlaceHolder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITextField+PlaceHolder.h"; sourceTree = "<group>"; };
 		8496E53A209C1BCE0016B885 /* UITextField+PlaceHolder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITextField+PlaceHolder.m"; sourceTree = "<group>"; };
+		849A1AA2209EA08700B5424A /* UIViewController+LoadAllStudent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+LoadAllStudent.h"; sourceTree = "<group>"; };
+		849A1AA3209EA08700B5424A /* UIViewController+LoadAllStudent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+LoadAllStudent.m"; sourceTree = "<group>"; };
 		849A71C1209AEA8000E03544 /* StudentTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StudentTableViewController.h; sourceTree = "<group>"; };
 		849A71C2209AEA8000E03544 /* StudentTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StudentTableViewController.m; sourceTree = "<group>"; };
 		849A71C3209AEA8000E03544 /* StudentTableViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StudentTableViewController.xib; sourceTree = "<group>"; };
@@ -114,6 +118,8 @@
 		84D16F1E209B20D900D3B52D /* quanly.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = quanly.sqlite; sourceTree = "<group>"; };
 		84D16F21209B331500D3B52D /* RoomActionDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoomActionDelegate.h; sourceTree = "<group>"; };
 		84D16F22209B4A3A00D3B52D /* StudentStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = StudentStoryboard.storyboard; sourceTree = "<group>"; };
+		84E2DC22209DBD4700D964EB /* AddEditStudentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddEditStudentViewController.h; sourceTree = "<group>"; };
+		84E2DC23209DBD4700D964EB /* AddEditStudentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddEditStudentViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -310,6 +316,7 @@
 		84853E112099BD6300554D09 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				849A1AA1209EA02B00B5424A /* UIViewController+LoadAllFromStudent */,
 				8496E538209C1BA90016B885 /* UITextField+Placeholder */,
 				8496E534209C15470016B885 /* UITextField+LeftView */,
 				84853E162099BF7500554D09 /* NSUserDefault+Login */,
@@ -381,6 +388,15 @@
 				8496E53A209C1BCE0016B885 /* UITextField+PlaceHolder.m */,
 			);
 			path = "UITextField+Placeholder";
+			sourceTree = "<group>";
+		};
+		849A1AA1209EA02B00B5424A /* UIViewController+LoadAllFromStudent */ = {
+			isa = PBXGroup;
+			children = (
+				849A1AA2209EA08700B5424A /* UIViewController+LoadAllStudent.h */,
+				849A1AA3209EA08700B5424A /* UIViewController+LoadAllStudent.m */,
+			);
+			path = "UIViewController+LoadAllFromStudent";
 			sourceTree = "<group>";
 		};
 		849A71C0209AEA1D00E03544 /* StudentTableViewController */ = {
@@ -500,6 +516,8 @@
 		84D16F24209B4E1E00D3B52D /* AddEditStudentViewController */ = {
 			isa = PBXGroup;
 			children = (
+				84E2DC22209DBD4700D964EB /* AddEditStudentViewController.h */,
+				84E2DC23209DBD4700D964EB /* AddEditStudentViewController.m */,
 			);
 			path = AddEditStudentViewController;
 			sourceTree = "<group>";
@@ -601,6 +619,7 @@
 				849A71C4209AEA8000E03544 /* StudentTableViewController.m in Sources */,
 				8419492020996EE30038C6B0 /* AppDelegate.m in Sources */,
 				8496E530209C053D0016B885 /* AddNewAccountViewController.m in Sources */,
+				84E2DC24209DBD4700D964EB /* AddEditStudentViewController.m in Sources */,
 				8419495820997D4D0038C6B0 /* LoginViewController.m in Sources */,
 				849A71ED209AF26200E03544 /* RoomCollectionViewCell.m in Sources */,
 				8419493B20996F5C0038C6B0 /* Admin.m in Sources */,
@@ -609,6 +628,7 @@
 				849A71D8209AEB0B00E03544 /* SettingTableViewController.m in Sources */,
 				849A71F6209B08D000E03544 /* AddEditViewController.m in Sources */,
 				84853E192099BFAB00554D09 /* NSUserDefaults+Login.m in Sources */,
+				849A1AA4209EA08700B5424A /* UIViewController+LoadAllStudent.m in Sources */,
 				8419494B20996FCB0038C6B0 /* DBManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

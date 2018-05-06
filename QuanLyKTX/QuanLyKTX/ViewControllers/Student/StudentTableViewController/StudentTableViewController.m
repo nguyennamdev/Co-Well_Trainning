@@ -11,10 +11,13 @@
 #import "Student.h"
 #import "Define.h"
 #import "StudentTableViewCell.h"
+#import "AddEditStudentViewController.h"
+#import "UIViewController+LoadAllStudent.h"
 
 @interface StudentTableViewController ()
 @property (strong, nonatomic) DBManager *dbManager;
-@property (strong, nonatomic) NSMutableArray<Student *> *arrStudent;
+@property (strong, nonatomic) NSArray<Student *> *arrStudent;
+@property (nonatomic) NSInteger studentIdToEdit;
 
 @end
 
@@ -30,10 +33,11 @@
     // init dbManager
     self.dbManager = [[DBManager alloc]initWithDatabaseFileName:@"quanly.sqlite"];
     self.navigationItem.title = @"Students";
-
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
+    _studentIdToEdit = -1;
     [self loadStudents];
 }
 
@@ -42,37 +46,32 @@
     NSString *query = @"SELECT * FROM tblStudent";
     NSArray *arrResult = [self.dbManager loadDataFromDatabase:query];
     // init arrStudent
-    self.arrStudent = [[NSMutableArray alloc]init];
-    
-    NSInteger indexOfStudentId = [self.dbManager.arrColumnsName indexOfObject:STUDENT_ID];
-    NSInteger indexOfRoomId = [self.dbManager.arrColumnsName indexOfObject:ROOM_ID];
-    NSInteger indexOfFirstName = [self.dbManager.arrColumnsName indexOfObject:FIRST_NAME];
-    NSInteger indexOfLastName = [self.dbManager.arrColumnsName indexOfObject:LAST_NAME];
-    NSInteger indexOfBirthday = [self.dbManager.arrColumnsName indexOfObject:BIRHDAY];
-    NSInteger indexOfGender = [self.dbManager.arrColumnsName indexOfObject:GENDER];
-    NSInteger indexOfHometown = [self.dbManager.arrColumnsName indexOfObject:HOME_TOWN];
-    NSInteger indexOfClass = [self.dbManager.arrColumnsName indexOfObject:CLASS];
-    NSInteger indexOfCreatedDate = [self.dbManager.arrColumnsName indexOfObject:CREATED_DATE];
-    NSInteger indexOfUpdatedDate = [self.dbManager.arrColumnsName indexOfObject:UPDATED_DATE];
-    
-    for (int i = 0; i < arrResult.count; i++) {
-        Student *student = Student.new;
-        student.student_id = [arrResult[i] objectAtIndex:indexOfStudentId];
-        student.room_id = [arrResult[i] objectAtIndex:indexOfRoomId];
-        student.firstName = [arrResult[i] objectAtIndex:indexOfFirstName];
-        student.lastName = [arrResult[i] objectAtIndex:indexOfLastName];
-        student.birthday = [arrResult[i] objectAtIndex:indexOfBirthday];
-        student.gender = [arrResult[i] objectAtIndex:indexOfGender];
-        student.homeTown = [arrResult[i] objectAtIndex:indexOfHometown];
-        student._class = [arrResult[i] objectAtIndex:indexOfClass];
-        student.createdDate = [arrResult[i] objectAtIndex:indexOfCreatedDate];
-        student.updatedDate = [arrResult[i] objectAtIndex:indexOfUpdatedDate];
-        [self.arrStudent addObject:student];
-    }
+    self.arrStudent = [self loadAllStudent:self.dbManager byArrayResult:arrResult];
     [self.tableView reloadData];
 }
 
+- (NSString *)getRoomNameByRoomId:(NSNumber *)roomId{
+    NSString *query = [NSString stringWithFormat:@"SELECT roomName FROM tblRoom where room_id = %ld", [roomId integerValue]];
+    NSArray *arrResult =  [self.dbManager loadDataFromDatabase:query];
+    NSString *strResult = [arrResult.firstObject objectAtIndex:0];
+    return strResult;
+}
 
+// MARK: Actions
+
+- (IBAction)addNewStudent:(UIBarButtonItem *)sender {
+    [self performSegueWithIdentifier:@"addEditSegue" sender:nil];
+}
+
+// MARK: Navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"addEditSegue"]){
+        AddEditStudentViewController *addEditStudentVC;
+        addEditStudentVC = segue.destinationViewController;
+        addEditStudentVC.studentId = self.studentIdToEdit;
+    }
+}
 
 #pragma mark - Table view data source
 
@@ -87,9 +86,13 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     StudentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellId"];
+    // set right arrow
+    [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
     Student *student = _arrStudent[indexPath.row];
-    cell.genderImageView.image = [student.gender  isEqual: @"male"] ? [UIImage imageNamed:@""] : [UIImage imageNamed:@""];
+    cell.genderImageView.image = [student.gender  isEqual: @"Male"] ? [UIImage imageNamed:@"male"] : [UIImage imageNamed:@"female"];
     cell.studentNameLabel.text = [NSString stringWithFormat:@"%@ %@", student.firstName, student.lastName];
+    cell.roomLabel.text = [self getRoomNameByRoomId:student.room_id];
+    cell.classLabel.text = student._class;
     return cell;
 }
 
@@ -97,64 +100,32 @@
     return 100;
 }
 
-/*
- // Override to support conditional editing of the table view.
- - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
- // Return NO if you do not want the specified item to be editable.
- return YES;
- }
- */
+// MARK: UITableViewDelegate
 
-/*
- // Override to support editing the table view.
- - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
- if (editingStyle == UITableViewCellEditingStyleDelete) {
- // Delete the row from the data source
- [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
- } else if (editingStyle == UITableViewCellEditingStyleInsert) {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }
- }
- */
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    self.studentIdToEdit = [self.arrStudent[indexPath.row].student_id integerValue];
+    [self performSegueWithIdentifier:@"addEditSegue" sender:nil];
+}
 
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
- }
- */
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
+    return YES;
+}
 
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
+// MARK: funtion delete a student by studentId
+- (void)deleteAStudentByStudentId:(NSInteger)studentId{
+    NSString *query = [NSString stringWithFormat:@"Delete from tblStudent where student_id = %ld", studentId];
+    // execute query
+    [self.dbManager executeQuery:query];
+}
 
-/*
- #pragma mark - Table view delegate
- 
- // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
- - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
- // Navigation logic may go here, for example:
- // Create the next view controller.
- <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:<#@"Nib name"#> bundle:nil];
- 
- // Pass the selected object to the new view controller.
- 
- // Push the view controller.
- [self.navigationController pushViewController:detailViewController animated:YES];
- }
- */
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [self deleteAStudentByStudentId:[self.arrStudent[indexPath.row].student_id integerValue]];
+        [self loadStudents];
+    }
+}
 
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
+
 
 @end
+
