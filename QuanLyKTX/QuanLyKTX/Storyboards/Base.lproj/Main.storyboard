@@ -105,36 +105,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tcl-4c-rOA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4710" y="-539"/>
-        </scene>
-        <!--Setting-->
-        <scene sceneID="PiM-0W-Edf">
-            <objects>
-                <tableViewController id="WQQ-ZE-CqG" customClass="SettingTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="UP0-ig-AWv">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="settingCellId" id="6Nn-Sd-MMF">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6Nn-Sd-MMF" id="jcB-aZ-cah">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="WQQ-ZE-CqG" id="8BN-ji-BaL"/>
-                            <outlet property="delegate" destination="WQQ-ZE-CqG" id="xEF-xG-Knj"/>
-                        </connections>
-                    </tableView>
-                    <tabBarItem key="tabBarItem" title="Setting" image="settings" id="Ttg-h1-8iw"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5c7-B0-sJo" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2748" y="-860"/>
+            <point key="canvasLocation" x="-4790" y="-539"/>
         </scene>
         <!--Custom Tabbar View Controller-->
         <scene sceneID="8XC-nJ-sYk">
@@ -149,7 +120,7 @@
                     <connections>
                         <segue destination="nUf-7V-YeI" kind="relationship" relationship="viewControllers" id="1GY-eO-67B"/>
                         <segue destination="SS1-eL-HOu" kind="relationship" relationship="viewControllers" id="k3i-Qb-YPb"/>
-                        <segue destination="WQQ-ZE-CqG" kind="relationship" relationship="viewControllers" id="37M-av-pHd"/>
+                        <segue destination="Qsq-ae-qfu" kind="relationship" relationship="viewControllers" id="37M-av-pHd"/>
                         <segue destination="OOx-lT-cXA" kind="relationship" relationship="viewControllers" id="XPL-Ut-5iQ"/>
                     </connections>
                 </tabBarController>
@@ -165,7 +136,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E7a-sl-3Hc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3399" y="-861"/>
+            <point key="canvasLocation" x="-3399" y="-743"/>
         </scene>
         <!--StudentStoryboard-->
         <scene sceneID="Oi8-at-4CG">
@@ -175,7 +146,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gmA-oM-oEf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3388" y="-240"/>
+            <point key="canvasLocation" x="-3388" y="-300"/>
         </scene>
         <!--AdminStoryboard-->
         <scene sceneID="jpi-hw-7uN">
@@ -185,10 +156,17 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bh8-ae-mBG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2822" y="-186"/>
+            <point key="canvasLocation" x="-3204" y="-399"/>
+        </scene>
+        <!--SettingStoryboard-->
+        <scene sceneID="9hD-6u-rsu">
+            <objects>
+                <viewControllerPlaceholder storyboardName="SettingStoryboard" id="Qsq-ae-qfu" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="mqh-Vr-SwQ"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="i1G-bS-ewZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3199" y="-607"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="settings" width="32" height="32"/>
-    </resources>
 </document>

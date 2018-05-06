@@ -34,7 +34,7 @@
 #define CLASS @"class"
 #define GENDER @"gender"
 // const for setting model
-#define SETTING_ID @"settingId"
+#define SETTING_ID @"id"
 #define ATTITUDE @"attitude"
 #define VALUE @"value"
 

@@ -30,6 +30,7 @@
 		8496E537209C156C0016B885 /* UITextField+LeftView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8496E536209C156C0016B885 /* UITextField+LeftView.m */; };
 		8496E53B209C1BCE0016B885 /* UITextField+PlaceHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 8496E53A209C1BCE0016B885 /* UITextField+PlaceHolder.m */; };
 		849A1AA4209EA08700B5424A /* UIViewController+LoadAllStudent.m in Sources */ = {isa = PBXBuildFile; fileRef = 849A1AA3209EA08700B5424A /* UIViewController+LoadAllStudent.m */; };
+		849A1AA6209EDE8300B5424A /* SettingStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 849A1AA5209EDE8300B5424A /* SettingStoryboard.storyboard */; };
 		849A71C4209AEA8000E03544 /* StudentTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 849A71C2209AEA8000E03544 /* StudentTableViewController.m */; };
 		849A71C5209AEA8000E03544 /* StudentTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849A71C3209AEA8000E03544 /* StudentTableViewController.xib */; };
 		849A71CE209AEAC400E03544 /* RoomCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 849A71CC209AEAC400E03544 /* RoomCollectionViewController.m */; };
@@ -93,6 +94,7 @@
 		8496E53A209C1BCE0016B885 /* UITextField+PlaceHolder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITextField+PlaceHolder.m"; sourceTree = "<group>"; };
 		849A1AA2209EA08700B5424A /* UIViewController+LoadAllStudent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+LoadAllStudent.h"; sourceTree = "<group>"; };
 		849A1AA3209EA08700B5424A /* UIViewController+LoadAllStudent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+LoadAllStudent.m"; sourceTree = "<group>"; };
+		849A1AA5209EDE8300B5424A /* SettingStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SettingStoryboard.storyboard; sourceTree = "<group>"; };
 		849A71C1209AEA8000E03544 /* StudentTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StudentTableViewController.h; sourceTree = "<group>"; };
 		849A71C2209AEA8000E03544 /* StudentTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StudentTableViewController.m; sourceTree = "<group>"; };
 		849A71C3209AEA8000E03544 /* StudentTableViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StudentTableViewController.xib; sourceTree = "<group>"; };
@@ -190,10 +192,10 @@
 		8419493620996F220038C6B0 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				84B8C68E209C53C90099F319 /* Student */,
 				84B8C68D209C53B70099F319 /* Room */,
+				84B8C68E209C53C90099F319 /* Student */,
+				849A1AA7209EEA0500B5424A /* Setting */,
 				8496E526209C04C30016B885 /* Admin */,
-				849A71D4209AEAF900E03544 /* SettingTableViewController */,
 				849A71E0209AEC0600E03544 /* CustomTabbarViewController */,
 				8419495520997D260038C6B0 /* LoginViewController */,
 			);
@@ -276,6 +278,7 @@
 		8419495420997CDF0038C6B0 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
+				849A1AA5209EDE8300B5424A /* SettingStoryboard.storyboard */,
 				8496E523209C01790016B885 /* AdminStoryboard.storyboard */,
 				84D16F22209B4A3A00D3B52D /* StudentStoryboard.storyboard */,
 				849A71EF209B04B800E03544 /* RoomStoryboard.storyboard */,
@@ -397,6 +400,14 @@
 				849A1AA3209EA08700B5424A /* UIViewController+LoadAllStudent.m */,
 			);
 			path = "UIViewController+LoadAllFromStudent";
+			sourceTree = "<group>";
+		};
+		849A1AA7209EEA0500B5424A /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				849A71D4209AEAF900E03544 /* SettingTableViewController */,
+			);
+			path = Setting;
 			sourceTree = "<group>";
 		};
 		849A71C0209AEA1D00E03544 /* StudentTableViewController */ = {
@@ -590,6 +601,7 @@
 				849A71EE209AF26200E03544 /* RoomCollectionViewCell.xib in Resources */,
 				84D16F1F209B20D900D3B52D /* quanly.sqlite in Resources */,
 				8419492620996EE40038C6B0 /* Main.storyboard in Resources */,
+				849A1AA6209EDE8300B5424A /* SettingStoryboard.storyboard in Resources */,
 				849A71F1209B04B800E03544 /* RoomStoryboard.storyboard in Resources */,
 				849A71F7209B08D000E03544 /* AddEditViewController.xib in Resources */,
 				8496E525209C01790016B885 /* AdminStoryboard.storyboard in Resources */,

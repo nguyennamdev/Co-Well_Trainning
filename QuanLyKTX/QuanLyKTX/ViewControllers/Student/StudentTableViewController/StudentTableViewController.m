@@ -112,15 +112,20 @@
 }
 
 // MARK: funtion delete a student by studentId
-- (void)deleteAStudentByStudentId:(NSInteger)studentId{
+- (void)deleteAStudentByStudentId:(NSInteger)studentId andRoomId:(NSInteger)roomId{
     NSString *query = [NSString stringWithFormat:@"Delete from tblStudent where student_id = %ld", studentId];
     // execute query
     [self.dbManager executeQuery:query];
+    // update room current quantity
+    NSString *query2 = [NSString stringWithFormat:@"Update tblRoom set currentQuantity = currentQuantity - 1, updatedDate = '%@' where room_id = %ld", [NSDate date], roomId];
+    [self.dbManager executeQuery:query2];
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [self deleteAStudentByStudentId:[self.arrStudent[indexPath.row].student_id integerValue]];
+        NSInteger studentId = [self.arrStudent[indexPath.row].student_id integerValue];
+        NSInteger roomId = [self.arrStudent[indexPath.row].room_id integerValue];
+        [self deleteAStudentByStudentId:studentId andRoomId:roomId];
         [self loadStudents];
     }
 }
