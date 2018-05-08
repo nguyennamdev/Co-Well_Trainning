@@ -31,7 +31,7 @@ static NSString * const reuseIdentifier = @"roomCellId";
     [super viewDidLoad];
     
     //init dbManager
-    _dbManager = [[DBManager alloc]initWithDatabaseFileName:@"quanly.sqlite"];
+    _dbManager = [[DBManager alloc]initWithDatabaseFileName:DATABASE_NAME];
     
     // Register cell classes
     [self.collectionView registerNib:[UINib nibWithNibName:@"RoomCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:reuseIdentifier];
@@ -59,7 +59,7 @@ static NSString * const reuseIdentifier = @"roomCellId";
     NSInteger indexOfCurrentQuantity = [self.dbManager.arrColumnsName indexOfObject:ROOM_CURRENT_QUANTITY];
     NSInteger indexOfCreatedDate = [self.dbManager.arrColumnsName indexOfObject:CREATED_DATE];
     NSInteger indexOfUpdatedDate = [self.dbManager.arrColumnsName indexOfObject:UPDATED_DATE];
-    
+    // loop to get arrRoom
     for (int i = 0; i < arrayResult.count; i++) {
         Room *room = Room.new;
         room.roomId = [arrayResult[i] objectAtIndex:indexOfRoomId];

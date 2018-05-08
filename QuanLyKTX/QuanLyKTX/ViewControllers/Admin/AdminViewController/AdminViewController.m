@@ -12,6 +12,7 @@
 #import "LoginViewController.h"
 #import "AddNewAccountViewController.h"
 #import "EditPasswordViewController.h"
+#import "Define.h"
 
 @interface AdminViewController ()
 @property (strong, nonatomic) DBManager *dbManager;
@@ -25,7 +26,7 @@
     [super viewDidLoad];
     
     // init dbManager
-    _dbManager = [[DBManager alloc]initWithDatabaseFileName:@"quanly.sqlite"];
+    _dbManager = [[DBManager alloc]initWithDatabaseFileName:DATABASE_NAME];
     
     // custom leftBarButtonItem
     UIBarButtonItem *logoutButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"Logout" style:UIBarButtonItemStylePlain target:self action:@selector(userLogout:)];

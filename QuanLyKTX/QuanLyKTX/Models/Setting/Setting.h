@@ -13,6 +13,8 @@
 @property (strong, nonatomic) NSNumber *setting_id;
 @property (strong, nonatomic) NSString *attitude;
 @property (strong, nonatomic) NSString *value;
+@property (strong, nonatomic) NSDate *createdDate;
+@property (strong, nonatomic) NSDate *updatedDate;
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 

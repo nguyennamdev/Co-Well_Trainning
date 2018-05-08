@@ -206,8 +206,8 @@
 		84D81B3E208345C900ACD002 /* AddEditViewController */ = {
 			isa = PBXGroup;
 			children = (
-				84D81B3F208345FD00ACD002 /* AddEditViewController.h */,
 				84D81B40208345FD00ACD002 /* AddEditViewController.m */,
+				84D81B3F208345FD00ACD002 /* AddEditViewController.h */,
 			);
 			path = AddEditViewController;
 			sourceTree = "<group>";

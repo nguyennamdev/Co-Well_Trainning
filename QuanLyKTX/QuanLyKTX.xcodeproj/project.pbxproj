@@ -29,6 +29,7 @@
 		8496E530209C053D0016B885 /* AddNewAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8496E52F209C053D0016B885 /* AddNewAccountViewController.m */; };
 		8496E537209C156C0016B885 /* UITextField+LeftView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8496E536209C156C0016B885 /* UITextField+LeftView.m */; };
 		8496E53B209C1BCE0016B885 /* UITextField+PlaceHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 8496E53A209C1BCE0016B885 /* UITextField+PlaceHolder.m */; };
+		8498292620A19395005ECA38 /* database.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 8498292520A192CC005ECA38 /* database.sqlite */; };
 		849A1AA4209EA08700B5424A /* UIViewController+LoadAllStudent.m in Sources */ = {isa = PBXBuildFile; fileRef = 849A1AA3209EA08700B5424A /* UIViewController+LoadAllStudent.m */; };
 		849A1AA6209EDE8300B5424A /* SettingStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 849A1AA5209EDE8300B5424A /* SettingStoryboard.storyboard */; };
 		849A71C4209AEA8000E03544 /* StudentTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 849A71C2209AEA8000E03544 /* StudentTableViewController.m */; };
@@ -46,7 +47,6 @@
 		849A71F1209B04B800E03544 /* RoomStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 849A71EF209B04B800E03544 /* RoomStoryboard.storyboard */; };
 		849A71F6209B08D000E03544 /* AddEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 849A71F4209B08D000E03544 /* AddEditViewController.m */; };
 		849A71F7209B08D000E03544 /* AddEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849A71F5209B08D000E03544 /* AddEditViewController.xib */; };
-		84D16F1F209B20D900D3B52D /* quanly.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 84D16F1E209B20D900D3B52D /* quanly.sqlite */; };
 		84D16F23209B4A3A00D3B52D /* StudentStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84D16F22209B4A3A00D3B52D /* StudentStoryboard.storyboard */; };
 		84E2DC24209DBD4700D964EB /* AddEditStudentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E2DC23209DBD4700D964EB /* AddEditStudentViewController.m */; };
 /* End PBXBuildFile section */
@@ -92,6 +92,7 @@
 		8496E536209C156C0016B885 /* UITextField+LeftView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITextField+LeftView.m"; sourceTree = "<group>"; };
 		8496E539209C1BCE0016B885 /* UITextField+PlaceHolder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITextField+PlaceHolder.h"; sourceTree = "<group>"; };
 		8496E53A209C1BCE0016B885 /* UITextField+PlaceHolder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITextField+PlaceHolder.m"; sourceTree = "<group>"; };
+		8498292520A192CC005ECA38 /* database.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = database.sqlite; sourceTree = "<group>"; };
 		849A1AA2209EA08700B5424A /* UIViewController+LoadAllStudent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+LoadAllStudent.h"; sourceTree = "<group>"; };
 		849A1AA3209EA08700B5424A /* UIViewController+LoadAllStudent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+LoadAllStudent.m"; sourceTree = "<group>"; };
 		849A1AA5209EDE8300B5424A /* SettingStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SettingStoryboard.storyboard; sourceTree = "<group>"; };
@@ -117,7 +118,6 @@
 		849A71F3209B08D000E03544 /* AddEditViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddEditViewController.h; sourceTree = "<group>"; };
 		849A71F4209B08D000E03544 /* AddEditViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddEditViewController.m; sourceTree = "<group>"; };
 		849A71F5209B08D000E03544 /* AddEditViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddEditViewController.xib; sourceTree = "<group>"; };
-		84D16F1E209B20D900D3B52D /* quanly.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = quanly.sqlite; sourceTree = "<group>"; };
 		84D16F21209B331500D3B52D /* RoomActionDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoomActionDelegate.h; sourceTree = "<group>"; };
 		84D16F22209B4A3A00D3B52D /* StudentStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = StudentStoryboard.storyboard; sourceTree = "<group>"; };
 		84E2DC22209DBD4700D964EB /* AddEditStudentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddEditStudentViewController.h; sourceTree = "<group>"; };
@@ -156,7 +156,6 @@
 		8419491D20996EE30038C6B0 /* QuanLyKTX */ = {
 			isa = PBXGroup;
 			children = (
-				84D16F1E209B20D900D3B52D /* quanly.sqlite */,
 				8419493420996EF70038C6B0 /* Common */,
 				8419493520996F1A0038C6B0 /* Database */,
 				8419493720996F280038C6B0 /* Models */,
@@ -183,6 +182,7 @@
 		8419493520996F1A0038C6B0 /* Database */ = {
 			isa = PBXGroup;
 			children = (
+				8498292520A192CC005ECA38 /* database.sqlite */,
 				8419495020997A470038C6B0 /* DBManager+Tables */,
 				8419494820996FBD0038C6B0 /* DBManager */,
 			);
@@ -591,6 +591,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8498292620A19395005ECA38 /* database.sqlite in Resources */,
 				849A71DE209AEB2500E03544 /* AdminViewController.xib in Resources */,
 				849A71CF209AEAC400E03544 /* RoomCollectionViewController.xib in Resources */,
 				849A71C5209AEA8000E03544 /* StudentTableViewController.xib in Resources */,
@@ -599,7 +600,6 @@
 				8419492B20996EE40038C6B0 /* LaunchScreen.storyboard in Resources */,
 				8419492820996EE40038C6B0 /* Assets.xcassets in Resources */,
 				849A71EE209AF26200E03544 /* RoomCollectionViewCell.xib in Resources */,
-				84D16F1F209B20D900D3B52D /* quanly.sqlite in Resources */,
 				8419492620996EE40038C6B0 /* Main.storyboard in Resources */,
 				849A1AA6209EDE8300B5424A /* SettingStoryboard.storyboard in Resources */,
 				849A71F1209B04B800E03544 /* RoomStoryboard.storyboard in Resources */,

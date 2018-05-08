@@ -23,7 +23,7 @@
     [super viewDidLoad];
     
     // init dbManager
-    self.dbManager = [[DBManager alloc]initWithDatabaseFileName:@"quanly.sqlite"];
+    self.dbManager = [[DBManager alloc]initWithDatabaseFileName:DATABASE_NAME];
     [self.dbManager showTables];
     
     [self loadSettings];
@@ -37,12 +37,17 @@
     NSInteger indexOfId = [self.dbManager.arrColumnsName indexOfObject:SETTING_ID];
     NSInteger indexOfAttitude = [self.dbManager.arrColumnsName indexOfObject:ATTITUDE];
     NSInteger indexOfValue = [self.dbManager.arrColumnsName indexOfObject:VALUE];
-    
+    NSInteger indexOfCreatedDate = [self.dbManager.arrColumnsName indexOfObject:CREATED_DATE];
+    NSInteger indexOfUpdatedDate = [self.dbManager.arrColumnsName indexOfObject:UPDATED_DATE];
+    // loop to get data then add to arrSetting
     for (int i = 0; i < array.count; i++) {
         Setting *setting = Setting.new;
         setting.setting_id = [array[i] objectAtIndex:indexOfId];
         setting.attitude = [array[i] objectAtIndex:indexOfAttitude];
         setting.value = [array[i] objectAtIndex:indexOfValue];
+        setting.createdDate = [array[i] objectAtIndex:indexOfCreatedDate];
+        setting.updatedDate = [array[i] objectAtIndex:indexOfUpdatedDate];
+        // add to arrSetting
         [self.arrSetting addObject:setting];
     }
     [self.tableView reloadData];
@@ -60,6 +65,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingCellId" forIndexPath:indexPath];
+    // set right arrow in cell
     [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
     cell.backgroundColor = [UIColor clearColor];
     cell.textLabel.text = self.arrSetting[indexPath.row].attitude;
@@ -70,7 +76,7 @@
 }
 
 - (void)updateSettingValue:(NSString *)newValue settingId:(NSInteger)settingId{
-    NSString *query = [NSString stringWithFormat:@"Update tblSetting set value = '%@' where id = %ld", newValue, settingId];
+    NSString *query = [NSString stringWithFormat:@"Update tblSetting set value = '%@', updatedDate = '%@' where id = %ld", newValue, [NSDate date], settingId];
     [self.dbManager executeQuery:query];
     [self loadSettings];
 }

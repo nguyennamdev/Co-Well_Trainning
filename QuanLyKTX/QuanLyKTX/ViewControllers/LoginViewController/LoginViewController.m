@@ -15,7 +15,7 @@
 #import "NSUserDefaults+Login.h"
 #import "UITextField+LeftView.h"
 
-@interface LoginViewController ()
+@interface LoginViewController ()<UITextFieldDelegate>
 @property (strong, nonatomic) DBManager *dbManager;
 @property (strong, nonatomic) Admin *admin;
 @end
@@ -28,7 +28,11 @@
     [self setupLeftViewUserNameTextField];
     [self setupLeftViewPasswordTextField];
     
-    self.dbManager = [[DBManager alloc]initWithDatabaseFileName:@"quanly.sqlite"];
+    self.dbManager = [[DBManager alloc]initWithDatabaseFileName:DATABASE_NAME];
+    
+    self.userNameTextField.delegate = self;
+    self.passwordTextField.delegate = self;
+    
 }
 
 // MARK: Setup left view for textFields
@@ -43,12 +47,12 @@
     [self.passwordTextField setImageForLeftView:image leftViewFrame:CGRectMake(0, 0, 31, 26) andImageFrame:CGRectMake(0, 5, 26, 26)];
 }
 
-
 // MARK: Actions
 - (IBAction)loginUser:(UIButton *)sender{
     if ([_userNameTextField.text isEqualToString:@""] || [_passwordTextField.text isEqualToString:@""]){
         [self presentAlertControllerWithCancelAction:@"Login" andMessage:@"You didn't enter data"];
     }else{
+        // query login
         NSString *query = [NSString stringWithFormat:@"select * from tblAdmin where userName = '%@' and password = '%@'", _userNameTextField.text, _passwordTextField.text];
         NSArray *result = [self.dbManager loadDataFromDatabase:query];
         if (result.count > 0){
@@ -66,6 +70,17 @@
     }
 }
 
+// MARK: Touches
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [self.view endEditing:true];
+}
+
+// MARK: Implement UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    return true;
+}
 
 
 

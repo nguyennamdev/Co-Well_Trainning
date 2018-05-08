@@ -37,6 +37,7 @@
 #define SETTING_ID @"id"
 #define ATTITUDE @"attitude"
 #define VALUE @"value"
+#define DATABASE_NAME @"database.sqlite"
 
 
 

@@ -11,6 +11,7 @@
 #import "UIViewController+Alert.h"
 #import "UITextField+PlaceHolder.h"
 #import "UITextField+LeftView.h"
+#import "Define.h"
 
 @interface EditPasswordViewController ()<UITextFieldDelegate>
 
@@ -24,7 +25,7 @@
     [super viewDidLoad];
     
     // init dbManager
-    self.dbManager = [[DBManager alloc]initWithDatabaseFileName:@"quanly.sqlite"];
+    self.dbManager = [[DBManager alloc]initWithDatabaseFileName:DATABASE_NAME];
     
     // set delegate for textFields
     _oldPasswordTextField.delegate = self;
@@ -69,9 +70,11 @@
             // password is true
             // confirm new password
             if (self.confirmPasswordTextField.text != self.passwordNewTextField.text){
+                // confirm password don't match
                 _confirmPasswordTextField.text = @"";
                 [_confirmPasswordTextField setColorForPlaceholder:@"Password don't match" withColor:[UIColor redColor]];
             }else{
+                // confirm password matched
                 NSDate *updatedDate = [NSDate date];
                 NSString *query = [NSString stringWithFormat:@"Update tblAdmin set password = '%@', updatedDate = '%@'", _passwordNewTextField.text, updatedDate];
                 [self.dbManager executeQuery:query];

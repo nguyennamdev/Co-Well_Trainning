@@ -13,12 +13,19 @@
 #import "UIViewController+Alert.h"
 #import "UIViewController+LoadAllStudent.h"
 
-@interface AddEditStudentViewController ()<UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
+@interface AddEditStudentViewController ()<UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate>{
+    NSInteger currentTextFieldIsShowing;
+    UIBarButtonItem *previousButton;
+    UIBarButtonItem *nextButton;
+}
 
 @property (strong, nonatomic) NSMutableArray<Room *> *arrRoom;
 @property (strong, nonatomic) DBManager *dbManager;
 @property (nonatomic) NSInteger roomIdToIncreseCurrentQuantity;
 @property (nonatomic) NSInteger roomIdToReduceCurrentQuantity;
+@property (strong, nonatomic) NSArray<UITextField *> *arrTextFields;
+
+
 
 @end
 
@@ -26,31 +33,35 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     // init dbManager
-    self.dbManager = [[DBManager alloc]initWithDatabaseFileName:@"quanly.sqlite"];
+    self.dbManager = [[DBManager alloc]initWithDatabaseFileName:DATABASE_NAME];
     
     // custom navigation bar
     UIBarButtonItem *backButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"back"] style:UIBarButtonItemStylePlain target:self action:@selector(backToRootView:)];
     [self.navigationItem setLeftBarButtonItem:backButtonItem];
-
-    [self setupDelegateForTextField];
     [self setDatePickerForBirthDayTextField];
     
     // set delegate for roomPickerView
     _roomPickerView.delegate = self;
     
+    // equal -1 it will load data to edit
     if (_studentId != -1){
         NSLog(@"Editing ");
         [self loadDataToEdit];
     }
-
+    
+    // init arrTextFields
+    self.arrTextFields = @[_firstNameTextField, _lastNameTextField, _birthdayTextField, _hometownTextField, __classTextField];
+    // invoke func set delegate  and set tool bar of text fields
+    [self setupDelegateForTextField];
+    [self initToolBarForTextField];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [self loadRoom];
 }
-
 
 // MARK: Load room is also anti
 - (void)loadRoom{
@@ -109,37 +120,78 @@
     return oldRoomId;
 }
 
-// MARK: set up delegate for textfields
+// MARK: set up text fields
 - (void)setupDelegateForTextField{
-    self.firstNameTextField.delegate = self;
-    self.lastNameTextField.delegate = self;
-    self.birthdayTextField.delegate = self;
-    self.hometownTextField.delegate = self;
-    self._classTextField.delegate = self;
+    for (UITextField *textFiels in self.arrTextFields) {
+        textFiels.delegate = self;
+    }
+}
+
+- (void)initToolBarForTextField{
+    UIToolbar *toolBar = [[UIToolbar alloc]init];
+    [toolBar sizeToFit];
+    // init buttons on tool bar
+    previousButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"up-arrows"] style:UIBarButtonItemStylePlain target:self action:@selector(handlePreviousTextField:)];
+    nextButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"down-arrow"]
+        style:UIBarButtonItemStylePlain target:self action:@selector(handleNextTextField:)];
+    UIBarButtonItem *fixedSpace = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    [toolBar setItems:@[previousButton, fixedSpace, nextButton]];
+    [self setInputAccessoryViewTextField:toolBar];
+}
+
+- (void)setInputAccessoryViewTextField:(UIToolbar *)toolBar{
+    self.firstNameTextField.inputAccessoryView = toolBar;
+    self.lastNameTextField.inputAccessoryView = toolBar;
+    self.hometownTextField.inputAccessoryView = toolBar;
+    self._classTextField.inputAccessoryView = toolBar;
 }
 
 - (void)setDatePickerForBirthDayTextField{
     datePicker = [[UIDatePicker alloc]init];
-    datePicker.maximumDate = [NSDate date];
+    // init format date to set maximun date
+    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+    [formatter setDateFormat:@"dd/MM/YYYY"];
+    NSDate *date = [formatter dateFromString:@"01/01/2000"];
+    datePicker.maximumDate = [NSDate dateWithTimeInterval:10 sinceDate:date];
+    
     datePicker.datePickerMode = UIDatePickerModeDate;
     [self.birthdayTextField setInputView:datePicker];
     UIToolbar *toolBar = [[UIToolbar alloc]init];
     [toolBar sizeToFit];
+    previousButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"up-arrows"] style:UIBarButtonItemStylePlain target:self action:@selector(handlePreviousTextField:)];
+    nextButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"down-arrow"] style:UIBarButtonItemStylePlain target:self action:@selector(handleNextTextField:)];
     UIBarButtonItem *doneButton  = [[UIBarButtonItem alloc]initWithTitle:@"done" style:UIBarButtonItemStyleDone target:self action:@selector(showSelectedDate)];
     UIBarButtonItem *space = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-    [toolBar setItems:@[space, doneButton]];
+    [toolBar setItems:@[previousButton, nextButton,space, doneButton]];
     [self.birthdayTextField setInputAccessoryView:toolBar];
 }
 
-- (void)showSelectedDate
-{
+// MARK: Actions
+
+- (void)showSelectedDate{
     NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
     [formatter setDateFormat:@"dd/MMM/YYYY"];
     self.birthdayTextField.text=[NSString stringWithFormat:@"%@",[formatter stringFromDate:datePicker.date]];
     [self.birthdayTextField resignFirstResponder];
 }
 
-// MARK: Actions
+- (void)handlePreviousTextField:(UIBarButtonItem *)sender{
+    currentTextFieldIsShowing--;
+    if (currentTextFieldIsShowing < 0){
+        currentTextFieldIsShowing = 0;
+    }
+    // showing text field
+    [self.arrTextFields[currentTextFieldIsShowing] becomeFirstResponder];
+}
+
+- (void)handleNextTextField:(UIBarButtonItem *)sender{
+    currentTextFieldIsShowing++;
+    if (currentTextFieldIsShowing > self.arrTextFields.count - 1){
+        currentTextFieldIsShowing = self.arrTextFields.count - 1;
+    }
+    [self.arrTextFields[currentTextFieldIsShowing] becomeFirstResponder];
+}
+
 - (void)backToRootView:(UIBarButtonItem *)sender{
     [self.navigationController popViewControllerAnimated:true];
 }
@@ -174,27 +226,24 @@
 }
 
 - (void)updateRoomCurrentQuantity{
-    // check room id if they not equal, room will change current quantity
-    NSLog(@"%ld", _roomIdToReduceCurrentQuantity);
-    NSLog(@"%ld", _roomIdToIncreseCurrentQuantity);
     if (self.studentId == -1){
-        NSString *query2 = [NSString stringWithFormat:@"Update tblRoom set currentQuantity = currentQuantity + 1, updatedDate = '%@' where room_id = %ld", [NSDate date],self.roomIdToIncreseCurrentQuantity];
-        [self.dbManager executeQuery:query2];
+        // student don't switch room
+        NSString *query = [NSString stringWithFormat:@"Update tblRoom set currentQuantity = currentQuantity + 1, updatedDate = '%@' where room_id = %ld", [NSDate date],self.roomIdToIncreseCurrentQuantity];
+        [self.dbManager executeQuery:query];
         if (self.dbManager.affectedRow > 0){
             NSLog(@"updated");
         }
     }else{
+         // check room id if they not equal, room will change current quantity
+         // student do switch room
         if (_roomIdToIncreseCurrentQuantity != _roomIdToReduceCurrentQuantity){
+            // To reduce current quantity of old room
             NSString *query =  [NSString stringWithFormat:@"Update tblRoom set currentQuantity = currentQuantity - 1, updatedDate = '%@' where room_id = %ld", [NSDate date], self.roomIdToReduceCurrentQuantity];
             [self.dbManager executeQuery:query];
-            if (self.dbManager.affectedRow > 0){
-                NSLog(@"reduced");
-            }
+       
+            // To increase current quantity of new room
             NSString *query2 = [NSString stringWithFormat:@"Update tblRoom set currentQuantity = currentQuantity + 1, updatedDate = '%@' where room_id = %ld", [NSDate date],self.roomIdToIncreseCurrentQuantity];
             [self.dbManager executeQuery:query2];
-            if (self.dbManager.affectedRow > 0){
-                NSLog(@"updated");
-            }
         }
     }
 }
@@ -209,6 +258,23 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     [textField resignFirstResponder];
     return true;
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField{
+    currentTextFieldIsShowing = textField.tag;
+    // enable a button when current out of range of array text fields
+    if (currentTextFieldIsShowing == 0){
+        [previousButton setEnabled:false];
+    }else{
+        [previousButton setEnabled:true];
+    }
+    
+    if (currentTextFieldIsShowing == self.arrTextFields.count - 1){
+        [nextButton setEnabled:false];
+    }else{
+        [nextButton setEnabled:true];
+    }
+    
 }
 
 // MARK: Implement UIPickerDataSource

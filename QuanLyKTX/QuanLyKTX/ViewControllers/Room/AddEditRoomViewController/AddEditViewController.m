@@ -9,6 +9,7 @@
 #import "AddEditViewController.h"
 #import "UIViewController+Alert.h"
 #import "DBManager.h"
+#import "Define.h"
 
 @interface AddEditViewController ()<UITextFieldDelegate>
 @property (strong, nonatomic) DBManager *dbManager;
@@ -24,7 +25,7 @@
     _maxQuantityTextField.delegate = self;
 
     // init dbManager
-    _dbManager = [[DBManager alloc]initWithDatabaseFileName:@"quanly.sqlite"];
+    _dbManager = [[DBManager alloc]initWithDatabaseFileName:DATABASE_NAME];
     
     self.navigationItem.title = @"Add new room";
     // check room id to edit.
@@ -62,17 +63,28 @@
     [self.navigationController popViewControllerAnimated:true];
 }
 
+
 - (IBAction)completeAddEditRoom:(UIBarButtonItem *)sender {
     if ([_roomNameTextField.text isEqualToString:@""] || [_maxQuantityTextField.text isEqualToString:@""]){
         [self presentAlertControllerWithCancelAction:@"Error" andMessage:@"You must enter data"];
     }else{
         NSString *query;
         if (self.roomIdToEdit == -1){
+            // execute insert room
             NSDate *createdDate = [NSDate date];
             NSDate *updatedDate = [NSDate date];
             query = [NSString stringWithFormat:@"INSERT INTO tblRoom (roomName, maxQuantity, currentQuantity, createdDate, updatedDate) VALUES ('%@', %d, %d, '%@', '%@')", _roomNameTextField.text, [_maxQuantityTextField.text intValue] , 0 , createdDate, updatedDate];
         }else{
-            query = [NSString stringWithFormat:@"UPDATE tblRoom set roomName = '%@', maxQuantity = %d,updatedDate = '%@' where room_id = %ld", _roomNameTextField.text, [_maxQuantityTextField.text intValue], [NSDate date], self.roomIdToEdit];
+            // check maxQuantity >= currentQuantity
+            NSInteger currentQuantity = [self countCurrentQuantityByRoomId:self.roomIdToEdit];
+            NSInteger maxQuantity = (NSInteger)self.maxQuantityTextField.text;
+            if (maxQuantity < currentQuantity){
+                [self presentAlertControllerWithCancelAction:@"" andMessage:@"Max student quantity must than current student quantity"];
+            }else{
+                // accept to update room
+                query = [NSString stringWithFormat:@"UPDATE tblRoom set roomName = '%@', maxQuantity = %d,updatedDate = '%@' where room_id = %ld", _roomNameTextField.text, [_maxQuantityTextField.text intValue], [NSDate date], self.roomIdToEdit];
+            }
+          
         }
         // execute query
          [_dbManager executeQuery:query];

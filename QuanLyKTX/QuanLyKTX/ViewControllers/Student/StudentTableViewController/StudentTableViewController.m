@@ -31,7 +31,7 @@
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
     
     // init dbManager
-    self.dbManager = [[DBManager alloc]initWithDatabaseFileName:@"quanly.sqlite"];
+    self.dbManager = [[DBManager alloc]initWithDatabaseFileName:DATABASE_NAME];
     self.navigationItem.title = @"Students";
     
 }

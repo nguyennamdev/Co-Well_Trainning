@@ -17,6 +17,8 @@
         self.setting_id = [dictionary objectForKey:SETTING_ID];
         self.attitude = [dictionary objectForKey:ATTITUDE];
         self.value = [dictionary objectForKey:VALUE];
+        self.createdDate = [dictionary objectForKey:CREATED_DATE];
+        self.updatedDate = [dictionary objectForKey:UPDATED_DATE];
     }
     return self;
 }
