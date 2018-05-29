@@ -1,0 +1,176 @@
+{
+    "champions": {
+        "Aatrox": {
+            "imageUrl": "gs://leagueoflegends-1d3dc.appspot.com/Image_champions/Aatrox.png",
+            "name": "Aatrox"
+        },
+        "Ahri": {
+            "imageUrl": "gs://leagueoflegends-1d3dc.appspot.com/Image_champions/Ahri.png",
+            "name": "Ahri"
+        },
+        "Akali": {
+            "imageUrl": "gs://leagueoflegends-1d3dc.appspot.com/Image_champions/Akali.png",
+            "name": "Akali"
+        },
+        "Alistar": {
+            "imageUrl": "gs://leagueoflegends-1d3dc.appspot.com/Image_champions/Alistar.png",
+            "name": "Alistar"
+        },
+        "Amumu": {
+            "imageUrl": "gs://leagueoflegends-1d3dc.appspot.com/Image_champions/Amumu.png",
+            "name": "Amumu"
+        },
+        "Anivia": {
+            "imageUrl": "gs://leagueoflegends-1d3dc.appspot.com/Image_champions/Anivia.png",
+            "name": "Anivia"
+        },
+        "Annie": {
+            "imageUrl": "gs://leagueoflegends-1d3dc.appspot.com/Image_champions/Annie.png",
+            "name": "Annie"
+        },
+        "Ashe": {
+            "imageUrl": "gs://leagueoflegends-1d3dc.appspot.com/Image_champions/Ashe.png",
+            "name": "Ashe"
+        },
+        "Aurelion Sol": {
+            "imageUrl": "gs://leagueoflegends-1d3dc.appspot.com/Image_champions/Aurelion_Sol.png",
+            "name": "Aurelion Sol"
+        },
+        "Azir": {
+            "imageUrl": "gs://leagueoflegends-1d3dc.appspot.com/Image_champions/Azir.png",
+            "name": "Azir"
+        },
+        "Bard": {
+            "imageUrl": "gs://leagueoflegends-1d3dc.appspot.com/Image_champions/Bard.png",
+            "name": "Bard"
+        },
+        "Blitzcrank": {
+            "imageUrl": "gs://leagueoflegends-1d3dc.appspot.com/Image_champions/Blitzcrank.png",
+            "name": "Blitzcrank"
+        },
+        "Brand": {
+            "imageUrl": "gs://leagueoflegends-1d3dc.appspot.com/Image_champions/Brand.png",
+            "name": "Brand"
+        },
+        "Braum": {
+            "imageUrl": "gs://leagueoflegends-1d3dc.appspot.com/Image_champions/Braum.png",
+            "name": "Braum"
+        },
+        "Caithlyn": {
+            "imageUrl": "gs://leagueoflegends-1d3dc.appspot.com/Image_champions/Caithlyn.png",
+            "name": "Caithlyn"
+        },
+        "Camille": {
+            "imageUrl": "gs://leagueoflegends-1d3dc.appspot.com/Image_champions/Camille.png",
+            "name": "Camille"
+        },
+        "Cassionpeia": {
+            "imageUrl": "gs://leagueoflegends-1d3dc.appspot.com/Image_champions/Cassionpeia.png",
+            "name": "Cassionpeia"
+        },
+        "Ekko": {
+            "imageUrl": "gs://leagueoflegends-1d3dc.appspot.com/Image_champions/Ekko.png",
+            "name": "Ekko"
+        },
+        "Ezeal": {
+            "imageUrl": "gs://leagueoflegends-1d3dc.appspot.com/Image_champions/Ezeal.png",
+            "name": "Ezeal"
+        },
+        "Fiddlesticks": {
+            "imageUrl": "gs://leagueoflegends-1d3dc.appspot.com/Image_champions/Fiddlesticks.png",
+            "name": "Fiddlesticks"
+        },
+        "Fiora": {
+            "imageUrl": "gs://leagueoflegends-1d3dc.appspot.com/Image_champions/Fiora.png",
+            "name": "Fiora"
+        },
+        "Garen": {
+            "imageUrl": "gs://leagueoflegends-1d3dc.appspot.com/Image_champions/Garen.png",
+            "name": "Garen"
+        },
+        "Graves": {
+            "imageUrl": "gs://leagueoflegends-1d3dc.appspot.com/Image_champions/Graves.png",
+            "name": "Graves"
+        },
+        "Irelia": {
+            "imageUrl": "gs://leagueoflegends-1d3dc.appspot.com/Image_champions/Irelia.png",
+            "name": "Irelia"
+        },
+        "Jarvan IV": {
+            "imageUrl": "gs://leagueoflegends-1d3dc.appspot.com/Image_champions/Jarvan_IV.png",
+            "name": "Braum"
+        },
+        "Jax": {
+            "imageUrl": "gs://leagueoflegends-1d3dc.appspot.com/Image_champions/Jax.png",
+            "name": "Jax"
+        },
+        "Kai'Sa": {
+            "imageUrl": "gs://leagueoflegends-1d3dc.appspot.com/Image_champions/Kai'Sa.png",
+            "name": "Kai'Sa"
+        },
+        "Kayn": {
+            "imageUrl": "gs://leagueoflegends-1d3dc.appspot.com/Image_champions/Kayn.png",
+            "name": "Kayn"
+        },
+        "LeBlanc": {
+            "imageUrl": "gs://leagueoflegends-1d3dc.appspot.com/Image_champions/LeBlanc.png",
+            "name": "LeBlanc"
+        },
+        "Lee Sin": {
+            "imageUrl": "gs://leagueoflegends-1d3dc.appspot.com/Image_champions/Lee_Sin.png",
+            "name": "Lee Sin"
+        },
+        "Nasus": {
+            "imageUrl": "gs://leagueoflegends-1d3dc.appspot.com/Image_champions/Nasus.png",
+            "name": "Nasus"
+        },
+        "Ornn": {
+            "imageUrl": "gs://leagueoflegends-1d3dc.appspot.com/Image_champions/Ornn.png",
+            "name": "Ornn"
+        },
+        "Pyke": {
+            "imageUrl": "gs://leagueoflegends-1d3dc.appspot.com/Image_champions/Pyke.png",
+            "name": "Pyke"
+        },
+        "Rakan": {
+            "imageUrl": "gs://leagueoflegends-1d3dc.appspot.com/Image_champions/Rakan.png",
+            "name": "Rakan"
+        },
+        "Riven": {
+            "imageUrl": "gs://leagueoflegends-1d3dc.appspot.com/Image_champions/Riven.png",
+            "name": "Riven"
+        },
+        "Ryze": {
+            "imageUrl": "gs://leagueoflegends-1d3dc.appspot.com/Image_champions/Ryze.png",
+            "name": "Pyke"
+        },
+        "Singed": {
+            "imageUrl": "gs://leagueoflegends-1d3dc.appspot.com/Image_champions/Singed.png",
+            "name": "Singed"
+        },
+        "Taliyah": {
+            "imageUrl": "gs://leagueoflegends-1d3dc.appspot.com/Image_champions/Taliyah.png",
+            "name": "Taliyah"
+        },
+        "Thresh": {
+            "imageUrl": "gs://leagueoflegends-1d3dc.appspot.com/Image_champions/Thresh.png",
+            "name": "Thresh"
+        },
+        "Vayne": {
+            "imageUrl": "gs://leagueoflegends-1d3dc.appspot.com/Image_champions/Vayne=.png",
+            "name": "Pyke"
+        },
+        "Vladimir": {
+            "imageUrl": "gs://leagueoflegends-1d3dc.appspot.com/Image_champions/Vladimir.png",
+            "name": "Vladimir"
+        },
+        "Yasuo": {
+            "imageUrl": "gs://leagueoflegends-1d3dc.appspot.com/Image_champions/Yasuo.png",
+            "name": "Yasuo"
+        },
+        "Zed": {
+            "imageUrl": "gs://leagueoflegends-1d3dc.appspot.com/Image_champions/Zed.png",
+            "name": "Zed"
+        }
+    }
+}

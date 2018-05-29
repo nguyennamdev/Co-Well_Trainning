@@ -75,7 +75,6 @@
                 while (sqlite3_step(sqlite3_stmt) == SQLITE_ROW) {
                     // init arrDataRow;
                     arrDataRow = NSMutableArray.new;
-                    
                     // result total column
                     int totalColumnResult = sqlite3_column_count(sqlite3_stmt);
                     for (int i = 0; i < totalColumnResult; i++) {
@@ -83,7 +82,6 @@
                         if (dbDataAsChars != NULL){
                             [arrDataRow addObject:[NSString stringWithUTF8String:dbDataAsChars]];
                         }
-                        
                         // save name of columns
                         if (self.arrColumnsName.count != totalColumnResult){
                            [self.arrColumnsName addObject:[NSString stringWithUTF8String:sqlite3_column_name(sqlite3_stmt, i)]];
