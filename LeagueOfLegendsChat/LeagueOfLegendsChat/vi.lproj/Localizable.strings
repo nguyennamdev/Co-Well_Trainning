@@ -1,0 +1,29 @@
+/* 
+  Localizable.strings
+  LeagueOfLegendsChat
+
+  Created by Nguyen Nam on 5/30/18.
+  Copyright © 2018 Nguyen Nam. All rights reserved.
+*/
+
+
+"WelcomeApp" = "Chào mừng bạn đến với League Of Legends Chat";
+"Content First Intro"= "Hướng dẫn này có nghĩa là giới thiệu về League of Legends Chat và sẽ phác thảo cơ chế cơ bản của ứng dụng mà người mới bắt đầu sẽ cần biết";
+"App Features" = "Các tính năng của ứng dụng";
+"Content Second Intro" = "Bạn có thể trò chuyện với bạn và có thể gửi những hình ảnh vui nhộn";
+"Information about the app" = "Thông tin về ứng dụng";
+"Content Third Intro" = "Phát triển bởi Nguyen Nam\n\nKhởi tạo 29/5/2018\n\nHệ điều hành IOS";
+"Wrong email format" = "Sai định dạng email";
+"Please enter email" = "Vui lòng nhập email";
+"Please enter password" = "Vui lòng nhập mật khẩu";
+"Error" = "Lỗi";
+"Username" = "Tên người dùng";
+"Mail" = "Email";
+"Favorite Champion" = "Vị tướng ưa thích";
+"Select language app" = "Chọn ngôn ngữ";
+"Logout" = "Đăng xuất";
+"Edit username" = "Sửa tên người dùng";
+"Do you want to edit your name" = "Bạn có muốn sửa tên?";
+"Your name" = "Tên của bạn";
+"Cancel" = "Huỷ";
+"Change" = "Thay đổi";

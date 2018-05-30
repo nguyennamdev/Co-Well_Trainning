@@ -1,0 +1,30 @@
+/* 
+  Localizable.strings
+  LeagueOfLegendsChat
+
+  Created by Nguyen Nam on 5/30/18.
+  Copyright © 2018 Nguyen Nam. All rights reserved.
+*/
+
+
+"WelcomeApp" = "Welcome to League Of Legends Chat";
+"Content First Intro"  = "This guide is meant as an introduction to League of Legends Chat and will outline the basic mechanics of the app that beginners will need to know";
+"App Features" = "App Features";
+"Content Second Intro" = "You can chat with friends and can send the images to have fun";
+"Information about the app" = "Information about the app";
+"Content Third Intro" = "Developer by Nguyen Nam.\n\nInitial May 29, 2018\n\nOperating system IOS";
+"Wrong email format" = "Wrong email format";
+"Please enter email" = "Please enter email";
+"Please enter password" = "Please enter password";
+"Error" = "Error";
+"Username" = "Username";
+"Mail" = "Email";
+"Favorite Champion" =  "Favorite Champion";
+"Select language app"  = "Select language app";
+"Logout" = "Logout";
+"Edit username" = "Edit username";
+"Do you want to edit your name" = "Do you want to edit your name?";
+"Your name" = "Your name";
+"Cancel" = "Cancel";
+"Change" = "Change";
+

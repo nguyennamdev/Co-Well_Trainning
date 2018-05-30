@@ -25,6 +25,12 @@ class MessagesTableViewController: UITableViewController {
         ref = Database.database().reference()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
         
+        let logoutButtonBar = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogoutUser))
+        self.navigationItem.leftBarButtonItem = logoutButtonBar
+        
+        
+        let s = NSLocalizedString("Welcome", comment: "")
+        print(s)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,9 +52,17 @@ class MessagesTableViewController: UITableViewController {
     }
     
     // MARK:- Actions
-    
-    
-    
+    @objc private func handleLogoutUser(){
+        do {
+            try Auth.auth().signOut()
+        }catch let error{
+            print(error)
+        }
+        let loginViewController = LoginViewController()
+        // save user isn't logged in
+        UserDefaults.standard.setIsLoggedIn(value: false)
+        present(loginViewController, animated: true, completion: nil)
+    }
 }
 
 // MARK:- UITableViewDataSource

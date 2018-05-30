@@ -29,6 +29,12 @@
 		84B531EF20BB95AF00230950 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84B531EE20BB95AF00230950 /* Assets.xcassets */; };
 		84B531F220BB95AF00230950 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84B531F020BB95AF00230950 /* LaunchScreen.storyboard */; };
 		84B531FE20BB964F00230950 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84B531FD20BB964F00230950 /* GoogleService-Info.plist */; };
+		84B9ED2520BE3B0F0057C885 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84B9ED2720BE3B0F0057C885 /* Localizable.strings */; };
+		84B9ED2C20BE3FBC0057C885 /* Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B9ED2B20BE3FBC0057C885 /* Localizable.swift */; };
+		84B9ED2F20BE94180057C885 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B9ED2E20BE94180057C885 /* UserInfo.swift */; };
+		84B9ED3120BEA5F20057C885 /* BaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B9ED3020BEA5F20057C885 /* BaseCell.swift */; };
+		84B9ED3320BEA63B0057C885 /* UserProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B9ED3220BEA63B0057C885 /* UserProfileTableViewCell.swift */; };
+		84D475F120BD461900965E6A /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D475F020BD461900965E6A /* UserViewController.swift */; };
 		84D484F020BCE76C009F83BC /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D484EF20BCE76C009F83BC /* UIView.swift */; };
 		84D484F320BCFDD7009F83BC /* IntroAppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D484F120BCFDD7009F83BC /* IntroAppViewController.swift */; };
 		84D484F420BCFDD7009F83BC /* IntroAppViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84D484F220BCFDD7009F83BC /* IntroAppViewController.xib */; };
@@ -62,6 +68,15 @@
 		84B531F120BB95AF00230950 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		84B531F320BB95AF00230950 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84B531FD20BB964F00230950 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		84B9ED2120BE39EB0057C885 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Main.strings; sourceTree = "<group>"; };
+		84B9ED2220BE39EB0057C885 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		84B9ED2620BE3B0F0057C885 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Localizable.strings; sourceTree = "<group>"; };
+		84B9ED2920BE3B470057C885 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		84B9ED2B20BE3FBC0057C885 /* Localizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localizable.swift; sourceTree = "<group>"; };
+		84B9ED2E20BE94180057C885 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
+		84B9ED3020BEA5F20057C885 /* BaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCell.swift; sourceTree = "<group>"; };
+		84B9ED3220BEA63B0057C885 /* UserProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileTableViewCell.swift; sourceTree = "<group>"; };
+		84D475F020BD461900965E6A /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
 		84D484EF20BCE76C009F83BC /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		84D484F120BCFDD7009F83BC /* IntroAppViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroAppViewController.swift; sourceTree = "<group>"; };
 		84D484F220BCFDD7009F83BC /* IntroAppViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IntroAppViewController.xib; sourceTree = "<group>"; };
@@ -122,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				84B531EB20BB95AE00230950 /* Main.storyboard */,
+				84B531F020BB95AF00230950 /* LaunchScreen.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -147,7 +163,9 @@
 		840D52C420BBE7AA00AB3083 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				84B9ED3020BEA5F20057C885 /* BaseCell.swift */,
 				840D52C520BBE9EA00AB3083 /* ChampionCollectionCell.swift */,
+				84B9ED3220BEA63B0057C885 /* UserProfileTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -181,16 +199,17 @@
 		84B531E620BB95AE00230950 /* LeagueOfLegendsChat */ = {
 			isa = PBXGroup;
 			children = (
+				84B9ED2A20BE3FA00057C885 /* Helper */,
 				84B531FC20BB95CB00230950 /* Delegates */,
 				84B531FB20BB95C400230950 /* Common */,
 				84B531FA20BB95BE00230950 /* Models */,
 				840D52C420BBE7AA00AB3083 /* Cells */,
 				84B531F920BB95B900230950 /* ViewControllers */,
 				840D52B120BBA20100AB3083 /* Enums */,
-				840D52B220BBA21000AB3083 /* Extenstions */,
 				840D52B320BBA21A00AB3083 /* Storyboards */,
+				840D52B220BBA21000AB3083 /* Extenstions */,
+				84B9ED2720BE3B0F0057C885 /* Localizable.strings */,
 				84B531EE20BB95AF00230950 /* Assets.xcassets */,
-				84B531F020BB95AF00230950 /* LaunchScreen.storyboard */,
 				84B531F320BB95AF00230950 /* Info.plist */,
 				84B531FD20BB964F00230950 /* GoogleService-Info.plist */,
 			);
@@ -206,6 +225,7 @@
 				840D52AD20BBA1A500AB3083 /* LoginViewController */,
 				840D52BA20BBBD9D00AB3083 /* RegisterViewController */,
 				840D52C320BBE3EE00AB3083 /* ChampionsViewController */,
+				84D475EF20BD45DB00965E6A /* UserViewController */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -216,6 +236,7 @@
 				840D52C720BBF0D700AB3083 /* Champion.swift */,
 				84A12F3A20BC6A430040CFB1 /* User.swift */,
 				84D484F620BD01B5009F83BC /* Introduction.swift */,
+				84B9ED2E20BE94180057C885 /* UserInfo.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -235,6 +256,22 @@
 				84A12F3120BC17070040CFB1 /* ChampionDelegate.swift */,
 			);
 			path = Delegates;
+			sourceTree = "<group>";
+		};
+		84B9ED2A20BE3FA00057C885 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				84B9ED2B20BE3FBC0057C885 /* Localizable.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		84D475EF20BD45DB00965E6A /* UserViewController */ = {
+			isa = PBXGroup;
+			children = (
+				84D475F020BD461900965E6A /* UserViewController.swift */,
+			);
+			path = UserViewController;
 			sourceTree = "<group>";
 		};
 		84D484F520BCFDDC009F83BC /* IntroAppViewController */ = {
@@ -329,6 +366,7 @@
 				84B531F220BB95AF00230950 /* LaunchScreen.storyboard in Resources */,
 				84B531FE20BB964F00230950 /* GoogleService-Info.plist in Resources */,
 				84B531EF20BB95AF00230950 /* Assets.xcassets in Resources */,
+				84B9ED2520BE3B0F0057C885 /* Localizable.strings in Resources */,
 				84B531ED20BB95AE00230950 /* Main.storyboard in Resources */,
 				840D52BE20BBBDD600AB3083 /* RegisterViewController.xib in Resources */,
 				840D52C220BBE3EA00AB3083 /* ChampionsViewController.xib in Resources */,
@@ -405,6 +443,8 @@
 			files = (
 				84D484F020BCE76C009F83BC /* UIView.swift in Sources */,
 				84D484F720BD01B5009F83BC /* Introduction.swift in Sources */,
+				84B9ED2C20BE3FBC0057C885 /* Localizable.swift in Sources */,
+				84B9ED3320BEA63B0057C885 /* UserProfileTableViewCell.swift in Sources */,
 				840D52CC20BC06D800AB3083 /* ImageView+LoadWithUrl.swift in Sources */,
 				840D52C820BBF0D700AB3083 /* Champion.swift in Sources */,
 				840D52CA20BBF16300AB3083 /* Define.swift in Sources */,
@@ -420,7 +460,10 @@
 				84A12F3620BC5AC20040CFB1 /* UITextField+CheckTextIsEmail.swift in Sources */,
 				840D52B520BBA28500AB3083 /* UserDefaults+UserLoggin.swift in Sources */,
 				84B531E820BB95AE00230950 /* AppDelegate.swift in Sources */,
+				84B9ED3120BEA5F20057C885 /* BaseCell.swift in Sources */,
 				84A12F3220BC17070040CFB1 /* ChampionDelegate.swift in Sources */,
+				84B9ED2F20BE94180057C885 /* UserInfo.swift in Sources */,
+				84D475F120BD461900965E6A /* UserViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -431,6 +474,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				84B531EC20BB95AE00230950 /* Base */,
+				84B9ED2120BE39EB0057C885 /* vi */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -439,8 +483,18 @@
 			isa = PBXVariantGroup;
 			children = (
 				84B531F120BB95AF00230950 /* Base */,
+				84B9ED2220BE39EB0057C885 /* vi */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		84B9ED2720BE3B0F0057C885 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				84B9ED2620BE3B0F0057C885 /* vi */,
+				84B9ED2920BE3B470057C885 /* Base */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -450,6 +504,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -507,6 +562,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

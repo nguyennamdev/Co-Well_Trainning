@@ -19,18 +19,18 @@ extension UIView {
             leftAnchor.constraint(equalTo: left!, constant: constants!.left).isActive = true
         }
         if bottom != nil{
-            bottomAnchor.constraint(equalTo: bottom!, constant: constants!.bottom).isActive = true
+            bottomAnchor.constraint(equalTo: bottom!, constant: -constants!.bottom).isActive = true
         }
         if right != nil{
-            rightAnchor.constraint(equalTo: right!, constant: constants!.right).isActive = true
+            rightAnchor.constraint(equalTo: right!, constant: -constants!.right).isActive = true
         }
         
-        if size != nil{
-            if size?.width != nil{
-                widthAnchor.constraint(equalToConstant: size!.width).isActive = true
+        if let size = size{
+            if size.width != 0{
+                widthAnchor.constraint(equalToConstant: size.width).isActive = true
             }
-            if size?.height != nil{
-                heightAnchor.constraint(equalToConstant: size!.height).isActive = true
+            if size.height != 0{
+                heightAnchor.constraint(equalToConstant: size.height).isActive = true
             }
         }
     }

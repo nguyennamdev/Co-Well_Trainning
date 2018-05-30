@@ -22,9 +22,9 @@ class IntroAppViewController: UIViewController {
         super.viewDidLoad()
         
         // init default intro list
-        introList = [Introduction(title: "Welcome to League Of Legends Chat", backgroundImage: #imageLiteral(resourceName: "background"), contentImage: #imageLiteral(resourceName: "league-legends"), contentText: "This guide is meant as an introduction to League of Legends Chat and will outline the basic mechanics of the app that beginners will need to know"),
-                     Introduction(title: "App features", backgroundImage: #imageLiteral(resourceName: "background2"), contentImage: #imageLiteral(resourceName: "ahri-love-charm"), contentText: "You can chat with friends and can send the images to have fun"),
-                     Introduction(title: "Information about the app", backgroundImage: #imageLiteral(resourceName: "background3"), contentImage: #imageLiteral(resourceName: "yasuo"), contentText: "Developer by Nguyen Nam.\n\nInitial May 29, 2018\n\nOperating system IOS")
+        introList = [Introduction(title: "WelcomeApp".localized, backgroundImage: #imageLiteral(resourceName: "background"), contentImage: #imageLiteral(resourceName: "league-legends"), contentText: "Content First Intro".localized),
+                     Introduction(title: "App features".localized, backgroundImage: #imageLiteral(resourceName: "background2"), contentImage: #imageLiteral(resourceName: "ahri-love-charm"), contentText: "Content Second Intro".localized),
+                     Introduction(title: "Information about the app".localized, backgroundImage: #imageLiteral(resourceName: "background3"), contentImage: #imageLiteral(resourceName: "yasuo"), contentText: "Content Third Intro".localized)
         ]
         setupPageControl()
       

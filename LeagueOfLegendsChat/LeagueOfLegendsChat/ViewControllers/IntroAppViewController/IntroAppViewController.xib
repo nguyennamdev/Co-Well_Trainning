@@ -41,12 +41,12 @@
                         <constraint firstAttribute="height" constant="50" id="QOB-1f-T0f"/>
                     </constraints>
                 </pageControl>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b5R-o1-qj9">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b5R-o1-qj9">
                     <rect key="frame" x="309" y="617" width="50" height="50"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="50" id="ZNg-iD-Us6"/>
                     </constraints>
-                    <state key="normal" title="Next"/>
+                    <state key="normal" image="next"/>
                     <connections>
                         <action selector="nextPage:" destination="-1" eventType="touchUpInside" id="Djz-qD-F90"/>
                     </connections>
@@ -58,12 +58,12 @@
                         <constraint firstAttribute="height" constant="0.5" id="Kdf-wi-E88"/>
                     </constraints>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8qe-Ki-Vb6">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8qe-Ki-Vb6">
                     <rect key="frame" x="16" y="617" width="70" height="50"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="70" id="pfj-O7-Sft"/>
                     </constraints>
-                    <state key="normal" title="Previous"/>
+                    <state key="normal" image="back"/>
                     <connections>
                         <action selector="previousPage:" destination="-1" eventType="touchUpInside" id="qz8-d1-mGz"/>
                     </connections>
@@ -116,4 +116,8 @@
             <point key="canvasLocation" x="34.5" y="54.5"/>
         </view>
     </objects>
+    <resources>
+        <image name="back" width="32" height="32"/>
+        <image name="next" width="32" height="32"/>
+    </resources>
 </document>

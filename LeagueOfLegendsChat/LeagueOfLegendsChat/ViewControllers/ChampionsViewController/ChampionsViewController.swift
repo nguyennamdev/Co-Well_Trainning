@@ -17,7 +17,7 @@ class ChampionsViewController: UIViewController {
     let championSelected:IndexPath =  IndexPath()
     var championDelegate:ChampionDelegate?
     
-    
+    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet weak var championsCollectionView: UICollectionView!
     
     
@@ -26,14 +26,14 @@ class ChampionsViewController: UIViewController {
         
         ref = Database.database().reference()
         setupChampionsCollectionView()
+        
+        activityIndicatorView.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         observeChampions()
     }
-    
-    
     
     // MARK:- Private instance methods
     private func setupChampionsCollectionView(){
@@ -43,30 +43,36 @@ class ChampionsViewController: UIViewController {
     }
     
     private func observeChampions(){
+        // show actitityIndicatorView
+        activityIndicatorView.isHidden = false
+        activityIndicatorView.startAnimating()
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         ref.child("champions").observe(.value) { (snapshot) in
             let childrenSnapShot = snapshot.children.allObjects as! [DataSnapshot]
-            
-            for children in childrenSnapShot{
-                // get children key
-                let key = children.key
-                // observe with child key to get champion
-                self.ref.child("champions").child(key).observe(.value, with: { (snapshot2) in
-                    let value = snapshot2.value as! [String: Any]
-                    let name = value["name"]
-                    let imageUrl = value["imageUrl"]
-                    let champion = Champion(imageUrl: imageUrl as! String, name: name as! String)
-                    self.champions.append(champion)
-                })
+            for children in childrenSnapShot {
+                let value = children.value as! [String: Any]
+                let name = value["name"]
+                let imageUrl = value["imageUrl"]
+                let champion = Champion(imageUrl: imageUrl as! String, name: name as! String)
+                self.champions.append(champion)
             }
+            
             DispatchQueue.main.async {
                 print(self.champions.count)
                 self.championsCollectionView.reloadData()
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                // hide activity
+                self.activityIndicatorView.stopAnimating()
+                self.activityIndicatorView.isHidden = true
             }
         }
     }
     
+    // MARK:- Actions
+    
+    @IBAction func dismissSelf(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
+    }
 }
 
 // MARK:- Implement UICollectionViewDataSource

@@ -1,0 +1,9 @@
+
+/* Class = "UITabBarItem"; title = "Contact"; ObjectID = "SGB-Gd-6C8"; */
+"SGB-Gd-6C8.title" = "Danh bạ";
+
+/* Class = "UITabBarItem"; title = "User"; ObjectID = "aDD-Ec-Zjp"; */
+"aDD-Ec-Zjp.title" = "Cá nhân";
+
+/* Class = "UITabBarItem"; title = "Message"; ObjectID = "mZ8-x3-r3C"; */
+"mZ8-x3-r3C.title" = "Tin nhắn";

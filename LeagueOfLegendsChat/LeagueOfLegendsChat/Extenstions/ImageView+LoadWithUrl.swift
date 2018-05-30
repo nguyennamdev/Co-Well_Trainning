@@ -21,20 +21,21 @@ extension UIImageView {
             self.image = cachedImage
             return
         }
+        
         Storage.storage().reference(forURL: urlString).getData(maxSize: 1 * 1024 * 1024) { (data, error) in
             if error != nil{
                 print(error!)
                 return
             }
-            DispatchQueue.main.async {
-                if let downloadImage = UIImage(data: data!){
-                    // save to imageCache
-                    imageCache.setObject(downloadImage, forKey: urlString as AnyObject)
-                    self.image = downloadImage
-                }
+            
+            if let downloadImage = UIImage(data: data!){
+                // save to imageCache
+                imageCache.setObject(downloadImage, forKey: urlString as AnyObject)
+                self.image = downloadImage
             }
         }
     }
     
 }
+
 

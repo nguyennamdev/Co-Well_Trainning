@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RegisterViewController" customModule="LeagueOfLegendsChat" customModuleProvider="target">
             <connections>
+                <outlet property="actitityIndicator" destination="9mK-GO-mLT" id="mc2-eL-b45"/>
                 <outlet property="avatarChampionImage" destination="wso-V4-bU9" id="Mio-9y-6lc"/>
                 <outlet property="bottomRegisterViewConstaint" destination="7aF-Fa-VNd" id="2Ca-x8-NUe"/>
                 <outlet property="championNameLabel" destination="owf-ZC-iip" id="ski-De-5er"/>
@@ -147,6 +148,9 @@
                                     <integer key="value" value="5"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="handleRegisterAccount:" destination="-1" eventType="touchUpInside" id="MyQ-6x-jrK"/>
+                            </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="owf-ZC-iip">
                             <rect key="frame" x="86" y="342" width="217" height="21"/>
@@ -230,6 +234,10 @@
                         <action selector="dismissSelf:" destination="-1" eventType="touchUpInside" id="fjg-xe-rYj"/>
                     </connections>
                 </button>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="9mK-GO-mLT">
+                    <rect key="frame" x="169" y="32" width="37" height="37"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>

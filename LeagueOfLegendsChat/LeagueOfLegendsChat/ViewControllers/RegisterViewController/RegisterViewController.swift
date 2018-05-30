@@ -19,6 +19,9 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var avatarChampionImage: UIImageView!
     @IBOutlet weak var championNameLabel: UILabel!
     
+    @IBOutlet weak var actitityIndicator: UIActivityIndicatorView!
+    
+    
     var auth:Auth!
     var champion: Champion?
     var ref: DatabaseReference!
@@ -42,6 +45,9 @@ class RegisterViewController: UIViewController {
         
         // setup notification center
         setupNotificationCenter()
+        
+        actitityIndicator.stopAnimating()
+        actitityIndicator.isHidden = true
     }
     
     // MARK: - Private instance methods
@@ -62,6 +68,9 @@ class RegisterViewController: UIViewController {
                 print(error!)
                 return
             }
+            // show activity indicator
+            self.actitityIndicator.isHidden = false
+            self.actitityIndicator.startAnimating()
             // get uid to saved in fbdatabase
             if let uid = user?.uid{
                 let values = [Define.USER_NAME: name, Define.USER_EMAIL: email, Define.USER_CHAMPION_NAME: championName, Define.USER_CHAMPION_URL_IMAGE: championUrlImage]
@@ -71,11 +80,20 @@ class RegisterViewController: UIViewController {
     }
     private func registerUserIntoFirebaseDatabaseWithUID(uid: String, values:[String: Any]){
         self.ref.child("users").child(uid).updateChildValues(values) { (error, ref) in
+            // hide activity
+            self.actitityIndicator.isHidden = true
+            self.actitityIndicator.stopAnimating()
             if error != nil {
                 print(error!)
                 return
             }
-            self.dismiss(animated: true, completion: nil)
+            // present alert
+            let alertViewController = UIAlertController(title: "Successful!", message: "You have successfully registered your account", preferredStyle: .alert)
+            let cancelAction = UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+                self.dismiss(animated: true, completion: nil)
+            })
+            alertViewController.addAction(cancelAction)
+            self.present(alertViewController, animated: true, completion: nil)
         }
     }
     
@@ -97,14 +115,24 @@ class RegisterViewController: UIViewController {
         if emailTextField.text == "" || nameTextField.text == "" || passwordTextField.text == "" || confirmPasswordTextField.text == "" || championNameLabel.text == " "{
             self.presentAlertWithoutAction(title: "Waring", and: "You must enter enough info!")
         }else{
-            // if confirmPassword not equal password, it will don't allow register account
-            if confirmPasswordTextField.text != passwordTextField.text{
-                // show waring message to user
-                confirmPasswordTextField.isSecureTextEntry = false
-                confirmPasswordTextField.text = "Don't match password"
-                confirmPasswordTextField.textColor = UIColor.red
+            // check format email
+            if emailTextField.checkTextIsEmail(){
+                // if confirmPassword not equal password, it will don't allow register account
+                if confirmPasswordTextField.text != passwordTextField.text{
+                    // show waring message to user
+                    confirmPasswordTextField.isSecureTextEntry = false
+                    confirmPasswordTextField.text = "Don't match password"
+                    confirmPasswordTextField.textColor = UIColor.red
+                }else{
+                    if (passwordTextField.text?.count)! < 6{
+                        self.presentAlertWithoutAction(title: "Error", and: "The password length must rather 6 characters")
+                    }else{
+                        registerAccount()
+                    }
+                }
             }else{
-                registerAccount()
+                emailTextField.text = "Wrong format email"
+                emailTextField.textColor = UIColor.red
             }
         }
     }
@@ -147,8 +175,11 @@ extension RegisterViewController: UITextFieldDelegate {
         if textField.isEqual(confirmPasswordTextField){
             confirmPasswordTextField.text = ""
             confirmPasswordTextField.isSecureTextEntry = true
-            confirmPasswordTextField.textColor = UIColor.black
         }
+        if textField.isEqual(emailTextField){
+            emailTextField.text = ""
+        }
+        textField.textColor = UIColor.black
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

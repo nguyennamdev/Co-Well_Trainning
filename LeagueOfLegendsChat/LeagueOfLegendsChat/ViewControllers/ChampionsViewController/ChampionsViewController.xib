@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChampionsViewController" customModule="LeagueOfLegendsChat" customModuleProvider="target">
             <connections>
+                <outlet property="activityIndicatorView" destination="c1A-Kw-Bl0" id="Z7h-pP-3sV"/>
                 <outlet property="championsCollectionView" destination="zsU-Gu-WjQ" id="x7r-At-zKr"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -31,16 +32,39 @@
                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                     </collectionViewFlowLayout>
                 </collectionView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fet-ns-gpS">
+                    <rect key="frame" x="12" y="32" width="50" height="50"/>
+                    <color key="backgroundColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="0.54120734280000005" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="ikf-LG-dQY"/>
+                        <constraint firstAttribute="width" constant="50" id="nI4-a4-AUp"/>
+                    </constraints>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <state key="normal" image="close"/>
+                    <connections>
+                        <action selector="dismissSelf:" destination="-1" eventType="touchUpInside" id="jWY-OF-QOO"/>
+                    </connections>
+                </button>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="c1A-Kw-Bl0">
+                    <rect key="frame" x="169" y="143" width="37" height="37"/>
+                </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="zsU-Gu-WjQ" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="170" id="7Q8-uW-23I"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="zsU-Gu-WjQ" secondAttribute="trailing" constant="24" id="P2u-L9-L7m"/>
                 <constraint firstItem="zsU-Gu-WjQ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="24" id="Xf7-Kw-w0j"/>
+                <constraint firstItem="Fet-ns-gpS" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="12" id="e21-rz-ueD"/>
+                <constraint firstItem="c1A-Kw-Bl0" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="iXU-f6-nCF"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="zsU-Gu-WjQ" secondAttribute="bottom" constant="50" id="iwc-q1-WGV"/>
+                <constraint firstItem="zsU-Gu-WjQ" firstAttribute="top" secondItem="c1A-Kw-Bl0" secondAttribute="bottom" constant="10" id="k9c-GJ-Cqb"/>
+                <constraint firstItem="Fet-ns-gpS" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="12" id="oNj-oj-lt9"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="-157" y="39"/>
         </view>
     </objects>
+    <resources>
+        <image name="close" width="16" height="16"/>
+    </resources>
 </document>

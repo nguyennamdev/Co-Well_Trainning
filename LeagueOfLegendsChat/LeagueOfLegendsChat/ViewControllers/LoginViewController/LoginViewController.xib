@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController" customModule="LeagueOfLegendsChat" customModuleProvider="target">
             <connections>
+                <outlet property="activityIndicator" destination="AAc-OT-Ekk" id="hHy-oD-FFW"/>
                 <outlet property="emailTextField" destination="QGL-bO-JZL" id="3Od-93-XeT"/>
                 <outlet property="passwordTextField" destination="f6y-IQ-8nC" id="ihr-o1-iN1"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -148,10 +149,14 @@
                         <constraint firstAttribute="trailing" secondItem="b4S-5h-vRg" secondAttribute="trailing" constant="24" id="ttx-fc-xTv"/>
                     </constraints>
                 </view>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="AAc-OT-Ekk">
+                    <rect key="frame" x="169" y="199" width="37" height="37"/>
+                </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="In5-vi-OH4" secondAttribute="trailing" id="3AR-Qw-4A0"/>
+                <constraint firstItem="wgf-2h-U1m" firstAttribute="top" secondItem="AAc-OT-Ekk" secondAttribute="bottom" id="DWt-R7-cXn"/>
                 <constraint firstItem="In5-vi-OH4" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="IJv-hG-eXl"/>
                 <constraint firstItem="sYl-ZP-Tm5" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="56" id="TJN-Ks-OmK"/>
                 <constraint firstItem="In5-vi-OH4" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="VqE-ZK-jJt"/>
@@ -160,6 +165,7 @@
                 <constraint firstItem="sYl-ZP-Tm5" firstAttribute="centerX" secondItem="In5-vi-OH4" secondAttribute="centerX" id="fln-fq-Guf"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="In5-vi-OH4" secondAttribute="bottom" id="hBG-yO-0tO"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="wgf-2h-U1m" secondAttribute="trailing" constant="24" id="pDY-BW-VFQ"/>
+                <constraint firstItem="AAc-OT-Ekk" firstAttribute="centerX" secondItem="wgf-2h-U1m" secondAttribute="centerX" id="sKJ-an-FzA"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="178" y="11"/>
