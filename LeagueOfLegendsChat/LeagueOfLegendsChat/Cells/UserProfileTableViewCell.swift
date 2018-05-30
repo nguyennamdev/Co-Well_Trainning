@@ -20,7 +20,7 @@ class UserProfileTableViewCell : BaseCell{
     let bubbleImageView:UIImageView = {
         let image = UIImageView()
         image.clipsToBounds = true
-        image.contentMode = .scaleAspectFit
+        image.contentMode = .scaleAspectFill
         return image
     }()
     let titleLabel:UILabel = {
@@ -30,7 +30,8 @@ class UserProfileTableViewCell : BaseCell{
     }()
     let contentLabel:UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.gray
+        //113,84,49
+        label.textColor = UIColor(red: 113/255, green: 84/255, blue: 49/255, alpha: 1)
         return label
     }()
     

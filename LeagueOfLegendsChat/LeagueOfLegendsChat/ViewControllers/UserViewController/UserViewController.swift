@@ -10,6 +10,8 @@ import UIKit
 import FirebaseAuth
 import FirebaseDatabase
 
+private let appLanguagesKey = "AppleLanguages"
+
 class UserViewController: UIViewController {
     
     
@@ -17,10 +19,11 @@ class UserViewController: UIViewController {
     @IBOutlet weak var profileUserTableView: UITableView!
     @IBOutlet weak var championName: UILabel!
     @IBOutlet weak var championFavotiteImageView: UIImageView!
+    
     var ref:DatabaseReference!
     var userInfos:[UserInfo]?
     let cellId = "cellId"
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -58,6 +61,119 @@ class UserViewController: UIViewController {
         }
     }
     
+    fileprivate func showAlertToUpdateUserName(){
+        let alert = UIAlertController(title: "Edit username".localized, message: "Do you want to edit your name".localized, preferredStyle: .alert)
+        alert.addTextField(configurationHandler: { (textField) in
+            textField.placeholder = "Your name".localized
+        })
+        let changeAction = UIAlertAction(title: "Change".localized, style: .default, handler: { (action) in
+            if let username = alert.textFields?.first?.text {
+                // update username
+                if let uid = Auth.auth().currentUser?.uid {
+                    self.ref.child("users/\(uid)/name").setValue(username)
+                }
+            }
+        })
+        alert.addAction(changeAction)
+        let cancelAction = UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    fileprivate func checkCurrentLanguageToChange(languageWillChange: Language){
+        let currentLanguage = Language.language
+        if currentLanguage == languageWillChange{
+            self.presentAlertWithoutAction(title: "Sorry".localized, and: "The current language is language you selected".localized)
+        }else{
+            self.presentAlertWithoutAction(title: "Changed".localized, and: "You must restart app that it will change language of app".localized)
+            Language.language = languageWillChange
+        }
+        
+    }
+    
+    fileprivate func showAlertToSelectLanguage(){
+        let alert = UIAlertController(title: "Select language".localized, message: nil, preferredStyle: .actionSheet)
+        // init action language
+        // if current language not equal language selected, it will show alert requied restart app
+        // else return don't do anything
+        let enAction = UIAlertAction(title: "English", style: .default) { (action) in
+            self.checkCurrentLanguageToChange(languageWillChange: Language.english)
+        }
+        let viAction = UIAlertAction(title: "Vietnamese", style: .default) { (action) in
+            self.checkCurrentLanguageToChange(languageWillChange: Language.vietnamese)
+        }
+        alert.addAction(enAction)
+        alert.addAction(viAction)
+        let cancelAction = UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        present(alert, animated: true, completion: nil)
+    }
+
+    private func handleChangePassword(oldPass:String, newPass:String, confirmPass: String){
+        if newPass != confirmPass {
+            self.presentAlertWithoutAction(title: "Wrong", and: "Confirm password don't match with new password")
+        }else{
+            let user = Auth.auth().currentUser
+            if let email = self.userInfos?[1].content{
+                let credential = EmailAuthProvider.credential(withEmail: email, password: oldPass)
+                user?.reauthenticate(with: credential, completion: { (error) in
+                    if error != nil{
+                        self.presentAlertWithoutAction(title: "Error", and: (error?.localizedDescription)!)
+                        return
+                    }
+                    // change to new password
+                    user?.updatePassword(to: newPass, completion: { (error) in
+                        if error != nil {
+                            self.presentAlertWithoutAction(title: "Error".localized, and: (error?.localizedDescription)!)
+                            return
+                        }else{
+                            self.presentAlertWithoutAction(title: "Success".localized, and: "Change password was successful!".localized)
+                        }
+                    })
+                })
+            }
+        }
+        
+    }
+    
+    private func showAlertToChangePassword(){
+        let alertViewController = UIAlertController(title: "Change password".localized, message: "Do you want to change password".localized, preferredStyle: .alert)
+        // add some text field
+        alertViewController.addTextField { (oldPasswordTextField) in
+            oldPasswordTextField.placeholder = "Old password".localized
+        }
+        alertViewController.addTextField { (newPasswordTextField) in
+            newPasswordTextField.placeholder = "New password".localized
+        }
+        alertViewController.addTextField { (confirmPasswordTextField) in
+            confirmPasswordTextField.placeholder = "Confirm password".localized
+        }
+        // add  2 actions
+        let changeAction = UIAlertAction(title: "Change".localized, style: .default) { (action) in
+            if let oldPassword = alertViewController.textFields?.first?.text,
+                let newPassword = alertViewController.textFields?[1].text,
+                let confirmPassword = alertViewController.textFields?.last?.text {
+                self.handleChangePassword(oldPass: oldPassword, newPass: newPassword, confirmPass: confirmPassword)
+            }
+        }
+        alertViewController.addAction(changeAction)
+        let cancelAction = UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil)
+        alertViewController.addAction(cancelAction)
+        present(alertViewController, animated: true, completion: nil)
+    }
+    
+    private func handleLogoutUser(){
+        do {
+            try Auth.auth().signOut()
+        }catch let error{
+            print(error)
+        }
+        let loginViewController = LoginViewController()
+        // save user isn't logged in
+        UserDefaults.standard.setIsLoggedIn(value: false)
+        present(loginViewController, animated: true, completion: nil)
+    }
+    
     private func parseUserProfile(user:User){
         self.championFavotiteImageView.loadImageUsingCacheWithUrl(urlString: user.championUrlImage!)
         self.championName.text = user.championName
@@ -67,6 +183,7 @@ class UserViewController: UIViewController {
             UserInfo(bubbleColor: UIColor.green, icon: #imageLiteral(resourceName: "at"), title: "Mail".localized, content: user.email),
             UserInfo(bubbleColor: #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1), icon: #imageLiteral(resourceName: "Kai'Sa"), title: "Favorite Champion".localized, content: user.championName),
             UserInfo(bubbleColor: #colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1), icon: #imageLiteral(resourceName: "translate"), title: "Select language app".localized, content: ""),
+            UserInfo(bubbleColor: #colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1), icon: #imageLiteral(resourceName: "locked"), title: "Change password".localized, content: ""),
             UserInfo(bubbleColor: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), icon: #imageLiteral(resourceName: "logout"), title: "Logout".localized, content: "")
         ]
         self.profileUserTableView.reloadData()
@@ -87,7 +204,7 @@ extension UserViewController : UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId , for: indexPath) as? UserProfileTableViewCell
-        if indexPath.row != 2{
+        if indexPath.row != 1{
             cell?.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
         }
         cell?.userInfo = self.userInfos?[indexPath.row]
@@ -101,28 +218,44 @@ extension UserViewController : UITableViewDataSource{
 // MARK:- UITableViewDelegate
 extension UserViewController : UITableViewDelegate{
     
-    private func showAlertToUpdateUserName(){
-        let alert = UIAlertController(title: "Edit username".localized, message: "Do you want to edit your name".localized, preferredStyle: .alert)
-        alert.addTextField(configurationHandler: { (textField) in
-            textField.placeholder = "Your name".localized
-        })
-        let changeAction = UIAlertAction(title: "Change".localized, style: .default, handler: { (action) in
-            //
-        })
-        alert.addAction(changeAction)
-        let cancelAction = UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil)
-        alert.addAction(cancelAction)
-        present(alert, animated: true, completion: nil)
-    }
+  
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
-          showAlertToUpdateUserName()
+            showAlertToUpdateUserName()
+        case 1: // don't allow to change email
+            break
+        case 2:
+            let championsViewController = ChampionsViewController(nibName: "ChampionsViewController", bundle: nil)
+            championsViewController.modalPresentationStyle = .overCurrentContext
+            championsViewController.championDelegate = self
+            present(championsViewController, animated: true, completion: nil)
+        case 3:
+            showAlertToSelectLanguage()
+        case 4:
+            showAlertToChangePassword()
+        case 5:
+            // logout user
+            handleLogoutUser()
         default:
             return
         }
     }
-   
+}
+
+// MARK:- ChampionDelegate
+extension UserViewController : ChampionDelegate{
+    
+    func selectedChampion(champion: Champion) {
+        // update champion favorite
+        if let uid = Auth.auth().currentUser?.uid{
+            self.ref.child("users/\(uid)/championName").setValue(champion.name)
+            self.ref.child("users/\(uid)/championUrlImage").setValue(champion.imageUrl)
+        }        
+    }
+    
+    
+    
     
 }

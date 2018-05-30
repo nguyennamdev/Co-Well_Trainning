@@ -13,7 +13,7 @@
         <!--User-->
         <scene sceneID="blU-hN-WHj">
             <objects>
-                <viewController id="EoA-8E-g1D" customClass="UserViewController" customModule="LeagueOfLegendsChat" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="currentContext" id="EoA-8E-g1D" customClass="UserViewController" customModule="LeagueOfLegendsChat" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hJI-se-HYT">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -55,7 +55,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="siA-qu-by2">
-                                <rect key="frame" x="4" y="340" width="367" height="274"/>
+                                <rect key="frame" x="4" y="316" width="367" height="298"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellId" textLabel="xUg-k9-NMi" detailTextLabel="wZO-Qq-uVM" style="IBUITableViewCellStyleValue1" id="wyL-s3-YqZ">
@@ -94,7 +94,7 @@
                             <constraint firstItem="Bxq-rA-UBM" firstAttribute="bottom" secondItem="siA-qu-by2" secondAttribute="bottom" constant="4" id="6JB-AU-SBO"/>
                             <constraint firstItem="siA-qu-by2" firstAttribute="leading" secondItem="Bxq-rA-UBM" secondAttribute="leading" constant="4" id="6aI-5e-qwY"/>
                             <constraint firstItem="nYs-eU-2fn" firstAttribute="top" secondItem="HCc-hX-d3s" secondAttribute="bottom" constant="-12" id="B31-by-QCX"/>
-                            <constraint firstItem="siA-qu-by2" firstAttribute="top" secondItem="nYs-eU-2fn" secondAttribute="bottom" constant="32" id="PaE-Qi-92o"/>
+                            <constraint firstItem="siA-qu-by2" firstAttribute="top" secondItem="nYs-eU-2fn" secondAttribute="bottom" constant="8" id="PaE-Qi-92o"/>
                             <constraint firstItem="Bxq-rA-UBM" firstAttribute="trailing" secondItem="siA-qu-by2" secondAttribute="trailing" constant="4" id="StR-13-Lae"/>
                             <constraint firstItem="nYs-eU-2fn" firstAttribute="leading" secondItem="Bxq-rA-UBM" secondAttribute="leading" constant="16" id="YKk-M4-Qd3"/>
                         </constraints>
@@ -110,7 +110,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lbR-sG-5iR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-572" y="403.44827586206901"/>
+            <point key="canvasLocation" x="-943" y="389"/>
         </scene>
         <!--Contact-->
         <scene sceneID="gAk-kI-i21">

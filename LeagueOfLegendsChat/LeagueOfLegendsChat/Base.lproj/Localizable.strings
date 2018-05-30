@@ -27,4 +27,36 @@
 "Your name" = "Your name";
 "Cancel" = "Cancel";
 "Change" = "Change";
+"Select language" = "Select language";
+"Changed" = "Changed";
+"You must restart app that it will change language of app" = "You must restart app that it will change language of app";
+"Sorry" = "Sorry";
+"The current language is language you selected" = "The current language is language you selected";
+"Change password" = "Change password";
+"Do you want to change password" = "Do you want to change password?";
+"Old password" = "Old password";
+"New password" = "New password";
+"Confirm password" = "Confirm password";
+"Wrong" = "Wrong";
+"Confirm password don't match with new password" = "Confirm password don't match with new password";
+"Success" = "Successful!";
+"Change password was successful!" = "Change password was successful!";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

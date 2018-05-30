@@ -27,3 +27,32 @@
 "Your name" = "Tên của bạn";
 "Cancel" = "Huỷ";
 "Change" = "Thay đổi";
+"Select language" = "Chọn ngôn ngữ";
+"You must restart app that it will change language of app" = "Bạn phải khởi động lại ứng dụng, ứng dụng sẽ thay đổi ngôn ngữ";
+"Sorry" = "Xin lỗi";
+"The current language is language you selected" = "Ngôn ngữ bạn chọn cũng là ngôn ngữ hiện tại";
+"Change password" = "Đổi mật khẩu";
+"Do you want to change password" = "Bạn có muốn đổi mật khẩu ?";
+"Old password" = "Mật khẩu cũ";
+"New password" = "Mật khẩu mới";
+"Confirm password" = "Nhập lại mật khẩu mới";
+"Wrong" = "Sai";
+"Confirm password don't match with new password" = "Nhập lại mật khẩu mới không trùng với mật khẩu mới";
+"Success" = "Thành công!";
+"Change password was successful!" = "Thay đổi mật khẩu mới thành công!";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

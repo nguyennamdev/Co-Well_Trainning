@@ -22,6 +22,7 @@ enum Language: String {
                 let language = Language(rawValue: languageCode){
                 return language
             }else{
+                // get current language
                 let preperredLanguage = NSLocale.preferredLanguages[0] as String
                 let index = preperredLanguage.index(preperredLanguage.startIndex, offsetBy: 2)
                 
