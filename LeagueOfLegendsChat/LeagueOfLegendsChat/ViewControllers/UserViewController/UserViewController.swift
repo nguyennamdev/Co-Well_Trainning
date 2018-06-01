@@ -141,12 +141,15 @@ class UserViewController: UIViewController {
         // add some text field
         alertViewController.addTextField { (oldPasswordTextField) in
             oldPasswordTextField.placeholder = "Old password".localized
+            oldPasswordTextField.isSecureTextEntry = true
         }
         alertViewController.addTextField { (newPasswordTextField) in
             newPasswordTextField.placeholder = "New password".localized
+            newPasswordTextField.isSecureTextEntry = true
         }
         alertViewController.addTextField { (confirmPasswordTextField) in
             confirmPasswordTextField.placeholder = "Confirm password".localized
+            confirmPasswordTextField.isSecureTextEntry = true
         }
         // add  2 actions
         let changeAction = UIAlertAction(title: "Change".localized, style: .default) { (action) in
@@ -183,7 +186,7 @@ class UserViewController: UIViewController {
             UserInfo(bubbleColor: UIColor.green, icon: #imageLiteral(resourceName: "at"), title: "Mail".localized, content: user.email),
             UserInfo(bubbleColor: #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1), icon: #imageLiteral(resourceName: "Kai'Sa"), title: "Favorite Champion".localized, content: user.championName),
             UserInfo(bubbleColor: #colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1), icon: #imageLiteral(resourceName: "translate"), title: "Select language app".localized, content: ""),
-            UserInfo(bubbleColor: #colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1), icon: #imageLiteral(resourceName: "locked"), title: "Change password".localized, content: ""),
+            UserInfo(bubbleColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), icon: #imageLiteral(resourceName: "locked"), title: "Change password".localized, content: ""),
             UserInfo(bubbleColor: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), icon: #imageLiteral(resourceName: "logout"), title: "Logout".localized, content: "")
         ]
         self.profileUserTableView.reloadData()

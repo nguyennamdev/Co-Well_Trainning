@@ -1,0 +1,27 @@
+
+/* Class = "UIButton"; normalTitle = "Register"; ObjectID = "2tU-V8-A8v"; */
+"2tU-V8-A8v.normalTitle" = "Đăng ký";
+
+/* Class = "UILabel"; text = "Name"; ObjectID = "71j-kG-sCe"; */
+"71j-kG-sCe.text" = "Tên";
+
+/* Class = "UIButton"; normalTitle = " Choose"; ObjectID = "R3I-ml-nFg"; */
+"R3I-ml-nFg.normalTitle" = " Chọn";
+
+/* Class = "UILabel"; text = "Confirm password"; ObjectID = "UNt-o6-d5K"; */
+"UNt-o6-d5K.text" = "Xác thực mật khẩu";
+
+/* Class = "UILabel"; text = "Email"; ObjectID = "gQh-rP-77c"; */
+"gQh-rP-77c.text" = "Email";
+
+/* Class = "UILabel"; text = "Register Account"; ObjectID = "lDB-yC-s0l"; */
+"lDB-yC-s0l.text" = "Đăng ký tài khoản";
+
+/* Class = "UILabel"; text = " "; ObjectID = "owf-ZC-iip"; */
+"owf-ZC-iip.text" = " ";
+
+/* Class = "UILabel"; text = "Password"; ObjectID = "qt6-lV-Wi3"; */
+"qt6-lV-Wi3.text" = "Mật khẩu";
+
+/* Class = "UILabel"; text = "Choose your favorite champion"; ObjectID = "xbz-Zd-cFN"; */
+"xbz-Zd-cFN.text" = "Chọn vị tướng bạn yêu thích";

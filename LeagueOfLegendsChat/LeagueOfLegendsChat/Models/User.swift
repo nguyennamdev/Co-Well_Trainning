@@ -15,6 +15,8 @@ class User{
     var email:String!
     var championName:String!
     var championUrlImage:String?
+    var contacts:[String]?
+    var contactsRequest:[String]?
     
     init() {
         
