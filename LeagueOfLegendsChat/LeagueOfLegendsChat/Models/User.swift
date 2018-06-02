@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import FirebaseDatabase
 
 class User{
     
@@ -23,10 +24,30 @@ class User{
     }
     
     func setValueForKeys(values:[String: Any]){
-        self.name = values[Define.USER_NAME] as! String
-        self.email = values[Define.USER_EMAIL] as! String
-        self.championName = values[Define.USER_CHAMPION_NAME] as! String
-        self.championUrlImage = values[Define.USER_CHAMPION_URL_IMAGE] as? String
+        self.name = values[Define.NAME_STRING] as! String
+        self.email = values[Define.EMAIL_STRING] as! String
+        self.championName = values[Define.CHAMPION_NAME] as! String
+        self.championUrlImage = values[Define.CHAMPION_URL_IMAGE] as? String
+    }
+    
+    func setContactsRequest(snapshot:DataSnapshot){
+       let snapshotChildrens = snapshot.childSnapshot(forPath: Define.CONTACT_REQUEST).children.allObjects as? [DataSnapshot]
+        if let childrens = snapshotChildrens{
+            self.contactsRequest = [String]()
+            for child in childrens{
+                self.contactsRequest?.append(child.value as! String)
+            }
+        }
+    }
+    
+    func setContacts(snapshot:DataSnapshot){
+        let snapshotChildres = snapshot.childSnapshot(forPath: Define.CONTACTS).children.allObjects as? [DataSnapshot]
+        if let chilrens = snapshotChildres{
+            self.contacts = [String]()
+            for child in chilrens{
+                self.contacts?.append(child.value as! String)
+            }
+        }
     }
     
 }

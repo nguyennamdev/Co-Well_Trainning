@@ -73,7 +73,7 @@ class RegisterViewController: UIViewController {
             self.actitityIndicator.startAnimating()
             // get uid to saved in fbdatabase
             if let uid = user?.uid{
-                let values = [Define.USER_NAME: name, Define.USER_EMAIL: email, Define.USER_CHAMPION_NAME: championName, Define.USER_CHAMPION_URL_IMAGE: championUrlImage]
+                let values = [Define.NAME_STRING: name, Define.EMAIL_STRING: email, Define.CHAMPION_NAME: championName, Define.CHAMPION_URL_IMAGE: championUrlImage]
                 self.registerUserIntoFirebaseDatabaseWithUID(uid: uid, values: values)
             }
         }
@@ -88,7 +88,7 @@ class RegisterViewController: UIViewController {
                 return
             }
             // present alert
-            let alertViewController = UIAlertController(title: "Successful!", message: "You have successfully registered your account", preferredStyle: .alert)
+            let alertViewController = UIAlertController(title: "Success".localized, message: "You have successfully registered your account".localized, preferredStyle: .alert)
             let cancelAction = UIAlertAction(title: "Ok", style: .default, handler: { (action) in
                 self.dismiss(animated: true, completion: nil)
             })
@@ -113,7 +113,7 @@ class RegisterViewController: UIViewController {
     
     @IBAction func handleRegisterAccount(_ sender: UIButton) {
         if emailTextField.text == "" || nameTextField.text == "" || passwordTextField.text == "" || confirmPasswordTextField.text == "" || championNameLabel.text == " "{
-            self.presentAlertWithoutAction(title: "Waring", and: "You must enter enough info!")
+            self.presentAlertWithoutAction(title: "Waring".localized, and: "You must enter enough info!".localized, completion: nil)
         }else{
             // check format email
             if emailTextField.checkTextIsEmail(){
@@ -121,17 +121,17 @@ class RegisterViewController: UIViewController {
                 if confirmPasswordTextField.text != passwordTextField.text{
                     // show waring message to user
                     confirmPasswordTextField.isSecureTextEntry = false
-                    confirmPasswordTextField.text = "Don't match password"
+                    confirmPasswordTextField.text = "Don't match password".localized
                     confirmPasswordTextField.textColor = UIColor.red
                 }else{
                     if (passwordTextField.text?.count)! < 6{
-                        self.presentAlertWithoutAction(title: "Error", and: "The password length must rather 6 characters")
+                        self.presentAlertWithoutAction(title: "Error".localized, and: "The password length must rather 6 characters".localized, completion: nil)
                     }else{
                         registerAccount()
                     }
                 }
             }else{
-                emailTextField.text = "Wrong format email"
+                emailTextField.text = "Wrong format email".localized
                 emailTextField.textColor = UIColor.red
             }
         }

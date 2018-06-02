@@ -24,7 +24,7 @@ class MessagesTableViewController: UITableViewController {
         
         ref = Database.database().reference()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
-    
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -22,7 +22,7 @@ class Champion {
     }
     
     func setValueWithDictionary(dict: NSDictionary){
-        self.imageUrl = dict.value(forKey: Define.CHAMPION_IMAGE_URL) as? String
+        self.imageUrl = dict.value(forKey: Define.CHAMPION_URL_IMAGE) as? String
         self.name = dict.value(forKey: Define.CHAMPION_NAME) as? String
     }
     

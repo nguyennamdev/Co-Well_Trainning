@@ -56,6 +56,8 @@ class UserViewController: UIViewController {
             let user = User()
             user.id = snapshot.key
             user.setValueForKeys(values: values!)
+            user.setContactsRequest(snapshot: snapshot)
+            user.setContacts(snapshot: snapshot)
             // load profile user
             self.parseUserProfile(user: user)
         }
@@ -83,9 +85,9 @@ class UserViewController: UIViewController {
     fileprivate func checkCurrentLanguageToChange(languageWillChange: Language){
         let currentLanguage = Language.language
         if currentLanguage == languageWillChange{
-            self.presentAlertWithoutAction(title: "Sorry".localized, and: "The current language is language you selected".localized)
+            self.presentAlertWithoutAction(title: "Sorry".localized, and: "The current language is language you selected".localized, completion: nil)
         }else{
-            self.presentAlertWithoutAction(title: "Changed".localized, and: "You must restart app that it will change language of app".localized)
+            self.presentAlertWithoutAction(title: "Changed".localized, and: "You must restart app that it will change language of app".localized, completion: nil)
             Language.language = languageWillChange
         }
         
@@ -111,23 +113,23 @@ class UserViewController: UIViewController {
 
     private func handleChangePassword(oldPass:String, newPass:String, confirmPass: String){
         if newPass != confirmPass {
-            self.presentAlertWithoutAction(title: "Wrong", and: "Confirm password don't match with new password")
+            self.presentAlertWithoutAction(title: "Wrong", and: "Confirm password don't match with new password", completion: nil)
         }else{
             let user = Auth.auth().currentUser
             if let email = self.userInfos?[1].content{
                 let credential = EmailAuthProvider.credential(withEmail: email, password: oldPass)
                 user?.reauthenticate(with: credential, completion: { (error) in
                     if error != nil{
-                        self.presentAlertWithoutAction(title: "Error", and: (error?.localizedDescription)!)
+                        self.presentAlertWithoutAction(title: "Error", and: (error?.localizedDescription)!, completion: nil)
                         return
                     }
                     // change to new password
                     user?.updatePassword(to: newPass, completion: { (error) in
                         if error != nil {
-                            self.presentAlertWithoutAction(title: "Error".localized, and: (error?.localizedDescription)!)
+                            self.presentAlertWithoutAction(title: "Error".localized, and: (error?.localizedDescription)!, completion: nil)
                             return
                         }else{
-                            self.presentAlertWithoutAction(title: "Success".localized, and: "Change password was successful!".localized)
+                            self.presentAlertWithoutAction(title: "Success".localized, and: "Change password was successful!".localized, completion: nil)
                         }
                     })
                 })
@@ -220,8 +222,6 @@ extension UserViewController : UITableViewDataSource{
 }
 // MARK:- UITableViewDelegate
 extension UserViewController : UITableViewDelegate{
-    
-  
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {

@@ -42,15 +42,17 @@
 "Success" = "Successful!";
 "Change password was successful!" = "Change password was successful!";
 "Changed" = "Changed";
-
-
-
-
-
-
-
-
-
+"Send request to chat" = "Send request to chat";
+" isn't already in your contacts on app" = " isn't already in your contacts on app";
+" is already in your contacts on app" = " is already in your contacts on app";
+"Send a message" = "Send a message";
+"Can not found contact" = "Can not found this contact :(";
+"You must enter enough info!" = "You must enter enough info!";
+"The password length must rather 6 characters" = "The password length must rather 6 characters";
+"Your request send to" = "Your request send to";
+"Open a request to get more info about who's messaging you. They won't know you've seen it until you accept" = "Open a request to get more info about who's messaging you. They won't know you've seen it until you accept";
+"want to chat with you" =  "want to chat with you";
+"Requests" = "Requests";
 
 
 

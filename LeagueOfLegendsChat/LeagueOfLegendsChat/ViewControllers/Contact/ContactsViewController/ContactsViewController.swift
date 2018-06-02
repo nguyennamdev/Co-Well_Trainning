@@ -12,11 +12,14 @@ import FirebaseDatabase
 
 class ContactsViewController : UIViewController {
     
+    // MARK:- Outlets
+    @IBOutlet weak var notificationRequestLabel: UILabel!
     @IBOutlet weak var contactsTableView: UITableView!
     
     let cellId = "cellId"
-    var contacts:[User] = [User]()
+    var contacts:[Contact]?
     var ref:DatabaseReference!
+    var currentUser:User!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,19 +28,34 @@ class ContactsViewController : UIViewController {
         contactsTableView.dataSource = self
         ref = Database.database().reference()
         
+        observeCurrentUser()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         getListContactsId { (contactsId) in
             self.observerContacts(constantsId: contactsId)
         }
+        observeGetLengthContactsRequest()
     }
     
     // MARK:- Private instance methods
+    private func observeCurrentUser(){
+        if let currentUID = Auth.auth().currentUser?.uid{
+            ref.child("users").child(currentUID).observe(.value, with: { (snapshot) in
+                self.currentUser = User()
+                self.currentUser?.id = currentUID
+                self.currentUser?.setValueForKeys(values: snapshot.value as! [String : Any])
+                self.currentUser?.setContactsRequest(snapshot: snapshot)
+                self.currentUser?.setContacts(snapshot: snapshot)
+            })
+        }
+    }
+    
     private func getListContactsId(completeHandle:((_ result: [String]) -> ())?){
         if let uid = Auth.auth().currentUser?.uid{
-            ref.child("users/\(uid)/contacts").observe(.value, with: { (snapshot) in
+            ref.child("users").child(uid).child("contacts").observe(.value, with: { (snapshot) in
                 let childrens = snapshot.children.allObjects as? [DataSnapshot]
                 var contactsId = [String]()
                 for child in childrens!{
@@ -49,30 +67,44 @@ class ContactsViewController : UIViewController {
     }
     private func observerContacts(constantsId:[String]){
         // reload data, if don't reload table will duplicate contact
-        self.contacts.removeAll()
+        self.contacts = [Contact]()
         self.contactsTableView.reloadData()
-        
+        // get contacts by contactsId
         for contactId in constantsId{
-            ref.child("users/\(contactId)").observe(.value, with: { (snapshot) in
+            ref.child("users").child(contactId).observeSingleEvent(of: .value, with: { (snapshot) in
                 let value = snapshot.value as! [String: Any]
-                let contact = User()
-                contact.setValueForKeys(values: value)
-                self.contacts.append(contact)
+                let contact = Contact()
+                contact.setValueForKeys(dict: value)
+                self.contacts!.append(contact)
                 DispatchQueue.main.async {
-                     self.contactsTableView.insertRows(at: [IndexPath(row: self.contacts.count - 1, section: 0)], with: UITableViewRowAnimation.automatic)
+                    self.contactsTableView.reloadData()
                 }
+            })
+        }
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+    }
+    
+    private func observeGetLengthContactsRequest(){
+        if let uid = Auth.auth().currentUser?.uid{
+            ref.child("users").child(uid).child("contactsRequest").observe(.value, with: { (snapshot) in
+                let count = snapshot.childrenCount
+                self.notificationRequestLabel.text = "\(count)"
             })
         }
     }
     
     // MARK: Actions
     @IBAction func pushToRequestViewController(_ sender: UIButton) {
-        print("request")
+        // init contactRequestVC to push that vc
+        let contactRequestViewController = ContactsRequestTableViewController(nibName: "ContactsRequestTableViewController", bundle: nil)
+        contactRequestViewController.currentUser = self.currentUser
+        self.navigationController?.pushViewController(contactRequestViewController, animated: true)
     }
     
     @IBAction func addNewContact(_ sender: UIButton) {
         let addNewContactViewController = AddNewContactViewController(nibName: "AddNewContactViewController", bundle: nil)
         addNewContactViewController.modalPresentationStyle = .overCurrentContext
+        addNewContactViewController.currentUser = self.currentUser
         self.present(addNewContactViewController, animated: true, completion: nil)
     }
     
@@ -86,12 +118,13 @@ extension ContactsViewController : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.contacts.count
+        return self.contacts?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? ContactsTableViewCell
-        cell?.contact = self.contacts[indexPath.row]
+        cell?.contact = self.contacts?[indexPath.row]
+        cell?.accessoryType = .disclosureIndicator
         return cell!
     }
     
@@ -104,7 +137,16 @@ extension ContactsViewController : UITableViewDataSource {
 // MARK:- UITableViewDelegate
 extension ContactsViewController : UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let blockAction = UITableViewRowAction(style: .destructive, title: "Block") { (action, indexPath) in
+            // do some thing
+        }
+        return [blockAction]
+    }
     
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
     
 }
 

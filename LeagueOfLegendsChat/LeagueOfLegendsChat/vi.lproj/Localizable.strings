@@ -41,19 +41,18 @@
 "Success" = "Thành công!";
 "Change password was successful!" = "Thay đổi mật khẩu mới thành công!";
 "Changed" = "Đã thay đổi";
-
-
-
-
-
-
-
-
-
-
-
-
-
+"Send request to chat" = "Gửi yêu cầu trò chuyện";
+" isn't already in your contacts on app" = " không có trong danh sách danh bạ của bạn";
+" is already in your contacts on app" = " đã có trong danh sách danh bạ của của bạn";
+"Send a message" = "Gửi tin nhắn";
+"Can not found contact" = "Không thể tìm thấy liên hệ này :(";
+"You have successfully registered your account" = "Bạn đã đăng ký thành công tài khoản";
+"You must enter enough info!" = "Bạn phải nhập đầy đủ thông tin";
+"The password length must rather 6 characters" = "Độ dài mật khẩu phải lớn hơn 6 kí tự";
+"Your request send to" = "Yêu cầu của bạn đã được gửi tới";
+"Open a request to get more info about who's messaging you. They won't know you've seen it until you accept" = "Mở yêu cầu để biết thêm thông tin về người nhắn tin cho bạn. Họ sẽ không biết bạn đã nhìn thấy nó cho đến khi bạn chấp nhận";
+"want to chat with you" = "muốn trò chuyện với bạn";
+"Requests" = "Yêu cầu";
 
 
 

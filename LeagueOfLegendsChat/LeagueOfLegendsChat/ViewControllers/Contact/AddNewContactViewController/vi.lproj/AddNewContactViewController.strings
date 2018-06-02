@@ -1,0 +1,15 @@
+
+/* Class = "UITextField"; placeholder = "Email address"; ObjectID = "7F1-n3-32j"; */
+"7F1-n3-32j.placeholder" = "Địa chỉ email";
+
+/* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "Ba2-EE-fie"; */
+"Ba2-EE-fie.normalTitle" = "Huỷ";
+
+/* Class = "UIButton"; normalTitle = "Save"; ObjectID = "N4O-As-GgF"; */
+"N4O-As-GgF.normalTitle" = "Lưu";
+
+/* Class = "UILabel"; text = "Enter someone's email to find them on app"; ObjectID = "Yb7-I6-GR5"; */
+"Yb7-I6-GR5.text" = "Nhập địa chỉ email của anh đó để tìm họ trên ứng dụng";
+
+/* Class = "UILabel"; text = "Add contact"; ObjectID = "saV-7X-acH"; */
+"saV-7X-acH.text" = "Thêm liên hệ";

@@ -10,14 +10,14 @@ import Foundation
 
 class Define {
     
-    static let CHAMPION_IMAGE_URL = "imageUrl"
-    static let CHAMPION_NAME = "name"
-    
     // User model
-    static let USER_UID = "uid"
-    static let USER_NAME = "name"
-    static let USER_EMAIL = "email"
-    static let USER_CHAMPION_NAME = "championName"
-    static let USER_CHAMPION_URL_IMAGE = "championUrlImage"
+    static let UID = "uid"
+    static let NAME_STRING = "name"
+    static let EMAIL_STRING = "email"
+    static let CHAMPION_NAME = "championName"
+    static let CHAMPION_URL_IMAGE = "championUrlImage"
+    static let CONTACTS = "contacts"
+    static let CONTACT_REQUEST = "contactsRequest"
+    static let CONTACTS_BLOCKED = "contactsBlocked"
     
 }

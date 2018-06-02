@@ -14,7 +14,7 @@ class ContactsTableViewCell: UITableViewCell {
     @IBOutlet weak var profileUserEmail: UILabel!
     @IBOutlet weak var profileUserNameLabel: UILabel!
     
-    var contact:User?{
+    var contact:Contact?{
         didSet{
             guard let contact = self.contact else {
                 return

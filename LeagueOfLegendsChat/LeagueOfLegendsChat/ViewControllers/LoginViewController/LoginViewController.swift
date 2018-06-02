@@ -30,9 +30,9 @@ class LoginViewController: UIViewController {
     
     @IBAction func handleLogin(_ sender: UIButton) {
         if emailTextField.text == ""{
-            presentAlertWithoutAction(title: "", and: "Please enter email".localized)
+            presentAlertWithoutAction(title: "", and: "Please enter email".localized, completion: nil)
         }else if passwordTextField.text == ""{
-            presentAlertWithoutAction(title: "", and: "Please enter password".localized)
+            presentAlertWithoutAction(title: "", and: "Please enter password".localized, completion: nil)
         }else{
             //  if text email is email, it will login
             if !emailTextField.checkTextIsEmail(){
@@ -47,7 +47,7 @@ class LoginViewController: UIViewController {
                     self.activityIndicator.stopAnimating()
                     if error != nil{
                         print(error!)
-                        self.presentAlertWithoutAction(title: "Error".localized, and: (error?.localizedDescription)!)
+                        self.presentAlertWithoutAction(title: "Error".localized, and: (error?.localizedDescription)!, completion: nil)
                         return
                     }
                     // hide activity indicator

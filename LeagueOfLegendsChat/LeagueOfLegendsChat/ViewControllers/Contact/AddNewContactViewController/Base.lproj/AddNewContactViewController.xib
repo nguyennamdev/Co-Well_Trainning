@@ -29,26 +29,20 @@
                             <rect key="frame" x="0.0" y="0.0" width="327" height="50"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ba2-EE-fie">
-                                    <rect key="frame" x="12" y="0.0" width="50" height="50"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="50" id="5VJ-qd-Xgd"/>
-                                    </constraints>
+                                    <rect key="frame" x="12" y="0.0" width="48" height="50"/>
                                     <state key="normal" title="Cancel"/>
                                     <connections>
                                         <action selector="cancelAddContact:" destination="-1" eventType="touchUpInside" id="or9-ue-JBK"/>
                                     </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add contact" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="saV-7X-acH">
-                                    <rect key="frame" x="62" y="14" width="203" height="21"/>
+                                    <rect key="frame" x="117" y="14" width="93.5" height="21"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N4O-As-GgF">
-                                    <rect key="frame" x="265" y="0.0" width="50" height="50"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="50" id="09y-nZ-PA4"/>
-                                    </constraints>
+                                    <rect key="frame" x="281" y="0.0" width="34" height="50"/>
                                     <state key="normal" title="Save"/>
                                     <connections>
                                         <action selector="findContactToAdd:" destination="-1" eventType="touchUpInside" id="rpK-PG-1Ty"/>
@@ -56,16 +50,17 @@
                                 </button>
                             </subviews>
                             <constraints>
-                                <constraint firstItem="N4O-As-GgF" firstAttribute="top" secondItem="bb8-Xp-PvI" secondAttribute="top" id="Bec-ob-kIy"/>
+                                <constraint firstItem="Ba2-EE-fie" firstAttribute="top" secondItem="bb8-Xp-PvI" secondAttribute="top" id="4en-do-Z8e"/>
+                                <constraint firstAttribute="bottom" secondItem="Ba2-EE-fie" secondAttribute="bottom" id="7r8-GI-u5r"/>
+                                <constraint firstItem="saV-7X-acH" firstAttribute="centerX" secondItem="bb8-Xp-PvI" secondAttribute="centerX" id="8wW-rz-KLX"/>
+                                <constraint firstItem="saV-7X-acH" firstAttribute="centerY" secondItem="bb8-Xp-PvI" secondAttribute="centerY" id="9kX-ss-K5n"/>
+                                <constraint firstItem="N4O-As-GgF" firstAttribute="top" secondItem="bb8-Xp-PvI" secondAttribute="top" id="Bbv-OZ-S3G"/>
                                 <constraint firstAttribute="height" constant="50" id="Bhp-6m-sI3"/>
-                                <constraint firstItem="saV-7X-acH" firstAttribute="leading" secondItem="Ba2-EE-fie" secondAttribute="trailing" id="D85-dy-qG7"/>
-                                <constraint firstItem="N4O-As-GgF" firstAttribute="leading" secondItem="saV-7X-acH" secondAttribute="trailing" id="Gvj-74-ipV"/>
-                                <constraint firstItem="saV-7X-acH" firstAttribute="centerY" secondItem="bb8-Xp-PvI" secondAttribute="centerY" id="NxB-4c-Vzf"/>
-                                <constraint firstAttribute="trailing" secondItem="N4O-As-GgF" secondAttribute="trailing" constant="12" id="PmU-Pu-0jI"/>
-                                <constraint firstItem="Ba2-EE-fie" firstAttribute="leading" secondItem="bb8-Xp-PvI" secondAttribute="leading" constant="12" id="XkY-GE-vNp"/>
-                                <constraint firstAttribute="bottom" secondItem="N4O-As-GgF" secondAttribute="bottom" id="qPB-bN-bUS"/>
-                                <constraint firstAttribute="bottom" secondItem="Ba2-EE-fie" secondAttribute="bottom" id="vlG-bj-aFy"/>
-                                <constraint firstItem="Ba2-EE-fie" firstAttribute="top" secondItem="bb8-Xp-PvI" secondAttribute="top" id="xZp-uB-uJh"/>
+                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Ba2-EE-fie" secondAttribute="trailing" constant="20" symbolic="YES" id="CbZ-Ld-QnR"/>
+                                <constraint firstItem="N4O-As-GgF" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="bb8-Xp-PvI" secondAttribute="leading" constant="20" symbolic="YES" id="kwu-7t-Ypl"/>
+                                <constraint firstAttribute="trailing" secondItem="N4O-As-GgF" secondAttribute="trailing" constant="12" id="o8O-zu-kPm"/>
+                                <constraint firstItem="Ba2-EE-fie" firstAttribute="leading" secondItem="bb8-Xp-PvI" secondAttribute="leading" constant="12" id="obB-aw-Jg9"/>
+                                <constraint firstAttribute="bottom" secondItem="N4O-As-GgF" secondAttribute="bottom" id="qcB-1k-omg"/>
                             </constraints>
                         </view>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email address" textAlignment="center" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="7F1-n3-32j">

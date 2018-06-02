@@ -17,11 +17,14 @@
 		840D52C820BBF0D700AB3083 /* Champion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D52C720BBF0D700AB3083 /* Champion.swift */; };
 		840D52CA20BBF16300AB3083 /* Define.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D52C920BBF16300AB3083 /* Define.swift */; };
 		840D52CC20BC06D800AB3083 /* ImageView+LoadWithUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D52CB20BC06D800AB3083 /* ImageView+LoadWithUrl.swift */; };
+		849754F420C2D98900E30987 /* AddNewContactViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849754F620C2D98900E30987 /* AddNewContactViewController.xib */; };
 		84A12F3220BC17070040CFB1 /* ChampionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A12F3120BC17070040CFB1 /* ChampionDelegate.swift */; };
 		84A12F3420BC50EE0040CFB1 /* UIViewController+PresentWithTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A12F3320BC50EE0040CFB1 /* UIViewController+PresentWithTitle.swift */; };
 		84A12F3620BC5AC20040CFB1 /* UITextField+CheckTextIsEmail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A12F3520BC5AC20040CFB1 /* UITextField+CheckTextIsEmail.swift */; };
 		84A12F3920BC68210040CFB1 /* MessageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A12F3820BC68210040CFB1 /* MessageTableViewController.swift */; };
 		84A12F3B20BC6A430040CFB1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A12F3A20BC6A430040CFB1 /* User.swift */; };
+		84AF293020C28C9900309729 /* ContactsResquestDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF292F20C28C9900309729 /* ContactsResquestDelegate.swift */; };
+		84AF293220C2C5F500309729 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF293120C2C5F500309729 /* Contact.swift */; };
 		84B531E820BB95AE00230950 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B531E720BB95AE00230950 /* AppDelegate.swift */; };
 		84B531ED20BB95AE00230950 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84B531EB20BB95AE00230950 /* Main.storyboard */; };
 		84B531EF20BB95AF00230950 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84B531EE20BB95AF00230950 /* Assets.xcassets */; };
@@ -41,8 +44,11 @@
 		84D484F720BD01B5009F83BC /* Introduction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D484F620BD01B5009F83BC /* Introduction.swift */; };
 		84DDC8F720BF96B9006159CE /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DDC8F620BF96B9006159CE /* ContactsViewController.swift */; };
 		84DDC8FE20BFB390006159CE /* ContactsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DDC8FD20BFB390006159CE /* ContactsTableViewCell.swift */; };
+		84DE1B7520C234AC00479258 /* ContactsRequestTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DE1B7320C234AC00479258 /* ContactsRequestTableViewController.swift */; };
+		84DE1B7620C234AC00479258 /* ContactsRequestTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84DE1B7420C234AC00479258 /* ContactsRequestTableViewController.xib */; };
+		84DE1B7920C2359500479258 /* ContactRequestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DE1B7720C2359500479258 /* ContactRequestTableViewCell.swift */; };
+		84DE1B7A20C2359500479258 /* ContactRequestTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84DE1B7820C2359500479258 /* ContactRequestTableViewCell.xib */; };
 		84FCDBE920C02C25004B83CA /* AddNewContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FCDBE720C02C25004B83CA /* AddNewContactViewController.swift */; };
-		84FCDBEA20C02C25004B83CA /* AddNewContactViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84FCDBE820C02C25004B83CA /* AddNewContactViewController.xib */; };
 		B869C83C52F29191A022C1EB /* Pods_LeagueOfLegendsChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B6A45ADFB259431E8D667BF /* Pods_LeagueOfLegendsChat.framework */; };
 /* End PBXBuildFile section */
 
@@ -58,11 +64,15 @@
 		840D52C720BBF0D700AB3083 /* Champion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Champion.swift; sourceTree = "<group>"; };
 		840D52C920BBF16300AB3083 /* Define.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Define.swift; sourceTree = "<group>"; };
 		840D52CB20BC06D800AB3083 /* ImageView+LoadWithUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageView+LoadWithUrl.swift"; sourceTree = "<group>"; };
+		849754F520C2D98900E30987 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/AddNewContactViewController.xib; sourceTree = "<group>"; };
+		849754F820C2D99100E30987 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/AddNewContactViewController.strings; sourceTree = "<group>"; };
 		84A12F3120BC17070040CFB1 /* ChampionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChampionDelegate.swift; sourceTree = "<group>"; };
 		84A12F3320BC50EE0040CFB1 /* UIViewController+PresentWithTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+PresentWithTitle.swift"; sourceTree = "<group>"; };
 		84A12F3520BC5AC20040CFB1 /* UITextField+CheckTextIsEmail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+CheckTextIsEmail.swift"; sourceTree = "<group>"; };
 		84A12F3820BC68210040CFB1 /* MessageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewController.swift; sourceTree = "<group>"; };
 		84A12F3A20BC6A430040CFB1 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		84AF292F20C28C9900309729 /* ContactsResquestDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsResquestDelegate.swift; sourceTree = "<group>"; };
+		84AF293120C2C5F500309729 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		84B531E420BB95AE00230950 /* LeagueOfLegendsChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LeagueOfLegendsChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84B531E720BB95AE00230950 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84B531EC20BB95AE00230950 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -89,8 +99,11 @@
 		84D484F620BD01B5009F83BC /* Introduction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Introduction.swift; sourceTree = "<group>"; };
 		84DDC8F620BF96B9006159CE /* ContactsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
 		84DDC8FD20BFB390006159CE /* ContactsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsTableViewCell.swift; sourceTree = "<group>"; };
+		84DE1B7320C234AC00479258 /* ContactsRequestTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsRequestTableViewController.swift; sourceTree = "<group>"; };
+		84DE1B7420C234AC00479258 /* ContactsRequestTableViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactsRequestTableViewController.xib; sourceTree = "<group>"; };
+		84DE1B7720C2359500479258 /* ContactRequestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactRequestTableViewCell.swift; sourceTree = "<group>"; };
+		84DE1B7820C2359500479258 /* ContactRequestTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactRequestTableViewCell.xib; sourceTree = "<group>"; };
 		84FCDBE720C02C25004B83CA /* AddNewContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewContactViewController.swift; sourceTree = "<group>"; };
-		84FCDBE820C02C25004B83CA /* AddNewContactViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddNewContactViewController.xib; sourceTree = "<group>"; };
 		8B6A45ADFB259431E8D667BF /* Pods_LeagueOfLegendsChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LeagueOfLegendsChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8BE5E66EA4850B8A8F14A54 /* Pods-LeagueOfLegendsChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeagueOfLegendsChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LeagueOfLegendsChat/Pods-LeagueOfLegendsChat.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -177,6 +190,7 @@
 				840D52C520BBE9EA00AB3083 /* ChampionCollectionCell.swift */,
 				84B9ED3220BEA63B0057C885 /* UserProfileTableViewCell.swift */,
 				84DDC8FD20BFB390006159CE /* ContactsTableViewCell.swift */,
+				84DE1B7B20C2359A00479258 /* ContactsRequestTableViewCell */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -237,8 +251,7 @@
 				840D52BA20BBBD9D00AB3083 /* RegisterViewController */,
 				840D52C320BBE3EE00AB3083 /* ChampionsViewController */,
 				84D475EF20BD45DB00965E6A /* UserViewController */,
-				84DDC8F820BF96C3006159CE /* ContactsViewController */,
-				84FCDBE620C0289A004B83CA /* AddNewContactViewController */,
+				84DE1B7220C2344B00479258 /* Contact */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -250,6 +263,7 @@
 				84A12F3A20BC6A430040CFB1 /* User.swift */,
 				84D484F620BD01B5009F83BC /* Introduction.swift */,
 				84B9ED2E20BE94180057C885 /* UserInfo.swift */,
+				84AF293120C2C5F500309729 /* Contact.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -267,6 +281,7 @@
 			children = (
 				84B531E720BB95AE00230950 /* AppDelegate.swift */,
 				84A12F3120BC17070040CFB1 /* ChampionDelegate.swift */,
+				84AF292F20C28C9900309729 /* ContactsResquestDelegate.swift */,
 			);
 			path = Delegates;
 			sourceTree = "<group>";
@@ -304,11 +319,39 @@
 			path = ContactsViewController;
 			sourceTree = "<group>";
 		};
+		84DE1B7120C2341100479258 /* ContactsRequestViewController */ = {
+			isa = PBXGroup;
+			children = (
+				84DE1B7320C234AC00479258 /* ContactsRequestTableViewController.swift */,
+				84DE1B7420C234AC00479258 /* ContactsRequestTableViewController.xib */,
+			);
+			path = ContactsRequestViewController;
+			sourceTree = "<group>";
+		};
+		84DE1B7220C2344B00479258 /* Contact */ = {
+			isa = PBXGroup;
+			children = (
+				84FCDBE620C0289A004B83CA /* AddNewContactViewController */,
+				84DDC8F820BF96C3006159CE /* ContactsViewController */,
+				84DE1B7120C2341100479258 /* ContactsRequestViewController */,
+			);
+			path = Contact;
+			sourceTree = "<group>";
+		};
+		84DE1B7B20C2359A00479258 /* ContactsRequestTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				84DE1B7720C2359500479258 /* ContactRequestTableViewCell.swift */,
+				84DE1B7820C2359500479258 /* ContactRequestTableViewCell.xib */,
+			);
+			path = ContactsRequestTableViewCell;
+			sourceTree = "<group>";
+		};
 		84FCDBE620C0289A004B83CA /* AddNewContactViewController */ = {
 			isa = PBXGroup;
 			children = (
 				84FCDBE720C02C25004B83CA /* AddNewContactViewController.swift */,
-				84FCDBE820C02C25004B83CA /* AddNewContactViewController.xib */,
+				849754F620C2D98900E30987 /* AddNewContactViewController.xib */,
 			);
 			path = AddNewContactViewController;
 			sourceTree = "<group>";
@@ -376,6 +419,7 @@
 			knownRegions = (
 				en,
 				Base,
+				vi,
 			);
 			mainGroup = 84B531DB20BB95AE00230950;
 			productRefGroup = 84B531E520BB95AE00230950 /* Products */;
@@ -392,15 +436,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84DE1B7A20C2359500479258 /* ContactRequestTableViewCell.xib in Resources */,
 				84D463B920C0F31200394075 /* LoginViewController.xib in Resources */,
 				84B531F220BB95AF00230950 /* LaunchScreen.storyboard in Resources */,
 				84B531FE20BB964F00230950 /* GoogleService-Info.plist in Resources */,
 				84B531EF20BB95AF00230950 /* Assets.xcassets in Resources */,
 				84B9ED2520BE3B0F0057C885 /* Localizable.strings in Resources */,
 				84B531ED20BB95AE00230950 /* Main.storyboard in Resources */,
-				84FCDBEA20C02C25004B83CA /* AddNewContactViewController.xib in Resources */,
+				849754F420C2D98900E30987 /* AddNewContactViewController.xib in Resources */,
 				84D463BE20C0F43700394075 /* RegisterViewController.xib in Resources */,
 				840D52C220BBE3EA00AB3083 /* ChampionsViewController.xib in Resources */,
+				84DE1B7620C234AC00479258 /* ContactsRequestTableViewController.xib in Resources */,
 				84D484F420BCFDD7009F83BC /* IntroAppViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -472,16 +518,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84DE1B7920C2359500479258 /* ContactRequestTableViewCell.swift in Sources */,
 				84D484F020BCE76C009F83BC /* UIView.swift in Sources */,
 				84D484F720BD01B5009F83BC /* Introduction.swift in Sources */,
 				84B9ED2C20BE3FBC0057C885 /* Localizable.swift in Sources */,
 				84DDC8FE20BFB390006159CE /* ContactsTableViewCell.swift in Sources */,
+				84DE1B7520C234AC00479258 /* ContactsRequestTableViewController.swift in Sources */,
 				84FCDBE920C02C25004B83CA /* AddNewContactViewController.swift in Sources */,
 				84B9ED3320BEA63B0057C885 /* UserProfileTableViewCell.swift in Sources */,
 				840D52CC20BC06D800AB3083 /* ImageView+LoadWithUrl.swift in Sources */,
 				84DDC8F720BF96B9006159CE /* ContactsViewController.swift in Sources */,
 				840D52C820BBF0D700AB3083 /* Champion.swift in Sources */,
 				840D52CA20BBF16300AB3083 /* Define.swift in Sources */,
+				84AF293220C2C5F500309729 /* Contact.swift in Sources */,
 				840D52B820BBA50900AB3083 /* LoginViewController.swift in Sources */,
 				840D52C120BBE3EA00AB3083 /* ChampionsViewController.swift in Sources */,
 				84D484F320BCFDD7009F83BC /* IntroAppViewController.swift in Sources */,
@@ -494,6 +543,7 @@
 				84A12F3620BC5AC20040CFB1 /* UITextField+CheckTextIsEmail.swift in Sources */,
 				840D52B520BBA28500AB3083 /* UserDefaults+UserLoggin.swift in Sources */,
 				84B531E820BB95AE00230950 /* AppDelegate.swift in Sources */,
+				84AF293020C28C9900309729 /* ContactsResquestDelegate.swift in Sources */,
 				84B9ED3120BEA5F20057C885 /* BaseCell.swift in Sources */,
 				84A12F3220BC17070040CFB1 /* ChampionDelegate.swift in Sources */,
 				84B9ED2F20BE94180057C885 /* UserInfo.swift in Sources */,
@@ -504,6 +554,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		849754F620C2D98900E30987 /* AddNewContactViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				849754F520C2D98900E30987 /* Base */,
+				849754F820C2D99100E30987 /* vi */,
+			);
+			name = AddNewContactViewController.xib;
+			sourceTree = "<group>";
+		};
 		84B531EB20BB95AE00230950 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
