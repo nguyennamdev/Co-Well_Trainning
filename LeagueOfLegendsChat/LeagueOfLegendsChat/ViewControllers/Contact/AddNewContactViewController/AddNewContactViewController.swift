@@ -18,8 +18,9 @@ class AddNewContactViewController: UIViewController {
     
     var ref:DatabaseReference!
     var contactIdWillChat:String?
-    var contactName:String!
     var currentUser:User?
+    var contactResult:Contact?
+    var unwindWithContactIsAlready: ((Contact) -> ())?
     
     let findResultContactView:UIView = {
         let view = UIView()
@@ -183,10 +184,15 @@ class AddNewContactViewController: UIViewController {
     
     @objc private func handleSendMessage(sender:UIButton){
         if sender.tag == 1{
+            // contact is already exist, so to push chat log
+            if let contact = self.contactResult{
+                unwindWithContactIsAlready!(contact)
+                dismiss(animated: true, completion: nil)
+            }
             
         }else{
             if let contactWillSendResuest = self.contactIdWillChat{
-                guard let myUid = Auth.auth().currentUser?.uid, let contactName = self.contactName else { return }
+                guard let myUid = Auth.auth().currentUser?.uid, let contactName = self.contactResult?.name else { return }
                 ref.child("users").child(contactWillSendResuest).child(Define.CONTACT_REQUEST).childByAutoId().setValue(myUid)
                 self.presentAlertWithoutAction(title: "Success".localized, and: "Your request send to".localized + " \(contactName)", completion: {
                     self.dismiss(animated: true, completion: nil)
@@ -203,7 +209,7 @@ class AddNewContactViewController: UIViewController {
                 if let contact = contact {
                     // assign contact id to contactIdWillChat
                     self.contactIdWillChat = contact.id
-                    self.contactName = contact.name
+                    self.contactResult = contact
                     // init attritudeString for findResultLabel
                     let attritudeString = NSMutableAttributedString(string: contact.name, attributes: [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 16)])
                     let subAttritudeString:NSAttributedString!
@@ -213,7 +219,7 @@ class AddNewContactViewController: UIViewController {
                         // contact is already exist, change button title and attritudeText
                         subAttritudeString = NSAttributedString(string: " is already in your contacts on app".localized, attributes: [NSAttributedStringKey.font : UIFont.systemFont(ofSize: 16)])
                         buttonTitle = "Send a message".localized
-                        // set tag for sendButton, because do other task if contact is already
+                        // set tag for sendButton, because do other task if contact is already exist
                         self.sendButton.tag = 1
                     }else{
                         subAttritudeString = NSAttributedString(string: " isn't already in your contacts on app".localized, attributes: [NSAttributedStringKey.font : UIFont.systemFont(ofSize: 16)])

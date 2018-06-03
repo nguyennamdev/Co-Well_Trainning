@@ -17,10 +17,12 @@ class ContactsViewController : UIViewController {
     @IBOutlet weak var contactsTableView: UITableView!
     
     let cellId = "cellId"
-    var contacts:[Contact]?
+    var contacts:[Contact] = [Contact]()
     var ref:DatabaseReference!
     var currentUser:User!
     
+    
+    // MARK:- Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -49,6 +51,7 @@ class ContactsViewController : UIViewController {
                 self.currentUser?.setValueForKeys(values: snapshot.value as! [String : Any])
                 self.currentUser?.setContactsRequest(snapshot: snapshot)
                 self.currentUser?.setContacts(snapshot: snapshot)
+                self.currentUser?.setListBlocked(snapshot: snapshot)
             })
         }
     }
@@ -67,15 +70,20 @@ class ContactsViewController : UIViewController {
     }
     private func observerContacts(constantsId:[String]){
         // reload data, if don't reload table will duplicate contact
+        if self.contacts.count > 0{
+            self.contacts.removeAll()
+        }
         self.contacts = [Contact]()
         self.contactsTableView.reloadData()
         // get contacts by contactsId
         for contactId in constantsId{
-            ref.child("users").child(contactId).observeSingleEvent(of: .value, with: { (snapshot) in
+            let contactsRef = Database.database().reference().child("users").child(contactId)
+            contactsRef.observeSingleEvent(of: .value, with: { (snapshot) in
                 let value = snapshot.value as! [String: Any]
                 let contact = Contact()
+                contact.id = snapshot.key
                 contact.setValueForKeys(dict: value)
-                self.contacts!.append(contact)
+                self.contacts.append(contact)
                 DispatchQueue.main.async {
                     self.contactsTableView.reloadData()
                 }
@@ -86,10 +94,21 @@ class ContactsViewController : UIViewController {
     
     private func observeGetLengthContactsRequest(){
         if let uid = Auth.auth().currentUser?.uid{
-            ref.child("users").child(uid).child("contactsRequest").observe(.value, with: { (snapshot) in
+            let countContactsRequestRef = Database.database().reference().child("users").child(uid).child("contactsRequest")
+            countContactsRequestRef.observe(.value, with: { (snapshot) in
                 let count = snapshot.childrenCount
                 self.notificationRequestLabel.text = "\(count)"
             })
+        }
+    }
+    
+    private func getContactByUnwindClosure(contact:Contact?){
+        // push to chatLogViewController
+        if let contact = contact {
+            // push to chatLogViewController
+            let chatLogViewController = ChatLogViewController(collectionViewLayout: UICollectionViewFlowLayout())
+            chatLogViewController.contact = contact
+            self.navigationController?.pushViewController(chatLogViewController, animated: true)
         }
     }
     
@@ -105,6 +124,7 @@ class ContactsViewController : UIViewController {
         let addNewContactViewController = AddNewContactViewController(nibName: "AddNewContactViewController", bundle: nil)
         addNewContactViewController.modalPresentationStyle = .overCurrentContext
         addNewContactViewController.currentUser = self.currentUser
+        addNewContactViewController.unwindWithContactIsAlready = getContactByUnwindClosure(contact:)
         self.present(addNewContactViewController, animated: true, completion: nil)
     }
     
@@ -118,12 +138,12 @@ extension ContactsViewController : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.contacts?.count ?? 0
+        return self.contacts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? ContactsTableViewCell
-        cell?.contact = self.contacts?[indexPath.row]
+        cell?.contact = self.contacts[indexPath.row]
         cell?.accessoryType = .disclosureIndicator
         return cell!
     }
@@ -137,11 +157,70 @@ extension ContactsViewController : UITableViewDataSource {
 // MARK:- UITableViewDelegate
 extension ContactsViewController : UITableViewDelegate {
     
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let blockAction = UITableViewRowAction(style: .destructive, title: "Block") { (action, indexPath) in
-            // do some thing
+    private func blockContact(currentUser: User, contactWillBlock: Contact){
+        // add contact to list blocked of current user
+        // and contact blocked also add current user to list blocked
+        self.ref.child("users").child(currentUser.id).child(Define.CONTACTS_BLOCKED).childByAutoId()
+            .setValue(contactWillBlock.id)
+        self.ref.child("users").child(contactWillBlock.id).child(Define.CONTACTS_BLOCKED).childByAutoId()
+            .setValue(currentUser.id)
+    }
+    
+    private func getKeyContactUnblock(fromId: String, toId: String, completeHandle:@escaping (_ key:String?) -> ()){
+        // remove contact in list blocked of current user
+        ref.child("users").child(fromId).child(Define.CONTACTS_BLOCKED).observe(.value) { (snapshot) in
+            let childrens = snapshot.children.allObjects as? [DataSnapshot]
+            if let childrens = childrens{
+                // loop to get key element have value equal contactIdWillUnblock
+                for child in childrens{
+                    if child.value as! String == toId{
+                        completeHandle(child.key)
+                        return
+                    }
+                }
+                completeHandle(nil)
+            }
         }
-        return [blockAction]
+    }
+    
+    private func unblockContact(fromId:String, toId: String){
+        getKeyContactUnblock(fromId: fromId, toId: toId) { (key) in
+            if let key = key {
+                // remove contact blocked by key
+                self.ref.child("users").child(fromId).child(Define.CONTACTS_BLOCKED).child(key).removeValue()
+                self.contactsTableView.reloadData()
+            }
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        var action:UITableViewRowAction!
+        let contact = self.contacts[indexPath.row]
+        if let currentUser = self.currentUser{
+            action = UITableViewRowAction(style: .destructive, title: "block", handler: { (action, indexPath) in
+                self.blockContact(currentUser: currentUser, contactWillBlock: contact)
+            })
+            for contactId in currentUser.listBlocked!{
+                // if contact id in list blocked of current user, the action will init to unblock
+                if contact.id == contactId{
+                    action = UITableViewRowAction(style: .default, title: "unblock", handler: { (action, indexPath) in
+                        self.unblockContact(fromId: currentUser.id, toId: contact.id)
+                        self.unblockContact(fromId: contact.id, toId: currentUser.id)
+                    })
+                    action.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
+                    break
+                }
+            }
+        }
+        return [action]
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let contact = self.contacts[indexPath.row]
+        // push to chatLogViewController
+        let chatLogViewController = ChatLogViewController(collectionViewLayout: UICollectionViewFlowLayout())
+        chatLogViewController.contact = contact
+        self.navigationController?.pushViewController(chatLogViewController, animated: true)
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

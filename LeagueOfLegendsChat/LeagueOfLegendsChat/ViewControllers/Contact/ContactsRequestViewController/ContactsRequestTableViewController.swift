@@ -62,7 +62,8 @@ class ContactsRequestTableViewController: UITableViewController {
     
     private func observeContactsRequest(contactsIdRequest:[String]){
         for contactId in contactsIdRequest{
-            self.ref.child("users").child(contactId).observeSingleEvent(of: .value, with: { (snapshot) in
+            let contactRef = Database.database().reference().child("users").child(contactId)
+            contactRef.observeSingleEvent(of: .value, with: { (snapshot) in
                 let value = snapshot.value as! [String: Any]
                 let contact = Contact()
                 contact.id = snapshot.key
@@ -77,10 +78,11 @@ class ContactsRequestTableViewController: UITableViewController {
     }
     
     private func getKeyOfContactRequestWillRemove(userId:String,with contactIdWillRemove:String, completeHandle:@escaping (String?) -> ()){
-        ref.child("users").child(userId).child("contactsRequest").observe(.value) { (snapshot) in
+        let contactsRequestRef = Database.database().reference().child("users").child(userId).child("contactsRequest")
+        contactsRequestRef.observe(.value) { (snapshot) in
             let childrens = snapshot.children.allObjects as? [DataSnapshot]
             if let childrens = childrens{
-                // loop to remove element equal contactIdWillRemove
+                // loop to get key element have value equal contactIdWillRemove
                 for child in childrens{
                     if child.value as! String == contactIdWillRemove{
                         completeHandle(child.key)
@@ -97,7 +99,8 @@ class ContactsRequestTableViewController: UITableViewController {
             if let key = key{
                 let dispathGroup = DispatchGroup()
                 dispathGroup.enter()
-                self.ref.child("users").child(userId).child(Define.CONTACT_REQUEST).child(key).removeValue(completionBlock: { (error, ref) in
+                let ref = Database.database().reference().child("users").child(userId).child(Define.CONTACT_REQUEST).child(key)
+                ref.removeValue(completionBlock: { (error, ref) in
                     if error != nil{
                         print(error!)
                         return

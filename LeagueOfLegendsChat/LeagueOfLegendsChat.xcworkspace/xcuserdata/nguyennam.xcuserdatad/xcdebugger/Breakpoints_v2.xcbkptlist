@@ -9,13 +9,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LeagueOfLegendsChat/ViewControllers/Contact/ContactsViewController/ContactsViewController.swift"
-            timestampString = "549648925.709874"
+            filePath = "LeagueOfLegendsChat/ViewControllers/ChatLogViewController/ChatLogViewController.swift"
+            timestampString = "549718323.132908"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "121"
-            endingLineNumber = "121"
-            landmarkName = "tableView(_:numberOfRowsInSection:)"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
+            landmarkName = "observeMessages()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

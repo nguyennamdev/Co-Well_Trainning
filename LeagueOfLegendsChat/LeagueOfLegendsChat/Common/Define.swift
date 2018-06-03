@@ -19,5 +19,12 @@ class Define {
     static let CONTACTS = "contacts"
     static let CONTACT_REQUEST = "contactsRequest"
     static let CONTACTS_BLOCKED = "contactsBlocked"
+    static let TO_ID = "toId"
+    static let FROM_ID = "fromId"
+    static let TIMESTAMP = "timestamp"
+    static let IMAGE_URL = "imageUrl"
+    static let IMAGE_WIDTH = "imageWidth"
+    static let IMAGE_HEIGHT = "imageHeight"
+    static let VIDEO_URL = "videoUrl"
     
 }

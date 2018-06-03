@@ -18,6 +18,7 @@ class User{
     var championUrlImage:String?
     var contacts:[String]?
     var contactsRequest:[String]?
+    var listBlocked:[String]?
     
     init() {
         
@@ -41,11 +42,21 @@ class User{
     }
     
     func setContacts(snapshot:DataSnapshot){
-        let snapshotChildres = snapshot.childSnapshot(forPath: Define.CONTACTS).children.allObjects as? [DataSnapshot]
-        if let chilrens = snapshotChildres{
+        let snapshotChildrens = snapshot.childSnapshot(forPath: Define.CONTACTS).children.allObjects as? [DataSnapshot]
+        if let chilrens = snapshotChildrens{
             self.contacts = [String]()
             for child in chilrens{
                 self.contacts?.append(child.value as! String)
+            }
+        }
+    }
+    
+    func setListBlocked(snapshot:DataSnapshot){
+        let snapshotChildrens = snapshot.childSnapshot(forPath: Define.CONTACTS_BLOCKED).children.allObjects as? [DataSnapshot]
+        if let childrens = snapshotChildrens{
+            self.listBlocked = [String]()
+            for child in childrens{
+                self.listBlocked?.append(child.value as! String)
             }
         }
     }
