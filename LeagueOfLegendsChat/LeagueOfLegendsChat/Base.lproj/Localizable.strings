@@ -53,9 +53,10 @@
 "Open a request to get more info about who's messaging you. They won't know you've seen it until you accept" = "Open a request to get more info about who's messaging you. They won't know you've seen it until you accept";
 "want to chat with you" =  "want to chat with you";
 "Requests" = "Requests";
-
-
-
+"Block" =  "Block";
+"Unblock" = "Unblock";
+"You have been block this contact" = "You have been block this contact";
+"You have been blocked by this contact" = "You have been blocked by this contact";
 
 
 

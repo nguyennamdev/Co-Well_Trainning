@@ -53,6 +53,9 @@
 "Open a request to get more info about who's messaging you. They won't know you've seen it until you accept" = "Mở yêu cầu để biết thêm thông tin về người nhắn tin cho bạn. Họ sẽ không biết bạn đã nhìn thấy nó cho đến khi bạn chấp nhận";
 "want to chat with you" = "muốn trò chuyện với bạn";
 "Requests" = "Yêu cầu";
-
+"Block" = "Chặn";
+"Unblock" = "Ngừng chặn";
+"You have been block this contact" = "Bạn đã chặn liên hệ này";
+"You have been blocked by this contact" = "Bạn đã bị chặn bởi liên hệ này";
 
 

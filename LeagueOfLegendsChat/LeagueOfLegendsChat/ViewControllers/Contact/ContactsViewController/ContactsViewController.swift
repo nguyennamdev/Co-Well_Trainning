@@ -58,7 +58,8 @@ class ContactsViewController : UIViewController {
     
     private func getListContactsId(completeHandle:((_ result: [String]) -> ())?){
         if let uid = Auth.auth().currentUser?.uid{
-            ref.child("users").child(uid).child("contacts").observe(.value, with: { (snapshot) in
+            let contactsRef =  Database.database().reference().child("users").child(uid).child("contacts")
+            contactsRef.observe(.value, with: { (snapshot) in
                 let childrens = snapshot.children.allObjects as? [DataSnapshot]
                 var contactsId = [String]()
                 for child in childrens!{
@@ -108,6 +109,7 @@ class ContactsViewController : UIViewController {
             // push to chatLogViewController
             let chatLogViewController = ChatLogViewController(collectionViewLayout: UICollectionViewFlowLayout())
             chatLogViewController.contact = contact
+            chatLogViewController.currentUser = self.currentUser
             self.navigationController?.pushViewController(chatLogViewController, animated: true)
         }
     }
@@ -160,10 +162,9 @@ extension ContactsViewController : UITableViewDelegate {
     private func blockContact(currentUser: User, contactWillBlock: Contact){
         // add contact to list blocked of current user
         // and contact blocked also add current user to list blocked
-        self.ref.child("users").child(currentUser.id).child(Define.CONTACTS_BLOCKED).childByAutoId()
+        Database.database().reference().child("users").child(currentUser.id).child(Define.CONTACTS_BLOCKED).childByAutoId()
             .setValue(contactWillBlock.id)
-        self.ref.child("users").child(contactWillBlock.id).child(Define.CONTACTS_BLOCKED).childByAutoId()
-            .setValue(currentUser.id)
+        
     }
     
     private func getKeyContactUnblock(fromId: String, toId: String, completeHandle:@escaping (_ key:String?) -> ()){
@@ -197,15 +198,14 @@ extension ContactsViewController : UITableViewDelegate {
         var action:UITableViewRowAction!
         let contact = self.contacts[indexPath.row]
         if let currentUser = self.currentUser{
-            action = UITableViewRowAction(style: .destructive, title: "block", handler: { (action, indexPath) in
+            action = UITableViewRowAction(style: .destructive, title: "Block".localized, handler: { (action, indexPath) in
                 self.blockContact(currentUser: currentUser, contactWillBlock: contact)
             })
             for contactId in currentUser.listBlocked!{
                 // if contact id in list blocked of current user, the action will init to unblock
                 if contact.id == contactId{
-                    action = UITableViewRowAction(style: .default, title: "unblock", handler: { (action, indexPath) in
+                    action = UITableViewRowAction(style: .default, title: "Unblock".localized, handler: { (action, indexPath) in
                         self.unblockContact(fromId: currentUser.id, toId: contact.id)
-                        self.unblockContact(fromId: contact.id, toId: currentUser.id)
                     })
                     action.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
                     break
@@ -220,6 +220,7 @@ extension ContactsViewController : UITableViewDelegate {
         // push to chatLogViewController
         let chatLogViewController = ChatLogViewController(collectionViewLayout: UICollectionViewFlowLayout())
         chatLogViewController.contact = contact
+        chatLogViewController.currentUser = self.currentUser
         self.navigationController?.pushViewController(chatLogViewController, animated: true)
     }
     

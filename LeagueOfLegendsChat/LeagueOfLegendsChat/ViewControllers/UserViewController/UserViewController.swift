@@ -117,6 +117,7 @@ class UserViewController: UIViewController {
         }else{
             let user = Auth.auth().currentUser
             if let email = self.userInfos?[1].content{
+                UIApplication.shared.isNetworkActivityIndicatorVisible = true
                 let credential = EmailAuthProvider.credential(withEmail: email, password: oldPass)
                 user?.reauthenticate(with: credential, completion: { (error) in
                     if error != nil{
@@ -125,6 +126,7 @@ class UserViewController: UIViewController {
                     }
                     // change to new password
                     user?.updatePassword(to: newPass, completion: { (error) in
+                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
                         if error != nil {
                             self.presentAlertWithoutAction(title: "Error".localized, and: (error?.localizedDescription)!, completion: nil)
                             return
