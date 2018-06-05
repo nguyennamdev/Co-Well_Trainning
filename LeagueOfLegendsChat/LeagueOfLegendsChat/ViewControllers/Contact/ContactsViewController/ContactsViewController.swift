@@ -17,8 +17,7 @@ class ContactsViewController : UIViewController {
     @IBOutlet weak var contactsTableView: UITableView!
     
     let cellId = "cellId"
-    var contacts:[Contact] = [Contact]()
-    var ref:DatabaseReference!
+    var contacts = [Contact]()
     var currentUser:User!
     
     
@@ -28,24 +27,21 @@ class ContactsViewController : UIViewController {
         
         contactsTableView.delegate = self
         contactsTableView.dataSource = self
-        ref = Database.database().reference()
-        
-        observeCurrentUser()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        getListContactsId { (contactsId) in
-            self.observerContacts(constantsId: contactsId)
-        }
+        observeCurrentUser()
+        observeContacts()
         observeGetLengthContactsRequest()
     }
     
     // MARK:- Private instance methods
     private func observeCurrentUser(){
         if let currentUID = Auth.auth().currentUser?.uid{
-            ref.child("users").child(currentUID).observe(.value, with: { (snapshot) in
+           let userRef = Database.database().reference().child("users").child(currentUID)
+            userRef.observeSingleEvent(of: .value, with: { (snapshot) in
                 self.currentUser = User()
                 self.currentUser?.id = currentUID
                 self.currentUser?.setValueForKeys(values: snapshot.value as! [String : Any])
@@ -55,44 +51,49 @@ class ContactsViewController : UIViewController {
             })
         }
     }
-    
-    private func getListContactsId(completeHandle:((_ result: [String]) -> ())?){
+
+    private func observeContacts(){
         if let uid = Auth.auth().currentUser?.uid{
-            let contactsRef =  Database.database().reference().child("users").child(uid).child("contacts")
-            contactsRef.observe(.value, with: { (snapshot) in
-                let childrens = snapshot.children.allObjects as? [DataSnapshot]
-                var contactsId = [String]()
-                for child in childrens!{
-                    contactsId.append(child.value as! String)
+            let contactsRef = Database.database().reference().child("users").child(uid).child("contacts")
+            contactsRef.observe(.value) { (snapshot) in
+                let childrens = snapshot.children.allObjects as! [DataSnapshot]
+                self.contacts = [Contact]()
+                if childrens.count > 0{
+                    for child in childrens{
+                        let contactId = child.value as! String
+                        self.fetchContactWithContactId(contactId: contactId)
+                    }
+                }else{
+                    DispatchQueue.main.async {
+                        // user don't have any contact
+                        // when switch user table must reload data, if don't reload table view will show contacts of after user
+                        self.contactsTableView.reloadData()
+                    }
                 }
-                completeHandle?(contactsId)
-            })
+            }
         }
     }
-    private func observerContacts(constantsId:[String]){
-        // reload data, if don't reload table will duplicate contact
-        if self.contacts.count > 0{
-            self.contacts.removeAll()
-        }
-        self.contacts = [Contact]()
-        self.contactsTableView.reloadData()
-        // get contacts by contactsId
-        for contactId in constantsId{
-            let contactsRef = Database.database().reference().child("users").child(contactId)
-            contactsRef.observeSingleEvent(of: .value, with: { (snapshot) in
-                let value = snapshot.value as! [String: Any]
-                let contact = Contact()
-                contact.id = snapshot.key
-                contact.setValueForKeys(dict: value)
-                self.contacts.append(contact)
-                DispatchQueue.main.async {
-                    self.contactsTableView.reloadData()
+
+    private func fetchContactWithContactId(contactId:String?){
+        if let contactId = contactId{
+            let contactRef = Database.database().reference().child("users").child(contactId)
+            contactRef.observeSingleEvent(of: .value) { (snapshot) in
+                if let values = snapshot.value as? [String:Any]{
+                    // get contact to add array contacts
+                    let contact = Contact()
+                    contact.id = snapshot.key
+                    contact.setValueForKeys(dict: values)
+                    self.contacts.append(contact)
+                    // reload data
+                    DispatchQueue.main.async {
+                        self.contactsTableView.reloadData()
+                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                    }
                 }
-            })
+            }
         }
-        UIApplication.shared.isNetworkActivityIndicatorVisible = false
     }
-    
+
     private func observeGetLengthContactsRequest(){
         if let uid = Auth.auth().currentUser?.uid{
             let countContactsRequestRef = Database.database().reference().child("users").child(uid).child("contactsRequest")
@@ -135,10 +136,6 @@ class ContactsViewController : UIViewController {
 // MARK:- UITableViewDatasource
 extension ContactsViewController : UITableViewDataSource {
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.contacts.count
     }
@@ -164,12 +161,14 @@ extension ContactsViewController : UITableViewDelegate {
         // and contact blocked also add current user to list blocked
         Database.database().reference().child("users").child(currentUser.id).child(Define.CONTACTS_BLOCKED).childByAutoId()
             .setValue(contactWillBlock.id)
-        
+        // call func observeCurrentUser to refresh data
+        self.observeCurrentUser()
     }
     
     private func getKeyContactUnblock(fromId: String, toId: String, completeHandle:@escaping (_ key:String?) -> ()){
         // remove contact in list blocked of current user
-        ref.child("users").child(fromId).child(Define.CONTACTS_BLOCKED).observe(.value) { (snapshot) in
+      let keyContactUnblockRef = Database.database().reference().child("users").child(fromId).child(Define.CONTACTS_BLOCKED)
+        keyContactUnblockRef.observeSingleEvent(of: .value) { (snapshot) in
             let childrens = snapshot.children.allObjects as? [DataSnapshot]
             if let childrens = childrens{
                 // loop to get key element have value equal contactIdWillUnblock
@@ -188,8 +187,11 @@ extension ContactsViewController : UITableViewDelegate {
         getKeyContactUnblock(fromId: fromId, toId: toId) { (key) in
             if let key = key {
                 // remove contact blocked by key
-                self.ref.child("users").child(fromId).child(Define.CONTACTS_BLOCKED).child(key).removeValue()
+                let removeBlockRef = Database.database().reference().child("users").child(fromId).child(Define.CONTACTS_BLOCKED)
+                removeBlockRef.child(key).removeValue()
                 self.contactsTableView.reloadData()
+                // call func observeCurrentUser to refresh data
+                self.observeCurrentUser()
             }
         }
     }

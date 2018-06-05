@@ -191,9 +191,10 @@ class AddNewContactViewController: UIViewController {
             }
             
         }else{
-            if let contactWillSendResuest = self.contactIdWillChat{
+            if let contactWillSendRequest = self.contactIdWillChat{
                 guard let myUid = Auth.auth().currentUser?.uid, let contactName = self.contactResult?.name else { return }
-                ref.child("users").child(contactWillSendResuest).child(Define.CONTACT_REQUEST).childByAutoId().setValue(myUid)
+                let contactRequestRef =  Database.database().reference().child("users").child(contactWillSendRequest).child(Define.CONTACT_REQUEST)
+                contactRequestRef.childByAutoId().setValue(myUid)
                 self.presentAlertWithoutAction(title: "Success".localized, and: "Your request send to".localized + " \(contactName)", completion: {
                     self.dismiss(animated: true, completion: nil)
                 })

@@ -156,9 +156,11 @@ extension ContactsRequestTableViewController : ContactsRequestDelegate{
         if let currentUser = currentUser{
             if isAccept{
                 // move contactRequestId to list contact of current user. because user accepted to chat
-                ref.child("users").child(currentUser.id!).child("contacts").childByAutoId().setValue(contactRequestId)
+                let userAcceptRef = Database.database().reference().child("users").child(currentUser.id!).child("contacts")
+                userAcceptRef.childByAutoId().setValue(contactRequestId)
                 // in addition contact request also add current user id to list contact
-                ref.child("users").child(contactRequestId).child("contacts").childByAutoId().setValue(currentUser.id!)
+                let contactRef = Database.database().reference().child("users").child(contactRequestId).child("contacts")
+                contactRef.childByAutoId().setValue(currentUser.id!)
             }
             removeContactRequestByKey(userId: currentUser.id!, contactIdWillRemove: contactRequestId)
             removeContactRequestByKey(userId: contactRequestId, contactIdWillRemove: currentUser.id)
