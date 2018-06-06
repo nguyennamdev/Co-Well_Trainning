@@ -23,6 +23,8 @@
 		84A12F3620BC5AC20040CFB1 /* UITextField+CheckTextIsEmail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A12F3520BC5AC20040CFB1 /* UITextField+CheckTextIsEmail.swift */; };
 		84A12F3920BC68210040CFB1 /* MessageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A12F3820BC68210040CFB1 /* MessageTableViewController.swift */; };
 		84A12F3B20BC6A430040CFB1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A12F3A20BC6A430040CFB1 /* User.swift */; };
+		84AF145320C7DD3F0076D8B8 /* ChatMessageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF145220C7DD3F0076D8B8 /* ChatMessageDelegate.swift */; };
+		84AF145520C7E9B20076D8B8 /* PhotoLibraryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF145420C7E9B20076D8B8 /* PhotoLibraryCollectionViewCell.swift */; };
 		84AF293020C28C9900309729 /* ContactsResquestDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF292F20C28C9900309729 /* ContactsResquestDelegate.swift */; };
 		84AF293220C2C5F500309729 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF293120C2C5F500309729 /* Contact.swift */; };
 		84B531E820BB95AE00230950 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B531E720BB95AE00230950 /* AppDelegate.swift */; };
@@ -54,6 +56,7 @@
 		84DE1B7620C234AC00479258 /* ContactsRequestTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84DE1B7420C234AC00479258 /* ContactsRequestTableViewController.xib */; };
 		84DE1B7920C2359500479258 /* ContactRequestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DE1B7720C2359500479258 /* ContactRequestTableViewCell.swift */; };
 		84DE1B7A20C2359500479258 /* ContactRequestTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84DE1B7820C2359500479258 /* ContactRequestTableViewCell.xib */; };
+		84E1E7CE20C83B8E00C1AB0A /* ChatLogViewController+CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E1E7CD20C83B8E00C1AB0A /* ChatLogViewController+CollectionView.swift */; };
 		84FCDBE920C02C25004B83CA /* AddNewContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FCDBE720C02C25004B83CA /* AddNewContactViewController.swift */; };
 		B869C83C52F29191A022C1EB /* Pods_LeagueOfLegendsChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B6A45ADFB259431E8D667BF /* Pods_LeagueOfLegendsChat.framework */; };
 /* End PBXBuildFile section */
@@ -77,6 +80,8 @@
 		84A12F3520BC5AC20040CFB1 /* UITextField+CheckTextIsEmail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+CheckTextIsEmail.swift"; sourceTree = "<group>"; };
 		84A12F3820BC68210040CFB1 /* MessageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewController.swift; sourceTree = "<group>"; };
 		84A12F3A20BC6A430040CFB1 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		84AF145220C7DD3F0076D8B8 /* ChatMessageDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageDelegate.swift; sourceTree = "<group>"; };
+		84AF145420C7E9B20076D8B8 /* PhotoLibraryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLibraryCollectionViewCell.swift; sourceTree = "<group>"; };
 		84AF292F20C28C9900309729 /* ContactsResquestDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsResquestDelegate.swift; sourceTree = "<group>"; };
 		84AF293120C2C5F500309729 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		84B531E420BB95AE00230950 /* LeagueOfLegendsChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LeagueOfLegendsChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -115,6 +120,7 @@
 		84DE1B7420C234AC00479258 /* ContactsRequestTableViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactsRequestTableViewController.xib; sourceTree = "<group>"; };
 		84DE1B7720C2359500479258 /* ContactRequestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactRequestTableViewCell.swift; sourceTree = "<group>"; };
 		84DE1B7820C2359500479258 /* ContactRequestTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactRequestTableViewCell.xib; sourceTree = "<group>"; };
+		84E1E7CD20C83B8E00C1AB0A /* ChatLogViewController+CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatLogViewController+CollectionView.swift"; sourceTree = "<group>"; };
 		84FCDBE720C02C25004B83CA /* AddNewContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewContactViewController.swift; sourceTree = "<group>"; };
 		8B6A45ADFB259431E8D667BF /* Pods_LeagueOfLegendsChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LeagueOfLegendsChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8BE5E66EA4850B8A8F14A54 /* Pods-LeagueOfLegendsChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeagueOfLegendsChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LeagueOfLegendsChat/Pods-LeagueOfLegendsChat.debug.xcconfig"; sourceTree = "<group>"; };
@@ -203,6 +209,7 @@
 				840D52C520BBE9EA00AB3083 /* ChampionCollectionCell.swift */,
 				84B9ED3220BEA63B0057C885 /* UserProfileTableViewCell.swift */,
 				84DDC8FD20BFB390006159CE /* ContactsTableViewCell.swift */,
+				84AF145420C7E9B20076D8B8 /* PhotoLibraryCollectionViewCell.swift */,
 				84B711D220C3DB1900345F5E /* ChatMessageCollectionViewCell */,
 				84DE1B7B20C2359A00479258 /* ContactsRequestTableViewCell */,
 			);
@@ -298,6 +305,7 @@
 				84B531E720BB95AE00230950 /* AppDelegate.swift */,
 				84A12F3120BC17070040CFB1 /* ChampionDelegate.swift */,
 				84AF292F20C28C9900309729 /* ContactsResquestDelegate.swift */,
+				84AF145220C7DD3F0076D8B8 /* ChatMessageDelegate.swift */,
 			);
 			path = Delegates;
 			sourceTree = "<group>";
@@ -307,6 +315,7 @@
 			children = (
 				84B711CC20C3A09200345F5E /* ChatLogViewController.swift */,
 				84B711CE20C3A41500345F5E /* ChatLogViewController+LayoutViews.swift */,
+				84E1E7CD20C83B8E00C1AB0A /* ChatLogViewController+CollectionView.swift */,
 			);
 			path = ChatLogViewController;
 			sourceTree = "<group>";
@@ -561,6 +570,8 @@
 				84B711D120C3C9DE00345F5E /* Message.swift in Sources */,
 				84DE1B7520C234AC00479258 /* ContactsRequestTableViewController.swift in Sources */,
 				84FCDBE920C02C25004B83CA /* AddNewContactViewController.swift in Sources */,
+				84AF145320C7DD3F0076D8B8 /* ChatMessageDelegate.swift in Sources */,
+				84E1E7CE20C83B8E00C1AB0A /* ChatLogViewController+CollectionView.swift in Sources */,
 				84B9ED3320BEA63B0057C885 /* UserProfileTableViewCell.swift in Sources */,
 				840D52CC20BC06D800AB3083 /* ImageView+LoadWithUrl.swift in Sources */,
 				84DDC8F720BF96B9006159CE /* ContactsViewController.swift in Sources */,
@@ -574,6 +585,7 @@
 				84A12F3920BC68210040CFB1 /* MessageTableViewController.swift in Sources */,
 				840D52C620BBE9EA00AB3083 /* ChampionCollectionCell.swift in Sources */,
 				84A12F3B20BC6A430040CFB1 /* User.swift in Sources */,
+				84AF145520C7E9B20076D8B8 /* PhotoLibraryCollectionViewCell.swift in Sources */,
 				840D52BD20BBBDD600AB3083 /* RegisterViewController.swift in Sources */,
 				840D52B020BBA1E600AB3083 /* CustomTabbarViewController.swift in Sources */,
 				84A12F3620BC5AC20040CFB1 /* UITextField+CheckTextIsEmail.swift in Sources */,

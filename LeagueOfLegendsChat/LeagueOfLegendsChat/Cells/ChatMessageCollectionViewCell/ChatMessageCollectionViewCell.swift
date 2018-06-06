@@ -11,6 +11,9 @@ import FirebaseAuth
 
 class ChatMessageCollectionViewCell : UICollectionViewCell{
     
+    // MARK:- Properties
+    var chatMessageDelegate:ChatMessageDelegate?
+    
     // MARK:- Views
     let bubbleView:UIView = {
         let view = UIView()
@@ -41,6 +44,25 @@ class ChatMessageCollectionViewCell : UICollectionViewCell{
         return imageView
     }()
     
+    lazy var messageImageView:UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 5
+        imageView.isUserInteractionEnabled = true
+        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleZoomMessageImage(tap:))))
+        imageView.backgroundColor = #colorLiteral(red: 0.8374180198, green: 0.8374378085, blue: 0.8374271393, alpha: 1)
+        return imageView
+    }()
+    
+    let activityIndicator:UIActivityIndicatorView = {
+        let ac = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
+        ac.tintColor = UIColor.blue
+        ac.hidesWhenStopped = true
+        return ac
+    }()
+    
+    
     // MARK:- Properties
     var bubbleLeftLayoutConstaint:NSLayoutConstraint?
     var bubbleRightLayoutConstaint:NSLayoutConstraint?
@@ -65,8 +87,9 @@ class ChatMessageCollectionViewCell : UICollectionViewCell{
     
                 // assign text to contentTextView
                 contentTextView.text = message!.text
+                messageImageView.isHidden = true
             }else{
-                self.bubbleWidthLayoutConstaint?.constant = 200
+                self.bubbleWidthLayoutConstaint?.constant = 250
                 self.contentTextView.isHidden = true
             }
             configurationCell(message: message!)
@@ -100,12 +123,29 @@ class ChatMessageCollectionViewCell : UICollectionViewCell{
             self.profileImageView.isHidden = false
             self.contentTextView.textColor = UIColor.black
         }
+        
+        if let imageUrl = message.imageUrl {
+            self.messageImageView.isHidden = false
+            self.messageImageView.loadImageUsingCacheWithUrl(urlString: imageUrl)
+            self.bubbleView.backgroundColor = UIColor.clear
+        }else{
+            self.messageImageView.image = nil
+        }
     }
     
     func setupViews(){
         setupProfileImageView()
         setupBubbleView()
         setupContentTextView()
+        setupMessageImageView()
+        setupActivityIndicator()
     }
     
+    // MARK: Actions
+    @objc func handleZoomMessageImage(tap:UITapGestureRecognizer){
+        // cast down view click to image view
+        if let image = tap.view as? UIImageView{
+            chatMessageDelegate?.performZoomInForStatingImageView(image: image)
+        }
+    }
 }

@@ -44,4 +44,16 @@ extension ChatMessageCollectionViewCell {
         profileImageView.image = #imageLiteral(resourceName: "chat")
     }
     
+    func setupMessageImageView(){
+        bubbleView.addSubview(messageImageView)
+        messageImageView.anchorsLayoutView(top: bubbleView.topAnchor, left: bubbleView.leftAnchor, bottom: bubbleView.bottomAnchor, right: bubbleView.rightAnchor)
+    }
+    
+    func setupActivityIndicator(){
+        messageImageView.addSubview(activityIndicator)
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.centerXAnchor.constraint(equalTo: messageImageView.centerXAnchor).isActive = true
+        activityIndicator.centerYAnchor.constraint(equalTo: messageImageView.centerYAnchor).isActive = true
+    }
+    
 }

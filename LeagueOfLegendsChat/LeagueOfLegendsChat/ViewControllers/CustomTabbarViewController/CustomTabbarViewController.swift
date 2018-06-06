@@ -35,9 +35,4 @@ class CustomTabbarViewController: UITabBarController {
         return UserDefaults.standard.getIsLoggedIn()
     }
     
-
-    
-    
- 
-
 }

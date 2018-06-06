@@ -31,6 +31,7 @@ class ContactsViewController : UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.tabBarController?.tabBar.isHidden = false
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         observeCurrentUser()
         observeContacts()
@@ -161,7 +162,7 @@ extension ContactsViewController : UITableViewDelegate {
         // and contact blocked also add current user to list blocked
         Database.database().reference().child("users").child(currentUser.id).child(Define.CONTACTS_BLOCKED).childByAutoId()
             .setValue(contactWillBlock.id)
-        // call func observeCurrentUser to refresh data
+        // call func observeCurrentUser to refresh user data
         self.observeCurrentUser()
     }
     
@@ -190,7 +191,7 @@ extension ContactsViewController : UITableViewDelegate {
                 let removeBlockRef = Database.database().reference().child("users").child(fromId).child(Define.CONTACTS_BLOCKED)
                 removeBlockRef.child(key).removeValue()
                 self.contactsTableView.reloadData()
-                // call func observeCurrentUser to refresh data
+                // call func observeCurrentUser to refresh user data
                 self.observeCurrentUser()
             }
         }
