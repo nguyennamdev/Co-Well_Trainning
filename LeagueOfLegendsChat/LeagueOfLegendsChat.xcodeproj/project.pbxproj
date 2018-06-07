@@ -32,6 +32,11 @@
 		84B531EF20BB95AF00230950 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84B531EE20BB95AF00230950 /* Assets.xcassets */; };
 		84B531F220BB95AF00230950 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84B531F020BB95AF00230950 /* LaunchScreen.storyboard */; };
 		84B531FE20BB964F00230950 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84B531FD20BB964F00230950 /* GoogleService-Info.plist */; };
+		84B62E1220C8D1DE00E3F380 /* StickerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B62E1120C8D1DE00E3F380 /* StickerCollectionViewCell.swift */; };
+		84B62E1820C93E2800E3F380 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B62E1620C93E2800E3F380 /* MessageTableViewCell.swift */; };
+		84B62E1920C93E2800E3F380 /* MessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84B62E1720C93E2800E3F380 /* MessageTableViewCell.xib */; };
+		84B62E1D20C94A3F00E3F380 /* NewMessageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B62E1B20C94A3F00E3F380 /* NewMessageTableViewController.swift */; };
+		84B62E1E20C94A3F00E3F380 /* NewMessageTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84B62E1C20C94A3F00E3F380 /* NewMessageTableViewController.xib */; };
 		84B711CD20C3A09200345F5E /* ChatLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B711CC20C3A09200345F5E /* ChatLogViewController.swift */; };
 		84B711CF20C3A41500345F5E /* ChatLogViewController+LayoutViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B711CE20C3A41500345F5E /* ChatLogViewController+LayoutViews.swift */; };
 		84B711D120C3C9DE00345F5E /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B711D020C3C9DE00345F5E /* Message.swift */; };
@@ -91,6 +96,11 @@
 		84B531F120BB95AF00230950 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		84B531F320BB95AF00230950 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84B531FD20BB964F00230950 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		84B62E1120C8D1DE00E3F380 /* StickerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerCollectionViewCell.swift; sourceTree = "<group>"; };
+		84B62E1620C93E2800E3F380 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
+		84B62E1720C93E2800E3F380 /* MessageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageTableViewCell.xib; sourceTree = "<group>"; };
+		84B62E1B20C94A3F00E3F380 /* NewMessageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageTableViewController.swift; sourceTree = "<group>"; };
+		84B62E1C20C94A3F00E3F380 /* NewMessageTableViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewMessageTableViewController.xib; sourceTree = "<group>"; };
 		84B711CC20C3A09200345F5E /* ChatLogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogViewController.swift; sourceTree = "<group>"; };
 		84B711CE20C3A41500345F5E /* ChatLogViewController+LayoutViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatLogViewController+LayoutViews.swift"; sourceTree = "<group>"; };
 		84B711D020C3C9DE00345F5E /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
@@ -210,6 +220,8 @@
 				84B9ED3220BEA63B0057C885 /* UserProfileTableViewCell.swift */,
 				84DDC8FD20BFB390006159CE /* ContactsTableViewCell.swift */,
 				84AF145420C7E9B20076D8B8 /* PhotoLibraryCollectionViewCell.swift */,
+				84B62E1120C8D1DE00E3F380 /* StickerCollectionViewCell.swift */,
+				84B62E1520C93DFA00E3F380 /* MessageTableViewcell */,
 				84B711D220C3DB1900345F5E /* ChatMessageCollectionViewCell */,
 				84DE1B7B20C2359A00479258 /* ContactsRequestTableViewCell */,
 			);
@@ -265,13 +277,14 @@
 		84B531F920BB95B900230950 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				840D52AE20BBA1BE00AB3083 /* CustomTabbarViewController */,
 				84D484F520BCFDDC009F83BC /* IntroAppViewController */,
-				84A12F3720BC67F40040CFB1 /* MessageTableViewController */,
+				840D52AE20BBA1BE00AB3083 /* CustomTabbarViewController */,
 				840D52AD20BBA1A500AB3083 /* LoginViewController */,
 				840D52BA20BBBD9D00AB3083 /* RegisterViewController */,
 				840D52C320BBE3EE00AB3083 /* ChampionsViewController */,
 				84D475EF20BD45DB00965E6A /* UserViewController */,
+				84A12F3720BC67F40040CFB1 /* MessageTableViewController */,
+				84B62E1A20C949FC00E3F380 /* NewMessageViewController */,
 				84DE1B7220C2344B00479258 /* Contact */,
 				84B711C720C39C6400345F5E /* ChatLogViewController */,
 			);
@@ -308,6 +321,24 @@
 				84AF145220C7DD3F0076D8B8 /* ChatMessageDelegate.swift */,
 			);
 			path = Delegates;
+			sourceTree = "<group>";
+		};
+		84B62E1520C93DFA00E3F380 /* MessageTableViewcell */ = {
+			isa = PBXGroup;
+			children = (
+				84B62E1620C93E2800E3F380 /* MessageTableViewCell.swift */,
+				84B62E1720C93E2800E3F380 /* MessageTableViewCell.xib */,
+			);
+			path = MessageTableViewcell;
+			sourceTree = "<group>";
+		};
+		84B62E1A20C949FC00E3F380 /* NewMessageViewController */ = {
+			isa = PBXGroup;
+			children = (
+				84B62E1B20C94A3F00E3F380 /* NewMessageTableViewController.swift */,
+				84B62E1C20C94A3F00E3F380 /* NewMessageTableViewController.xib */,
+			);
+			path = NewMessageViewController;
 			sourceTree = "<group>";
 		};
 		84B711C720C39C6400345F5E /* ChatLogViewController */ = {
@@ -479,8 +510,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84B62E1E20C94A3F00E3F380 /* NewMessageTableViewController.xib in Resources */,
 				84DE1B7A20C2359500479258 /* ContactRequestTableViewCell.xib in Resources */,
 				84D463B920C0F31200394075 /* LoginViewController.xib in Resources */,
+				84B62E1920C93E2800E3F380 /* MessageTableViewCell.xib in Resources */,
 				84B531F220BB95AF00230950 /* LaunchScreen.storyboard in Resources */,
 				84B531FE20BB964F00230950 /* GoogleService-Info.plist in Resources */,
 				84B531EF20BB95AF00230950 /* Assets.xcassets in Resources */,
@@ -583,6 +616,8 @@
 				84D484F320BCFDD7009F83BC /* IntroAppViewController.swift in Sources */,
 				84A12F3420BC50EE0040CFB1 /* UIViewController+PresentWithTitle.swift in Sources */,
 				84A12F3920BC68210040CFB1 /* MessageTableViewController.swift in Sources */,
+				84B62E1D20C94A3F00E3F380 /* NewMessageTableViewController.swift in Sources */,
+				84B62E1220C8D1DE00E3F380 /* StickerCollectionViewCell.swift in Sources */,
 				840D52C620BBE9EA00AB3083 /* ChampionCollectionCell.swift in Sources */,
 				84A12F3B20BC6A430040CFB1 /* User.swift in Sources */,
 				84AF145520C7E9B20076D8B8 /* PhotoLibraryCollectionViewCell.swift in Sources */,
@@ -592,6 +627,7 @@
 				840D52B520BBA28500AB3083 /* UserDefaults+UserLoggin.swift in Sources */,
 				84B531E820BB95AE00230950 /* AppDelegate.swift in Sources */,
 				84B711CF20C3A41500345F5E /* ChatLogViewController+LayoutViews.swift in Sources */,
+				84B62E1820C93E2800E3F380 /* MessageTableViewCell.swift in Sources */,
 				84AF293020C28C9900309729 /* ContactsResquestDelegate.swift in Sources */,
 				84B9ED3120BEA5F20057C885 /* BaseCell.swift in Sources */,
 				84B711DC20C3F8DC00345F5E /* String.swift in Sources */,

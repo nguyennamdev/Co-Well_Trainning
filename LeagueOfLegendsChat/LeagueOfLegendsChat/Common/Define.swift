@@ -26,5 +26,5 @@ class Define {
     static let IMAGE_WIDTH = "imageWidth"
     static let IMAGE_HEIGHT = "imageHeight"
     static let VIDEO_URL = "videoUrl"
-    
+    static let STICKER_URL = "stickerUrl"
 }

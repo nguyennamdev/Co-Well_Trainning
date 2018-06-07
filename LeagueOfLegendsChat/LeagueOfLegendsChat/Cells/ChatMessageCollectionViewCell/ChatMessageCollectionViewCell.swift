@@ -89,7 +89,13 @@ class ChatMessageCollectionViewCell : UICollectionViewCell{
                 contentTextView.text = message!.text
                 messageImageView.isHidden = true
             }else{
-                self.bubbleWidthLayoutConstaint?.constant = 250
+                // if stickerURL != nil, bubble containt = 150
+                if self.message?.stickerUrl != nil{
+                    self.bubbleWidthLayoutConstaint?.constant = 150
+                }else{
+                    // it is image view normal
+                     self.bubbleWidthLayoutConstaint?.constant = 250
+                }
                 self.contentTextView.isHidden = true
             }
             configurationCell(message: message!)
@@ -123,13 +129,17 @@ class ChatMessageCollectionViewCell : UICollectionViewCell{
             self.profileImageView.isHidden = false
             self.contentTextView.textColor = UIColor.black
         }
-        
+        // message without text, it can image or sticker
         if let imageUrl = message.imageUrl {
             self.messageImageView.isHidden = false
             self.messageImageView.loadImageUsingCacheWithUrl(urlString: imageUrl)
             self.bubbleView.backgroundColor = UIColor.clear
+        }else if let stickerUrl = message.stickerUrl{
+            self.messageImageView.isHidden = false
+            self.messageImageView.loadImageUsingCacheWithUrl(urlString: stickerUrl)
+            self.bubbleView.backgroundColor = UIColor.clear
         }else{
-            self.messageImageView.image = nil
+            self.messageImageView.isHidden = true
         }
     }
     

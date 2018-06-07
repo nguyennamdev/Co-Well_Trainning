@@ -19,8 +19,9 @@ class Message {
     var imageWidth:NSNumber?
     var imageHeight:NSNumber?
     var videoUrl:String?
-    
-    func chatParterId() -> String{
+    var stickerUrl:String?
+
+    func chatParterId() -> String? {
         return fromId == Auth.auth().currentUser?.uid ? toId : fromId
     }
     
@@ -33,6 +34,7 @@ class Message {
         self.imageWidth = values[Define.IMAGE_WIDTH] as? NSNumber
         self.imageHeight = values[Define.IMAGE_HEIGHT] as? NSNumber
         self.videoUrl = values[Define.VIDEO_URL] as? String
+        self.stickerUrl = values[Define.STICKER_URL] as? String
     }
     
 }

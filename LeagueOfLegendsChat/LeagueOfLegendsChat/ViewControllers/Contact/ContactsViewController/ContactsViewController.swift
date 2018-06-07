@@ -46,8 +46,8 @@ class ContactsViewController : UIViewController {
                 self.currentUser = User()
                 self.currentUser?.id = currentUID
                 self.currentUser?.setValueForKeys(values: snapshot.value as! [String : Any])
-                self.currentUser?.setContactsRequest(snapshot: snapshot)
-                self.currentUser?.setContacts(snapshot: snapshot)
+                self.currentUser?.setContactsIdRequest(snapshot: snapshot)
+                self.currentUser?.setContactsId(snapshot: snapshot)
                 self.currentUser?.setListBlocked(snapshot: snapshot)
             })
         }

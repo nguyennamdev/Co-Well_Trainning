@@ -23,8 +23,19 @@ class ChatLogViewController : UICollectionViewController {
     var mediaButtons:[UIButton] = [UIButton]()
     var startingImageFrame:CGRect?
     var blackBackgroundColor:UIView?
-    var photoLibraryIsShowing:Bool = false
     var images:[UIImage] = [UIImage]()
+    var stickerImages:[UIImage] = [UIImage]()
+    
+    var photoLibraryIsShowing:Bool = false{
+        didSet{
+            chooseImageButton.isSelected = photoLibraryIsShowing ? true : false
+        }
+    }
+    var stickersCollectionIsShowing:Bool = false{
+        didSet{
+            stickerButton.isSelected = stickersCollectionIsShowing ? true : false
+        }
+    }
     
     // constaints
     var bottomConstaintInputContainerView:NSLayoutConstraint?
@@ -58,18 +69,18 @@ class ChatLogViewController : UICollectionViewController {
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 8, height: 35))
         tf.leftView = paddingView
         tf.leftViewMode = .always
-        // sticker button for right view
-        let rightView = UIView(frame: CGRect(x: 0, y: 0, width: 26, height: 24))
+        tf.rightViewMode = .always
+        return tf
+    }()
+    
+    lazy var stickerButton:UIButton = {
         let button = UIButton(type: UIButtonType.custom)
-        rightView.addSubview(button)
         button.frame = CGRect(x: -2, y: 0, width: 24, height: 24)
         button.setImage(#imageLiteral(resourceName: "happiness"), for: .normal)
         button.setImage(#imageLiteral(resourceName: "happy-face"), for: .selected)
         button.contentMode = .center
         button.addTarget(self, action: #selector(showStickersCollectionView), for: .touchUpInside)
-        tf.rightView = rightView
-        tf.rightViewMode = .always
-        return tf
+        return button
     }()
     
     lazy var sendButton:UIButton = {
@@ -147,14 +158,16 @@ class ChatLogViewController : UICollectionViewController {
     // MARK:- Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = contact?.name
         
+        // custom back button
+        let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "left-arrow"), style: .plain, target: self, action: #selector(backToRootView))
+        self.navigationItem.leftBarButtonItem = backButton
+        self.navigationItem.title = contact?.name
+    
         // setup default collectionView
-        self.collectionView?.tag = 0
-        self.collectionView?.register(ChatMessageCollectionViewCell.self, forCellWithReuseIdentifier: cellId)
-        self.collectionView?.backgroundColor = UIColor.white
-   
+        initChatCollectionView()
         initPhotoLibraryCollectionView()
+        initStickersCollectionView()
         
         // init observe when keyboard show or hide
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
@@ -162,13 +175,28 @@ class ChatLogViewController : UICollectionViewController {
         
         // init media buttons
         mediaButtons = [captureImageButton, chooseImageButton]
+        
+        grabPhotos()
     }
-
-    // MARK:- Private instance methods
+    // MARK:- Setup Views
+    private func initChatCollectionView(){
+        self.collectionView?.tag = 0
+        self.collectionView?.register(ChatMessageCollectionViewCell.self, forCellWithReuseIdentifier: cellId)
+        self.collectionView?.backgroundColor = UIColor.white
+        self.collectionView?.isUserInteractionEnabled = true
+        self.collectionView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleEndEditing)))
+    }
+    
     private func initPhotoLibraryCollectionView(){
         self.photosLibraryCollectionView.delegate = self
         self.photosLibraryCollectionView.dataSource = self
         self.photosLibraryCollectionView.register(PhotoLibraryCollectionViewCell.self, forCellWithReuseIdentifier: "photoCell")
+    }
+    
+    private func initStickersCollectionView(){
+        self.stickersCollectionView.delegate = self
+        self.stickersCollectionView.dataSource = self
+        self.stickersCollectionView.register(StickerCollectionViewCell.self, forCellWithReuseIdentifier: "stickerCell")
     }
     
     private func setupViewsWithoutContactNotBlock(){
@@ -185,6 +213,8 @@ class ChatLogViewController : UICollectionViewController {
         setupUnblockButton()
         setupBlockTitleLabel()
     }
+    
+    // MARK:- Private instance methods
     
     private func observeMessages(){
         guard let uid = Auth.auth().currentUser?.uid, let toId = self.contact?.id else { return }
@@ -208,7 +238,7 @@ class ChatLogViewController : UICollectionViewController {
                     // scroll to last item
                     let item = self.messages.count - 1
                     let indexPath = IndexPath(item: item, section: 0)
-                    self.collectionView?.scrollToItem(at: indexPath, at: .bottom, animated: true)
+                    self.collectionView?.scrollToItem(at: indexPath, at: UICollectionViewScrollPosition.bottom, animated: true)
                 }
             }
         }
@@ -284,6 +314,7 @@ class ChatLogViewController : UICollectionViewController {
                     print(error!)
                     return
                 }
+           
                 self.inputMessageTextField.text = nil
                 let messageId = refer.key
                 
@@ -297,10 +328,17 @@ class ChatLogViewController : UICollectionViewController {
         }
     }
     
-    private func sendMessageWithUploadImage(imageUrl: String, image:UIImage){
+    func sendMessageWithUploadImage(imageUrl: String, image:UIImage){
         let imageWidth = image.size.width
         let imageHeight = image.size.height
         let values = ["imageUrl": imageUrl, "imageWidth": imageWidth, "imageHeight": imageHeight] as [String: Any]
+        sendMessageWithProperties(properties: values)
+    }
+    
+    func sendMessageWithSticker(stickerUrl: String, stickerImage:UIImage){
+        let imageWidth = stickerImage.size.width
+        let imageHeight = stickerImage.size.height
+        let values = ["stickerUrl": stickerUrl, "imageWidth": imageWidth, "imageHeight": imageHeight] as [String: Any]
         sendMessageWithProperties(properties: values)
     }
     
@@ -321,7 +359,90 @@ class ChatLogViewController : UICollectionViewController {
         }
     }
     
+
+    private func observeStickers(){
+        let stickerRef = Database.database().reference().child("stickers")
+        stickerRef.observeSingleEvent(of: .value) { (snapshot) in
+            let childrens = snapshot.children.allObjects as! [DataSnapshot]
+            for child in childrens{
+                let stickerFolderName = child.key
+                let fileNames = child.value as! [String]
+                if !self.checkStickerExist(stickerFolderName: stickerFolderName){
+                    // sticker didn't save on local file
+                    fileNames.forEach({ (fileName) in
+                        // download file to local filesystem
+                        self.downloadImageToLocalFile(imageName: fileName, stickerFolderName: stickerFolderName)
+                    })
+                }else{
+                    // sticker saved on local file
+                    fileNames.forEach({ (fileName) in
+                        let imageSaved = self.getStickerSavedInLocal(by: stickerFolderName, imageName: fileName)
+                        if let image = imageSaved{
+                            self.stickerImages.append(image)
+                            // reload data
+                            DispatchQueue.main.async {
+                                self.stickersCollectionView.reloadData()
+                            }
+                        }
+                    })
+                }
+            }
+        }
+    }
+    
+    private func checkStickerExist(stickerFolderName:String) -> Bool{
+        // func return true if stickerFolderName exist
+        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+        let directory = paths[0]
+        let fileManager = FileManager.default
+        
+        let url = URL(fileURLWithPath: directory).appendingPathComponent("stickers/\(stickerFolderName)")
+        
+        if !fileManager.fileExists(atPath: url.path){
+            return false
+        }
+        return true
+    }
+    
+    private func downloadImageToLocalFile(imageName:String, stickerFolderName:String){
+        let stickersStoreRef = Storage.storage().reference().child("stickers").child(stickerFolderName).child(imageName)
+        
+        // get document url
+        let documentsUrl = FileManager.default.urls(for: .documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask).first!
+        let localUrl = documentsUrl.appendingPathComponent("stickers/\(stickerFolderName)/\(imageName)")
+        // dowload to the local filesystem
+        stickersStoreRef.write(toFile: localUrl) { (url, error) in
+            if error != nil{
+                print(error!)
+                return
+            }
+            // load image saved that
+            let imageSaved = UIImage(contentsOfFile: localUrl.path)
+            if let image = imageSaved{
+                self.stickerImages.append(image)
+                // reload data
+                DispatchQueue.main.async {
+                    self.stickersCollectionView.reloadData()
+                }
+            }
+        }
+    }
+    
+    private func getStickerSavedInLocal(by stickerFolderName:String, imageName:String) -> UIImage?{
+        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+        let directory = paths.first!
+        let imageUrl = URL(fileURLWithPath: directory).appendingPathComponent("stickers/\(stickerFolderName)/\(imageName)")
+        let image = UIImage(contentsOfFile: imageUrl.path)
+        return image
+    }
+    
+    
+    
     // MARK:- Actions
+    @objc private func backToRootView(){
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     @objc private func handleSendMessage(){
         if let contact = self.contact{
             // call method checkWhetherCurrentUserIsBlocked to check
@@ -373,7 +494,7 @@ class ChatLogViewController : UICollectionViewController {
             heightConstaintPhotoLibraryCollectionView?.constant = 0
             // change state of choose button
             chooseImageButton.isSelected = false
-        
+            
             self.tabBarController?.tabBar.isHidden = false
             // scroll to last message
             self.collectionView?.scrollToItem(at: IndexPath(item: self.messages.count - 1, section: 0), at: UICollectionViewScrollPosition.bottom, animated: true)
@@ -383,18 +504,6 @@ class ChatLogViewController : UICollectionViewController {
                 self.view.layoutIfNeeded()
             }, completion: nil)
         }
-    }
-    
-    @objc private func handleSelectImage(){
-        photoLibraryIsShowing = !photoLibraryIsShowing
-        grabPhotos()
-        // hide keyboard
-        inputMessageTextField.resignFirstResponder()
-        // show photoLibraryColletionView and hide tabbar
-        bottomConstaintInputContainerView?.constant = photoLibraryIsShowing ? -151 : 0
-        heightConstaintPhotoLibraryCollectionView?.constant = photoLibraryIsShowing ? 200 : 0
-        self.tabBarController?.tabBar.isHidden = photoLibraryIsShowing ? true : false
-        chooseImageButton.isSelected = photoLibraryIsShowing ? true : false
     }
     
     @objc private func captureImageToSendMessageWithImage(){
@@ -410,8 +519,49 @@ class ChatLogViewController : UICollectionViewController {
         present(imagePickerView, animated: true, completion: nil)
     }
     
+    private func animate(){
+        UIView.animate(withDuration: 0.5) {
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    @objc private func handleSelectImage(){
+        photoLibraryIsShowing = !photoLibraryIsShowing
+        stickersCollectionIsShowing = false
+        // hide keyboard
+        inputMessageTextField.resignFirstResponder()
+        // move inputContainerView to above photoLibraryCollection
+        bottomConstaintInputContainerView?.constant = photoLibraryIsShowing ? -151 : 0
+        // show or hide LibraryColleciton
+        heightConstaintPhotoLibraryCollectionView?.constant = photoLibraryIsShowing ? 200 : 0
+        // show or hide StickersCollection
+        heightConstaintStickerCollectionView?.constant = 0
+        // hide tabbar
+        self.tabBarController?.tabBar.isHidden = photoLibraryIsShowing ? true : false
+        animate()
+    }
+    
     @objc private func showStickersCollectionView(sender:UIButton){
-        print("show")
+        observeStickers()
+        stickersCollectionIsShowing = !stickersCollectionIsShowing
+        photoLibraryIsShowing = false
+        // hide keyboard
+        inputMessageTextField.resignFirstResponder()
+        // show stickersCollectionView and hide tabbar
+        heightConstaintStickerCollectionView?.constant = stickersCollectionIsShowing ? 200 : 0
+        bottomConstaintInputContainerView?.constant = stickersCollectionIsShowing ? -151 : 0
+        heightConstaintPhotoLibraryCollectionView?.constant = 0
+        self.tabBarController?.tabBar.isHidden = stickersCollectionIsShowing ? true : false
+        animate()
+    }
+    
+    @objc private func handleEndEditing(){
+        self.tabBarController?.tabBar.isHidden = false
+        heightConstaintStickerCollectionView?.constant = 0
+        heightConstaintPhotoLibraryCollectionView?.constant = 0
+        bottomConstaintInputContainerView?.constant = 0
+        animate()
+        self.view.endEditing(true)
     }
     
 }
@@ -451,6 +601,7 @@ extension ChatLogViewController : UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
+        self.handleEndEditing()
         return true
     }
     
@@ -469,6 +620,7 @@ extension ChatLogViewController : UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         self.photoLibraryIsShowing = false
+        self.stickersCollectionIsShowing = false
         self.sendButton.setTitle("", for: .normal)
         self.sendButton.setImage(#imageLiteral(resourceName: "send-button"), for: .normal)
         hideMediaButtons()
@@ -499,7 +651,7 @@ extension ChatLogViewController : UIImagePickerControllerDelegate, UINavigationC
         }
     }
     
-    fileprivate func updateFileToFirebaseUsingImage(image:UIImage, completion: @escaping (_ imageUrl:String) -> ()){
+    func updateFileToFirebaseUsingImage(image:UIImage, completion: @escaping (_ imageUrl:String) -> ()){
         let imageName = NSUUID().uuidString
         let storeRef = Storage.storage().reference().child("message_images").child(imageName)
         // get data of image
@@ -522,12 +674,12 @@ extension ChatLogViewController : UIImagePickerControllerDelegate, UINavigationC
 extension ChatLogViewController : ChatMessageDelegate {
     
     func selectedImage(image: UIImage) {
-         // invoke func sendMessageWithImage to send this image
+        // invoke func sendMessageWithImage to send this image
         self.updateFileToFirebaseUsingImage(image: image) { (imageUrl) in
             self.sendMessageWithUploadImage(imageUrl: imageUrl, image: image)
         }
     }
-
+    
     func performZoomInForStatingImageView(image: UIImageView) {
         
         self.startingImageFrame = image.superview?.convert(image.frame, to: nil)

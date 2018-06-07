@@ -54,6 +54,11 @@ extension ChatLogViewController {
         inputMessageTextField.layer.borderColor = UIColor.gray.cgColor
         inputMessageTextField.layer.cornerRadius = 17.5
         inputMessageTextField.delegate = self
+        // sticker button for right view
+        let rightView = UIView(frame: CGRect(x: 0, y: 0, width: 26, height: 24))
+        stickerButton.frame = CGRect(x: -2, y: 0, width: 24, height: 24)
+        rightView.addSubview(stickerButton)
+        inputMessageTextField.rightView = rightView
         inputContainerView.addSubview(inputMessageTextField)
         inputMessageTextField.anchorsLayoutView(top: inputContainerView.topAnchor, left: mediaActionsView.rightAnchor, bottom: inputContainerView.bottomAnchor, right: sendButton.leftAnchor, constants: UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 0))
     }

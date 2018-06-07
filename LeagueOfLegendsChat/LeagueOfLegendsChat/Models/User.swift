@@ -31,7 +31,7 @@ class User{
         self.championUrlImage = values[Define.CHAMPION_URL_IMAGE] as? String
     }
     
-    func setContactsRequest(snapshot:DataSnapshot){
+    func setContactsIdRequest(snapshot:DataSnapshot){
        let snapshotChildrens = snapshot.childSnapshot(forPath: Define.CONTACT_REQUEST).children.allObjects as? [DataSnapshot]
         if let childrens = snapshotChildrens{
             self.contactsRequest = [String]()
@@ -41,7 +41,7 @@ class User{
         }
     }
     
-    func setContacts(snapshot:DataSnapshot){
+    func setContactsId(snapshot:DataSnapshot){
         let snapshotChildrens = snapshot.childSnapshot(forPath: Define.CONTACTS).children.allObjects as? [DataSnapshot]
         if let chilrens = snapshotChildrens{
             self.contacts = [String]()

@@ -56,8 +56,8 @@ class UserViewController: UIViewController {
             let user = User()
             user.id = snapshot.key
             user.setValueForKeys(values: values!)
-            user.setContactsRequest(snapshot: snapshot)
-            user.setContacts(snapshot: snapshot)
+            user.setContactsIdRequest(snapshot: snapshot)
+            user.setContactsId(snapshot: snapshot)
             // load profile user
             self.parseUserProfile(user: user)
         }
