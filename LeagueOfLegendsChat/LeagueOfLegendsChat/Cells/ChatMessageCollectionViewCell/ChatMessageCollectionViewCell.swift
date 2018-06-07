@@ -10,10 +10,7 @@ import UIKit
 import FirebaseAuth
 
 class ChatMessageCollectionViewCell : UICollectionViewCell{
-    
-    // MARK:- Properties
-    var chatMessageDelegate:ChatMessageDelegate?
-    
+
     // MARK:- Views
     let bubbleView:UIView = {
         let view = UIView()
@@ -67,6 +64,13 @@ class ChatMessageCollectionViewCell : UICollectionViewCell{
     var bubbleLeftLayoutConstaint:NSLayoutConstraint?
     var bubbleRightLayoutConstaint:NSLayoutConstraint?
     var bubbleWidthLayoutConstaint:NSLayoutConstraint?
+    var chatMessageDelegate:ChatMessageDelegate?
+    
+    var bubbleColor:UIColor?{
+        didSet{
+            self.bubbleView.backgroundColor = bubbleColor!
+        }
+    }
     
     var contact:Contact?{
         didSet{
@@ -92,9 +96,11 @@ class ChatMessageCollectionViewCell : UICollectionViewCell{
                 // if stickerURL != nil, bubble containt = 150
                 if self.message?.stickerUrl != nil{
                     self.bubbleWidthLayoutConstaint?.constant = 150
+                    self.messageImageView.isUserInteractionEnabled = false // don't allow to zoom
                 }else{
                     // it is image view normal
                      self.bubbleWidthLayoutConstaint?.constant = 250
+                    self.messageImageView.isUserInteractionEnabled = true
                 }
                 self.contentTextView.isHidden = true
             }
@@ -116,7 +122,6 @@ class ChatMessageCollectionViewCell : UICollectionViewCell{
         // message send by current user
         if message.fromId == Auth.auth().currentUser!.uid{
             // outgoing bubble
-            self.bubbleView.backgroundColor = UIColor.blue
             self.bubbleRightLayoutConstaint?.isActive = true
             self.bubbleLeftLayoutConstaint?.isActive = false
             self.profileImageView.isHidden = true

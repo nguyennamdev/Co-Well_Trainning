@@ -54,16 +54,18 @@ class MessagesTableViewController: UITableViewController {
     
     private func observeUserMessage(){
         if let uid = Auth.auth().currentUser?.uid {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
             let userMessageRef = Database.database().reference().child("user-messages").child(uid)
             userMessageRef.observe(.childAdded, with: { (snapshot) in
                 let contactId = snapshot.key
                 self.fetchMessageWithContactId(uid: uid, contactId: contactId)
             })
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
         }
     }
     
     private func fetchMessageWithContactId(uid:String,contactId:String){
-        Database.database().reference().child("user-messages").child(uid).child(contactId).observe(.childAdded, with: { (snapshot) in
+        Database.database().reference().child("user-messages").child(uid).child(contactId).child("messages").observe(.childAdded, with: { (snapshot) in
             // get message id
             let messageId = snapshot.key
             // make ref to message by message id
@@ -87,6 +89,7 @@ class MessagesTableViewController: UITableViewController {
                 }
             })
         }, withCancel: nil)
+     
     }
     
     private func showChatLogWithContact(contact:Contact){

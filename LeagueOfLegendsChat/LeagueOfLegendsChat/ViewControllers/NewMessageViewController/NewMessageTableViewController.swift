@@ -22,6 +22,7 @@ class NewMessageTableViewController: UITableViewController {
         // custom back button
         let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "left-arrow"), style: .plain, target: self, action: #selector(backToRootView))
         self.navigationItem.leftBarButtonItem = backButton
+        self.navigationItem.title = "New message".localized
         
         // use class MessageTableViewCell to self cell
         self.tableView.register(UINib(nibName: "MessageTableViewCell", bundle: nil), forCellReuseIdentifier: cellId)

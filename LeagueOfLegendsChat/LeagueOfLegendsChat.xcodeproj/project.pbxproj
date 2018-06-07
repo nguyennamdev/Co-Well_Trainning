@@ -32,6 +32,9 @@
 		84B531EF20BB95AF00230950 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84B531EE20BB95AF00230950 /* Assets.xcassets */; };
 		84B531F220BB95AF00230950 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84B531F020BB95AF00230950 /* LaunchScreen.storyboard */; };
 		84B531FE20BB964F00230950 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84B531FD20BB964F00230950 /* GoogleService-Info.plist */; };
+		84B6141B20C97E73001472C1 /* UIColor+ConvertColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B6141A20C97E73001472C1 /* UIColor+ConvertColor.swift */; };
+		84B6141F20C98E6C001472C1 /* ColorChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B6141D20C98E6C001472C1 /* ColorChatViewController.swift */; };
+		84B6142020C98E6C001472C1 /* ColorChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84B6141E20C98E6C001472C1 /* ColorChatViewController.xib */; };
 		84B62E1220C8D1DE00E3F380 /* StickerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B62E1120C8D1DE00E3F380 /* StickerCollectionViewCell.swift */; };
 		84B62E1820C93E2800E3F380 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B62E1620C93E2800E3F380 /* MessageTableViewCell.swift */; };
 		84B62E1920C93E2800E3F380 /* MessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84B62E1720C93E2800E3F380 /* MessageTableViewCell.xib */; };
@@ -96,6 +99,9 @@
 		84B531F120BB95AF00230950 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		84B531F320BB95AF00230950 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84B531FD20BB964F00230950 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		84B6141A20C97E73001472C1 /* UIColor+ConvertColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+ConvertColor.swift"; sourceTree = "<group>"; };
+		84B6141D20C98E6C001472C1 /* ColorChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorChatViewController.swift; sourceTree = "<group>"; };
+		84B6141E20C98E6C001472C1 /* ColorChatViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColorChatViewController.xib; sourceTree = "<group>"; };
 		84B62E1120C8D1DE00E3F380 /* StickerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerCollectionViewCell.swift; sourceTree = "<group>"; };
 		84B62E1620C93E2800E3F380 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
 		84B62E1720C93E2800E3F380 /* MessageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageTableViewCell.xib; sourceTree = "<group>"; };
@@ -181,6 +187,7 @@
 				84A12F3520BC5AC20040CFB1 /* UITextField+CheckTextIsEmail.swift */,
 				84D484EF20BCE76C009F83BC /* UIView.swift */,
 				84B711DB20C3F8DC00345F5E /* String.swift */,
+				84B6141A20C97E73001472C1 /* UIColor+ConvertColor.swift */,
 			);
 			path = Extenstions;
 			sourceTree = "<group>";
@@ -287,6 +294,7 @@
 				84B62E1A20C949FC00E3F380 /* NewMessageViewController */,
 				84DE1B7220C2344B00479258 /* Contact */,
 				84B711C720C39C6400345F5E /* ChatLogViewController */,
+				84B6141C20C98DDC001472C1 /* ColorChatViewController */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -321,6 +329,15 @@
 				84AF145220C7DD3F0076D8B8 /* ChatMessageDelegate.swift */,
 			);
 			path = Delegates;
+			sourceTree = "<group>";
+		};
+		84B6141C20C98DDC001472C1 /* ColorChatViewController */ = {
+			isa = PBXGroup;
+			children = (
+				84B6141D20C98E6C001472C1 /* ColorChatViewController.swift */,
+				84B6141E20C98E6C001472C1 /* ColorChatViewController.xib */,
+			);
+			path = ColorChatViewController;
 			sourceTree = "<group>";
 		};
 		84B62E1520C93DFA00E3F380 /* MessageTableViewcell */ = {
@@ -520,6 +537,7 @@
 				84B9ED2520BE3B0F0057C885 /* Localizable.strings in Resources */,
 				84B531ED20BB95AE00230950 /* Main.storyboard in Resources */,
 				849754F420C2D98900E30987 /* AddNewContactViewController.xib in Resources */,
+				84B6142020C98E6C001472C1 /* ColorChatViewController.xib in Resources */,
 				84D463BE20C0F43700394075 /* RegisterViewController.xib in Resources */,
 				840D52C220BBE3EA00AB3083 /* ChampionsViewController.xib in Resources */,
 				84DE1B7620C234AC00479258 /* ContactsRequestTableViewController.xib in Resources */,
@@ -616,6 +634,7 @@
 				84D484F320BCFDD7009F83BC /* IntroAppViewController.swift in Sources */,
 				84A12F3420BC50EE0040CFB1 /* UIViewController+PresentWithTitle.swift in Sources */,
 				84A12F3920BC68210040CFB1 /* MessageTableViewController.swift in Sources */,
+				84B6141F20C98E6C001472C1 /* ColorChatViewController.swift in Sources */,
 				84B62E1D20C94A3F00E3F380 /* NewMessageTableViewController.swift in Sources */,
 				84B62E1220C8D1DE00E3F380 /* StickerCollectionViewCell.swift in Sources */,
 				840D52C620BBE9EA00AB3083 /* ChampionCollectionCell.swift in Sources */,
@@ -630,6 +649,7 @@
 				84B62E1820C93E2800E3F380 /* MessageTableViewCell.swift in Sources */,
 				84AF293020C28C9900309729 /* ContactsResquestDelegate.swift in Sources */,
 				84B9ED3120BEA5F20057C885 /* BaseCell.swift in Sources */,
+				84B6141B20C97E73001472C1 /* UIColor+ConvertColor.swift in Sources */,
 				84B711DC20C3F8DC00345F5E /* String.swift in Sources */,
 				84B711D820C3E2CE00345F5E /* ChatMessageCollectionViewCell.swift in Sources */,
 				84A12F3220BC17070040CFB1 /* ChampionDelegate.swift in Sources */,

@@ -35,6 +35,7 @@ extension ChatLogViewController {
             cell?.message = self.messages[indexPath.row]
             cell?.contact = self.contact
             cell?.chatMessageDelegate = self
+            cell?.bubbleView.backgroundColor = self.bubbleColor ?? #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
             return cell!
         case 1:
             // photoLibraryCollectionView

@@ -60,7 +60,7 @@ extension ChatLogViewController {
         rightView.addSubview(stickerButton)
         inputMessageTextField.rightView = rightView
         inputContainerView.addSubview(inputMessageTextField)
-        inputMessageTextField.anchorsLayoutView(top: inputContainerView.topAnchor, left: mediaActionsView.rightAnchor, bottom: inputContainerView.bottomAnchor, right: sendButton.leftAnchor, constants: UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 0))
+        inputMessageTextField.anchorsLayoutView(top: inputContainerView.topAnchor, left: mediaActionsView.rightAnchor, bottom: inputContainerView.bottomAnchor, right: sendButton.leftAnchor, constants: UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8))
     }
     
     func setupPhotoLibraryCollection(){

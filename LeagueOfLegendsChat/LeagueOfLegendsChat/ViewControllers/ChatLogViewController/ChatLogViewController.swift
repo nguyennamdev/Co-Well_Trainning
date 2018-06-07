@@ -25,7 +25,7 @@ class ChatLogViewController : UICollectionViewController {
     var blackBackgroundColor:UIView?
     var images:[UIImage] = [UIImage]()
     var stickerImages:[UIImage] = [UIImage]()
-    
+
     var photoLibraryIsShowing:Bool = false{
         didSet{
             chooseImageButton.isSelected = photoLibraryIsShowing ? true : false
@@ -36,6 +36,8 @@ class ChatLogViewController : UICollectionViewController {
             stickerButton.isSelected = stickersCollectionIsShowing ? true : false
         }
     }
+    
+    var bubbleColor:UIColor?
     
     // constaints
     var bottomConstaintInputContainerView:NSLayoutConstraint?
@@ -163,7 +165,8 @@ class ChatLogViewController : UICollectionViewController {
         let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "left-arrow"), style: .plain, target: self, action: #selector(backToRootView))
         self.navigationItem.leftBarButtonItem = backButton
         self.navigationItem.title = contact?.name
-    
+        customRightBarButton()
+        
         // setup default collectionView
         initChatCollectionView()
         initPhotoLibraryCollectionView()
@@ -175,10 +178,20 @@ class ChatLogViewController : UICollectionViewController {
         
         // init media buttons
         mediaButtons = [captureImageButton, chooseImageButton]
-        
+        observeBubbleColor()
         grabPhotos()
     }
+    
     // MARK:- Setup Views
+    private func customRightBarButton(){
+        let button = UIButton(type: UIButtonType.custom)
+        button.frame = CGRect(x: 0, y: 0, width: 28, height: 28)
+        button.setImage(#imageLiteral(resourceName: "color"), for: .normal)
+        button.addTarget(self, action: #selector(showColorCollection), for: .touchUpInside)
+        let rightButton = UIBarButtonItem(customView: button)
+        self.navigationItem.rightBarButtonItem = rightButton
+    }
+    
     private func initChatCollectionView(){
         self.collectionView?.tag = 0
         self.collectionView?.register(ChatMessageCollectionViewCell.self, forCellWithReuseIdentifier: cellId)
@@ -219,7 +232,8 @@ class ChatLogViewController : UICollectionViewController {
     private func observeMessages(){
         guard let uid = Auth.auth().currentUser?.uid, let toId = self.contact?.id else { return }
         ref = Database.database().reference().child("user-messages").child(uid).child(toId)
-        ref.observe(.childAdded) { (snapshot) in
+        ref.child("messages").observe(.childAdded) { (snapshot) in
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
             let messageId = snapshot.key
             // get message by message references with message id
             self.fetchMessagesWithMessageId(messageId: messageId)
@@ -229,6 +243,7 @@ class ChatLogViewController : UICollectionViewController {
     private func fetchMessagesWithMessageId(messageId:String){
         let messageRef = Database.database().reference().child("messages").child(messageId)
         messageRef.observeSingleEvent(of: .value) { (snapshot) in
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
             if let dictionary = snapshot.value as? [String: Any]{
                 let message = Message()
                 message.setValueForKeys(values: dictionary)
@@ -240,6 +255,18 @@ class ChatLogViewController : UICollectionViewController {
                     let indexPath = IndexPath(item: item, section: 0)
                     self.collectionView?.scrollToItem(at: indexPath, at: UICollectionViewScrollPosition.bottom, animated: true)
                 }
+            }
+        }
+    }
+    
+    private func observeBubbleColor(){
+        guard let uid = Auth.auth().currentUser?.uid, let toId = self.contact?.id else { return }
+        let bubbleColorRef = Database.database().reference().child("user-messages").child(uid).child(toId)
+        bubbleColorRef.child("bubbleColor").observe(.value) { (snapshot) in
+            let hexaString = snapshot.value as? String
+            if let hexString = hexaString{
+                self.bubbleColor = UIColor(hexString: hexString)
+                self.collectionView?.reloadData()
             }
         }
     }
@@ -319,11 +346,11 @@ class ChatLogViewController : UICollectionViewController {
                 let messageId = refer.key
                 
                 let userMessageRef = Database.database().reference().child("user-messages").child(currentId).child(toContactId)
-                userMessageRef.updateChildValues([messageId:1])
+                userMessageRef.child("messages").updateChildValues([messageId:1])
                 
                 // at the same time recipent contact message ref
                 let recipentContactRef = Database.database().reference().child("user-messages").child(toContactId).child(currentId)
-                recipentContactRef.updateChildValues([messageId:1])
+                recipentContactRef.child("messages").updateChildValues([messageId:1])
             })
         }
     }
@@ -397,6 +424,7 @@ class ChatLogViewController : UICollectionViewController {
         let fileManager = FileManager.default
         
         let url = URL(fileURLWithPath: directory).appendingPathComponent("stickers/\(stickerFolderName)")
+        
         
         if !fileManager.fileExists(atPath: url.path){
             return false
@@ -497,8 +525,9 @@ class ChatLogViewController : UICollectionViewController {
             
             self.tabBarController?.tabBar.isHidden = false
             // scroll to last message
-            self.collectionView?.scrollToItem(at: IndexPath(item: self.messages.count - 1, section: 0), at: UICollectionViewScrollPosition.bottom, animated: true)
-            
+            if messages.count > 0{
+                 self.collectionView?.scrollToItem(at: IndexPath(item: self.messages.count - 1, section: 0), at: UICollectionViewScrollPosition.bottom, animated: true)
+            }
             // animate
             UIView.animate(withDuration: 0.5, delay: 0.1, options: UIViewAnimationOptions.curveEaseIn, animations: {
                 self.view.layoutIfNeeded()
@@ -556,12 +585,31 @@ class ChatLogViewController : UICollectionViewController {
     }
     
     @objc private func handleEndEditing(){
+        self.photoLibraryIsShowing = false
+        self.stickersCollectionIsShowing = false
         self.tabBarController?.tabBar.isHidden = false
         heightConstaintStickerCollectionView?.constant = 0
         heightConstaintPhotoLibraryCollectionView?.constant = 0
         bottomConstaintInputContainerView?.constant = 0
         animate()
         self.view.endEditing(true)
+    }
+
+    private func changeBubbleColor(colorHex:String){
+        if let uid = Auth.auth().currentUser?.uid, let contactId = self.contact?.id {
+            let bubbleColorRef = Database.database().reference().child("user-messages").child(uid).child(contactId)
+            bubbleColorRef.child("bubbleColor").setValue(colorHex)
+        }
+    }
+    
+    @objc private func showColorCollection(){
+        let colorChatViewController = ColorChatViewController(nibName: "ColorChatViewController", bundle: nil)
+        colorChatViewController.modalPresentationStyle = .overFullScreen
+        // it will execute when user selected color
+        colorChatViewController.selectedColorClosure = { (color) in
+            self.changeBubbleColor(colorHex: color.toHexString())
+        }
+        present(colorChatViewController, animated: true, completion: nil)
     }
     
 }
@@ -721,4 +769,5 @@ extension ChatLogViewController : ChatMessageDelegate {
     }
     
 }
+
 
