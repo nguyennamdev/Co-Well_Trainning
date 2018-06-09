@@ -32,9 +32,8 @@ class ContactsViewController : UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tabBarController?.tabBar.isHidden = false
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        observeCurrentUser()
         observeContacts()
+        observeCurrentUser()
         observeGetLengthContactsRequest()
     }
     
@@ -54,9 +53,11 @@ class ContactsViewController : UIViewController {
     }
 
     private func observeContacts(){
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         if let uid = Auth.auth().currentUser?.uid{
             let contactsRef = Database.database().reference().child("users").child(uid).child("contacts")
             contactsRef.observe(.value) { (snapshot) in
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 let childrens = snapshot.children.allObjects as! [DataSnapshot]
                 self.contacts = [Contact]()
                 if childrens.count > 0{
@@ -88,7 +89,6 @@ class ContactsViewController : UIViewController {
                     // reload data
                     DispatchQueue.main.async {
                         self.contactsTableView.reloadData()
-                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
                     }
                 }
             }
@@ -157,14 +157,6 @@ extension ContactsViewController : UITableViewDataSource {
 // MARK:- UITableViewDelegate
 extension ContactsViewController : UITableViewDelegate {
     
-    private func blockContact(currentUser: User, contactWillBlock: Contact){
-        // add contact to list blocked of current user
-        // and contact blocked also add current user to list blocked
-        Database.database().reference().child("users").child(currentUser.id).child(Define.CONTACTS_BLOCKED).childByAutoId()
-            .setValue(contactWillBlock.id)
-        // call func observeCurrentUser to refresh user data
-        self.observeCurrentUser()
-    }
     
     private func getKeyContactUnblock(fromId: String, toId: String, completeHandle:@escaping (_ key:String?) -> ()){
         // remove contact in list blocked of current user
@@ -182,6 +174,15 @@ extension ContactsViewController : UITableViewDelegate {
                 completeHandle(nil)
             }
         }
+    }
+    
+    private func blockContact(currentUser: User, contactWillBlock: Contact){
+        // add contact to list blocked of current user
+        // and contact blocked also add current user to list blocked
+        Database.database().reference().child("users").child(currentUser.id).child(Define.CONTACTS_BLOCKED).childByAutoId()
+            .setValue(contactWillBlock.id)
+        // call func observeCurrentUser to refresh user data
+        self.observeCurrentUser()
     }
     
     private func unblockContact(fromId:String, toId: String){

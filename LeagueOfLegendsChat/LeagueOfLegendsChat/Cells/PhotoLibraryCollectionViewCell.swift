@@ -90,7 +90,7 @@ class PhotoLibraryCollectionViewCell : UICollectionViewCell {
     
     @objc private func handleSelectImage(){
         if let image = self.image{
-            chatMessageDelegate?.selectedImage(image: image)
+            chatMessageDelegate?.selectedImageFromPhotoLibrary(image: image)
             imageView.image = image
             imageView.backgroundColor = UIColor.clear
             sendButton.isHidden = true

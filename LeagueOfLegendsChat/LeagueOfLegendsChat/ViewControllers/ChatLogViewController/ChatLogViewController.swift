@@ -25,7 +25,8 @@ class ChatLogViewController : UICollectionViewController {
     var blackBackgroundColor:UIView?
     var images:[UIImage] = [UIImage]()
     var stickerImages:[UIImage] = [UIImage]()
-
+    var bubbleColor:UIColor?
+    
     var photoLibraryIsShowing:Bool = false{
         didSet{
             chooseImageButton.isSelected = photoLibraryIsShowing ? true : false
@@ -36,9 +37,7 @@ class ChatLogViewController : UICollectionViewController {
             stickerButton.isSelected = stickersCollectionIsShowing ? true : false
         }
     }
-    
-    var bubbleColor:UIColor?
-    
+
     // constaints
     var bottomConstaintInputContainerView:NSLayoutConstraint?
     var widthConstaintMediaActionsView:NSLayoutConstraint?
@@ -48,6 +47,7 @@ class ChatLogViewController : UICollectionViewController {
     var contact:Contact?{
         didSet{
             observeMessages()
+            observeBubbleColor()
         }
     }
     var currentUser:User?{
@@ -145,6 +145,7 @@ class ChatLogViewController : UICollectionViewController {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout:layout)
+        collectionView.showsHorizontalScrollIndicator = false
         collectionView.backgroundColor = #colorLiteral(red: 0.8374180198, green: 0.8374378085, blue: 0.8374271393, alpha: 1)
         collectionView.tag = 1
         return collectionView
@@ -178,9 +179,11 @@ class ChatLogViewController : UICollectionViewController {
         
         // init media buttons
         mediaButtons = [captureImageButton, chooseImageButton]
-        observeBubbleColor()
+      
+        // observe methods
         grabPhotos()
     }
+    
     
     // MARK:- Setup Views
     private func customRightBarButton(){
@@ -227,8 +230,7 @@ class ChatLogViewController : UICollectionViewController {
         setupBlockTitleLabel()
     }
     
-    // MARK:- Private instance methods
-    
+    // MARK:- Observe methods
     private func observeMessages(){
         guard let uid = Auth.auth().currentUser?.uid, let toId = self.contact?.id else { return }
         ref = Database.database().reference().child("user-messages").child(uid).child(toId)
@@ -236,17 +238,16 @@ class ChatLogViewController : UICollectionViewController {
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
             let messageId = snapshot.key
             // get message by message references with message id
-            self.fetchMessagesWithMessageId(messageId: messageId)
+            self.fetchMessageWithMessageId(messageId: messageId)
         }
     }
     
-    private func fetchMessagesWithMessageId(messageId:String){
+    private func fetchMessageWithMessageId(messageId:String){
         let messageRef = Database.database().reference().child("messages").child(messageId)
         messageRef.observeSingleEvent(of: .value) { (snapshot) in
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
             if let dictionary = snapshot.value as? [String: Any]{
-                let message = Message()
-                message.setValueForKeys(values: dictionary)
+                let message = Message(values: dictionary)
                 self.messages.append(message)
                 DispatchQueue.main.async {
                     self.collectionView?.reloadData()
@@ -258,7 +259,7 @@ class ChatLogViewController : UICollectionViewController {
             }
         }
     }
-    
+
     private func observeBubbleColor(){
         guard let uid = Auth.auth().currentUser?.uid, let toId = self.contact?.id else { return }
         let bubbleColorRef = Database.database().reference().child("user-messages").child(uid).child(toId)
@@ -266,11 +267,44 @@ class ChatLogViewController : UICollectionViewController {
             let hexaString = snapshot.value as? String
             if let hexString = hexaString{
                 self.bubbleColor = UIColor(hexString: hexString)
-                self.collectionView?.reloadData()
+                DispatchQueue.main.async {
+                    self.collectionView?.reloadData()
+                }
+            }
+        }
+    }
+
+    private func observeStickers(){
+        let stickerRef = Database.database().reference().child("stickers")
+        stickerRef.observeSingleEvent(of: .value) { (snapshot) in
+            let childrens = snapshot.children.allObjects as! [DataSnapshot]
+            for child in childrens{
+                let stickerFolderName = child.key
+                let fileNames = child.value as! [String]
+                if !self.checkStickerExist(stickerFolderName: stickerFolderName){
+                    // sticker didn't save on local file
+                    fileNames.forEach({ (fileName) in
+                        // download file to local filesystem
+                        self.downloadImageToLocalFile(imageName: fileName, stickerFolderName: stickerFolderName)
+                    })
+                }else{
+                    // sticker saved on local file
+                    fileNames.forEach({ (fileName) in
+                        let imageSaved = self.getStickerSavedInLocal(by: stickerFolderName, imageName: fileName)
+                        if let image = imageSaved{
+                            self.stickerImages.append(image)
+                            // reload data
+                            DispatchQueue.main.async {
+                                self.stickersCollectionView.reloadData()
+                            }
+                        }
+                    })
+                }
             }
         }
     }
     
+    // MARK:- Private instance methods
     private func checkWhetherContactIsBlocked(by currentUser:User) -> Bool{
         if let contactId = self.contact?.id{
             if let contactsBlocked =  currentUser.listBlocked{
@@ -341,10 +375,10 @@ class ChatLogViewController : UICollectionViewController {
                     print(error!)
                     return
                 }
-           
                 self.inputMessageTextField.text = nil
+                // get message id key
                 let messageId = refer.key
-                
+            
                 let userMessageRef = Database.database().reference().child("user-messages").child(currentId).child(toContactId)
                 userMessageRef.child("messages").updateChildValues([messageId:1])
                 
@@ -386,37 +420,6 @@ class ChatLogViewController : UICollectionViewController {
         }
     }
     
-
-    private func observeStickers(){
-        let stickerRef = Database.database().reference().child("stickers")
-        stickerRef.observeSingleEvent(of: .value) { (snapshot) in
-            let childrens = snapshot.children.allObjects as! [DataSnapshot]
-            for child in childrens{
-                let stickerFolderName = child.key
-                let fileNames = child.value as! [String]
-                if !self.checkStickerExist(stickerFolderName: stickerFolderName){
-                    // sticker didn't save on local file
-                    fileNames.forEach({ (fileName) in
-                        // download file to local filesystem
-                        self.downloadImageToLocalFile(imageName: fileName, stickerFolderName: stickerFolderName)
-                    })
-                }else{
-                    // sticker saved on local file
-                    fileNames.forEach({ (fileName) in
-                        let imageSaved = self.getStickerSavedInLocal(by: stickerFolderName, imageName: fileName)
-                        if let image = imageSaved{
-                            self.stickerImages.append(image)
-                            // reload data
-                            DispatchQueue.main.async {
-                                self.stickersCollectionView.reloadData()
-                            }
-                        }
-                    })
-                }
-            }
-        }
-    }
-    
     private func checkStickerExist(stickerFolderName:String) -> Bool{
         // func return true if stickerFolderName exist
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
@@ -424,8 +427,7 @@ class ChatLogViewController : UICollectionViewController {
         let fileManager = FileManager.default
         
         let url = URL(fileURLWithPath: directory).appendingPathComponent("stickers/\(stickerFolderName)")
-        
-        
+    
         if !fileManager.fileExists(atPath: url.path){
             return false
         }
@@ -549,7 +551,7 @@ class ChatLogViewController : UICollectionViewController {
     }
     
     private func animate(){
-        UIView.animate(withDuration: 0.5) {
+        UIView.animate(withDuration: 0.2) {
             self.view.layoutIfNeeded()
         }
     }
@@ -599,6 +601,10 @@ class ChatLogViewController : UICollectionViewController {
         if let uid = Auth.auth().currentUser?.uid, let contactId = self.contact?.id {
             let bubbleColorRef = Database.database().reference().child("user-messages").child(uid).child(contactId)
             bubbleColorRef.child("bubbleColor").setValue(colorHex)
+            self.bubbleColor = UIColor(hexString: colorHex)
+            DispatchQueue.main.async {
+                self.collectionView?.reloadData()
+            }
         }
     }
     
@@ -680,11 +686,13 @@ extension ChatLogViewController : UITextFieldDelegate {
 extension ChatLogViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        handleEndEditing()
         dismiss(animated: true, completion: nil)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         handleImageSelectedForInfo(info: info)
+        handleEndEditing()
         dismiss(animated: true, completion: nil)
     }
     
@@ -692,18 +700,18 @@ extension ChatLogViewController : UIImagePickerControllerDelegate, UINavigationC
         if let imageOriginal = info[UIImagePickerControllerOriginalImage] as? UIImage{
             let imageCapture = imageOriginal
             // handle update image to firebase
-            updateFileToFirebaseUsingImage(image: imageCapture, completion: { (imageUrl) in
+            updateFileToFirebaseUsingImage(image: imageCapture, quantityImage: 0.1, completion: { (imageUrl) in
                 // call func sendMessageWithImage to send message
                 self.sendMessageWithUploadImage(imageUrl: imageUrl, image: imageCapture)
             })
         }
     }
     
-    func updateFileToFirebaseUsingImage(image:UIImage, completion: @escaping (_ imageUrl:String) -> ()){
+    func updateFileToFirebaseUsingImage(image:UIImage, quantityImage: CGFloat, completion: @escaping (_ imageUrl:String) -> ()){
         let imageName = NSUUID().uuidString
         let storeRef = Storage.storage().reference().child("message_images").child(imageName)
         // get data of image
-        if let uploadData = UIImageJPEGRepresentation(image, 1){
+        if let uploadData = UIImageJPEGRepresentation(image, quantityImage){
             storeRef.putData(uploadData, metadata: nil, completion: { (metadata, error) in
                 if error != nil{
                     print(error!)
@@ -721,21 +729,21 @@ extension ChatLogViewController : UIImagePickerControllerDelegate, UINavigationC
 // MARK:- ChatMessageDelegate
 extension ChatLogViewController : ChatMessageDelegate {
     
-    func selectedImage(image: UIImage) {
+    func selectedImageFromPhotoLibrary(image: UIImage) {
         // invoke func sendMessageWithImage to send this image
-        self.updateFileToFirebaseUsingImage(image: image) { (imageUrl) in
+        self.updateFileToFirebaseUsingImage(image: image, quantityImage: 0.7) { (imageUrl) in
             self.sendMessageWithUploadImage(imageUrl: imageUrl, image: image)
         }
     }
     
-    func performZoomInForStatingImageView(image: UIImageView) {
-        
+    func performZoomInForStartingImageView(image: UIImageView) {
+        // get frame original of image selected
         self.startingImageFrame = image.superview?.convert(image.frame, to: nil)
         
         // configuration zooming image view
         let zoomingImageView = UIImageView(frame: startingImageFrame!)
         zoomingImageView.image = image.image
-        zoomingImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleZoomOut(sender:))))
+        zoomingImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleZoomOut(sender:)))) // add action zoom out
         zoomingImageView.isUserInteractionEnabled = true
         
         if let keyWindow = UIApplication.shared.keyWindow{
@@ -767,7 +775,6 @@ extension ChatLogViewController : ChatMessageDelegate {
             })
         }
     }
-    
 }
 
 

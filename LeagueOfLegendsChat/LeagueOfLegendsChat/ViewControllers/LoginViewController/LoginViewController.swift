@@ -67,6 +67,11 @@ class LoginViewController: UIViewController {
         self.present(registerViewController, animated: true, completion: nil)
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        self.view.endEditing(true)
+    }
+    
 }
 
 // MAKR:- UITextFieldDelegate

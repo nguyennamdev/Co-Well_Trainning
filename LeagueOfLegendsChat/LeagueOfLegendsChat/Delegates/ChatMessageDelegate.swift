@@ -10,7 +10,7 @@ import UIKit
 
 protocol ChatMessageDelegate {
     
-    func performZoomInForStatingImageView(image:UIImageView)
-    func selectedImage(image:UIImage)
+    func performZoomInForStartingImageView(image:UIImageView)
+    func selectedImageFromPhotoLibrary(image:UIImage)
     
 }

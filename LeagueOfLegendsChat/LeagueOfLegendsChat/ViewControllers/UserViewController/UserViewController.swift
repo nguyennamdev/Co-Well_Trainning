@@ -69,11 +69,14 @@ class UserViewController: UIViewController {
             textField.placeholder = "Your name".localized
         })
         let changeAction = UIAlertAction(title: "Change".localized, style: .default, handler: { (action) in
-            if let username = alert.textFields?.first?.text {
+            if alert.textFields?.first?.text != ""{
                 // update username
                 if let uid = Auth.auth().currentUser?.uid {
+                    let username = alert.textFields?.first?.text
                     self.ref.child("users/\(uid)/name").setValue(username)
                 }
+            }else{
+                self.presentAlertWithoutAction(title: "Sorry".localized, and: "You must enter enough info!".localized, completion: nil)
             }
         })
         alert.addAction(changeAction)

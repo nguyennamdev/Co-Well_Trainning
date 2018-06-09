@@ -30,7 +30,7 @@ class MessageTableViewCell: UITableViewCell {
     
     var message:Message?{
         didSet{
-            setupNameAndProfileImage()
+            setupNameAndProfileImage(message:message!)
             if let text = message?.text {
                 self.messageLabel.text = text
             }else{
@@ -47,6 +47,8 @@ class MessageTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -54,17 +56,19 @@ class MessageTableViewCell: UITableViewCell {
     }
     
     // MARK:- Private instance methods
-    private func setupNameAndProfileImage(){
+    private func setupNameAndProfileImage(message:Message){
+        self.profileImageView.image = nil
+        self.userNameLabel.text = nil
+        
+        
         let chatParterId:String?
-        
-        if message?.fromId == Auth.auth().currentUser?.uid{
-            chatParterId = message?.toId
+        if message.fromId == Auth.auth().currentUser?.uid{
+            chatParterId = message.toId
         }else{
-            chatParterId = message?.fromId
+            chatParterId = message.fromId
         }
-        
-        if let id = chatParterId{
-            Database.database().reference().child("users").child(id).observeSingleEvent(of: .value, with: { (snapshot) in
+        if let contactId = chatParterId{
+            Database.database().reference().child("users").child(contactId).observeSingleEvent(of: .value, with: { (snapshot) in
                 if let values = snapshot.value as? [String : Any]{
                     let contact = Contact()
                     contact.setValueForKeys(dict: values)
