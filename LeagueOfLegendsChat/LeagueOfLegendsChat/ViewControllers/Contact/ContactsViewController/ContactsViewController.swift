@@ -17,7 +17,7 @@ class ContactsViewController : UIViewController {
     @IBOutlet weak var contactsTableView: UITableView!
     
     let cellId = "cellId"
-    var contacts = [Contact]()
+    var contacts:[Contact]?
     var currentUser:User!
     
     
@@ -32,9 +32,15 @@ class ContactsViewController : UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tabBarController?.tabBar.isHidden = false
+        self.contacts = [Contact]()
         observeContacts()
         observeCurrentUser()
         observeGetLengthContactsRequest()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.contacts = nil
     }
     
     // MARK:- Private instance methods
@@ -85,7 +91,7 @@ class ContactsViewController : UIViewController {
                     let contact = Contact()
                     contact.id = snapshot.key
                     contact.setValueForKeys(dict: values)
-                    self.contacts.append(contact)
+                    self.contacts?.append(contact)
                     // reload data
                     DispatchQueue.main.async {
                         self.contactsTableView.reloadData()
@@ -138,12 +144,12 @@ class ContactsViewController : UIViewController {
 extension ContactsViewController : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.contacts.count
+        return self.contacts?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? ContactsTableViewCell
-        cell?.contact = self.contacts[indexPath.row]
+        cell?.contact = self.contacts?[indexPath.row]
         cell?.accessoryType = .disclosureIndicator
         return cell!
     }
@@ -200,7 +206,7 @@ extension ContactsViewController : UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         var action:UITableViewRowAction!
-        let contact = self.contacts[indexPath.row]
+        let contact = self.contacts![indexPath.row]
         if let currentUser = self.currentUser{
             action = UITableViewRowAction(style: .destructive, title: "Block".localized, handler: { (action, indexPath) in
                 self.blockContact(currentUser: currentUser, contactWillBlock: contact)
@@ -220,7 +226,7 @@ extension ContactsViewController : UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let contact = self.contacts[indexPath.row]
+        let contact = self.contacts![indexPath.row]
         // push to chatLogViewController
         let chatLogViewController = ChatLogViewController(collectionViewLayout: UICollectionViewFlowLayout())
         chatLogViewController.contact = contact

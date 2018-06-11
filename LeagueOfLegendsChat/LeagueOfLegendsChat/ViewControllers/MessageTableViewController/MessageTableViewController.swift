@@ -17,7 +17,9 @@ class MessagesTableViewController: UITableViewController {
     
     var ref: DatabaseReference!
     var currentUser:User?
-    var messageDictionary = [String: Message]()
+    var messageDictionary:[String: Message]?
+    var oldUid:String?
+    
     
     // MARK:- Life cycle
     override func viewDidLoad() {
@@ -29,17 +31,33 @@ class MessagesTableViewController: UITableViewController {
         // init right bar button item
         let newMessageButton = UIBarButtonItem(image: #imageLiteral(resourceName: "add"), style: .done, target: self, action: #selector(showNewMessageTableViewController))
         self.navigationItem.rightBarButtonItem = newMessageButton
+        
+        messageDictionary = [String: Message]()
+        fetchUser()
+        observeUserMessage(uid: "sa")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        fetchUser()
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        if oldUid != nil{
+            if uid != oldUid{
+                // if oldUid not equal current uid, it mean user switched account
+                // so must refresh message dictionary
+                self.messageDictionary = [String: Message]()
+                self.tableView.reloadData()
+                fetchUser()
+                observeUserMessage(uid: uid)
+            }
+        }
+        // keep uid by oldUid
+        self.oldUid = uid
     }
     
     // MARK:- Private instance methods
     private func fetchUser(){
         guard let uid = Auth.auth().currentUser?.uid else { return }
-        ref.child("users").child(uid).observe(.value) { (snapshot) in
+        Database.database().reference().child("users").child(uid).observe(.value) { (snapshot) in
             // get user value
             let values = snapshot.value as? [String: Any]
             let user = User()
@@ -47,26 +65,24 @@ class MessagesTableViewController: UITableViewController {
             user.setValueForKeys(values: values!)
             self.navigationItem.title = user.name
             self.currentUser = user
-            self.messageDictionary = [String: Message]()
-            self.observeUserMessage(uid: uid)
         }
     }
     
     private func observeUserMessage(uid:String){
-        let userMessageRef = Database.database().reference()
-        userMessageRef.child("user-messages").child(uid).observe(.childAdded, with: { (snapshot) in
-            UIApplication.shared.isNetworkActivityIndicatorVisible = true
-            // get contact id, then observe user-messages with this contact id
-            let contactId = snapshot.key
-            self.fetchMessageWithContactId(contactId: contactId, with: uid)
-        })
-        
-        
+        if let uid = Auth.auth().currentUser?.uid {
+            let userMessageRef = Database.database().reference()
+            userMessageRef.child("user-messages").child(uid).observe(.childAdded, with: { (snapshot) in
+                UIApplication.shared.isNetworkActivityIndicatorVisible = true
+                // get contact id, then observe user-messages with this contact id
+                let contactId = snapshot.key
+                self.fetchMessageWithContactId(contactId: contactId, with: uid)
+            })
+        }
     }
     
     private func fetchMessageWithContactId(contactId:String, with uid:String){
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
         Database.database().reference().child("user-messages").child(uid).child(contactId).child("messages").queryLimited(toLast: 1).observe(.childAdded, with: { (snapshot) in
-            UIApplication.shared.isNetworkActivityIndicatorVisible = false
             // get message id
             let messageId = snapshot.key
             // make ref to message by message id
@@ -76,7 +92,7 @@ class MessagesTableViewController: UITableViewController {
                     let message = Message(values: dictionary)
                     // set row once for a person
                     if let toId = message.chatParterId(){
-                        self.messageDictionary[toId] = message
+                        self.messageDictionary![toId] = message
                     }
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
@@ -114,13 +130,16 @@ extension MessagesTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.messageDictionary.count
+        return self.messageDictionary?.count ?? 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? MessageTableViewCell
-        let messages = Array(self.messageDictionary.values)
-        cell?.message = messages[indexPath.row]
+        let messages = Array<Message>(self.messageDictionary!.values)
+        let message = messages[indexPath.row]
+        setupNameAndProfileImage(message: message, for: cell!)
+        cell?.message = message
+        cell?.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
         return cell!
     }
     
@@ -128,8 +147,29 @@ extension MessagesTableViewController {
         return 75
     }
     
+    private func setupNameAndProfileImage(message:Message, for cell: MessageTableViewCell){
+        cell.profileImageView.image = nil
+        cell.userNameLabel.text = ""
+        if let contactId = message.chatParterId(){
+            Database.database().reference().child("users").child(contactId).observeSingleEvent(of: .value, with: { (snapshot) in
+                if let values = snapshot.value as? [String : Any]{
+                    let contact = Contact()
+                    contact.setValueForKeys(dict: values)
+                    DispatchQueue.main.async {
+                        cell.userNameLabel.text = contact.name
+                        cell.profileImageView.loadImageUsingCacheWithUrl(urlString: contact.championUrlImage!)
+                    }
+                }
+            })
+        }
+    }
+
+}
+// MARK:- UITableViewDelegate
+extension MessagesTableViewController {
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let messages = Array(self.messageDictionary.values)
+        let messages = Array(self.messageDictionary!.values)
         let message = messages[indexPath.row]
         if let chatParterId = message.chatParterId(){
             // get contact will chat
@@ -144,4 +184,36 @@ extension MessagesTableViewController {
             })
         }
     }
+    
+    private func deleteAChat(messageForItem indexPath: IndexPath){
+        if let uid = Auth.auth().currentUser?.uid{
+            let messages = Array(self.messageDictionary!.values)
+            let message = messages[indexPath.row]
+            // get chat parter id
+            if let chatParterId = message.chatParterId(){
+                let userMessageRef = Database.database().reference().child("user-messages").child(uid).child(chatParterId)
+                userMessageRef.child("messages").removeValue(completionBlock: { (error, dataRef) in
+                    if error != nil {
+                        print(error!)
+                        return
+                    }
+                    // remove in message in message dictionary
+                    // deleted, so reload data
+                    self.messageDictionary!.removeValue(forKey: chatParterId)
+                    self.tableView.reloadData()
+                })
+            }
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete{
+            deleteAChat(messageForItem: indexPath)
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
 }
+

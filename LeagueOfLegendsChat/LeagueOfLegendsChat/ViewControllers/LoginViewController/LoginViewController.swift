@@ -78,7 +78,14 @@ class LoginViewController: UIViewController {
 extension LoginViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
+       // try to find next respoder
+        if let nextTextField = textField.superview?.viewWithTag(textField.tag + 1) as? UITextField{
+            nextTextField.becomeFirstResponder()
+        }else{
+            // not found, so execute login
+            textField.resignFirstResponder()
+            perform(#selector(handleLogin(_:)), with: nil)
+        }
         return true
     }
     
@@ -88,6 +95,8 @@ extension LoginViewController: UITextFieldDelegate {
             textField.textColor = UIColor.black
         }
     }
+    
+    
     
 }
 

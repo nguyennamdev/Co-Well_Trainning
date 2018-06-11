@@ -9,8 +9,8 @@
 import Foundation
 import FirebaseAuth
 
-class Message {
-    
+class Message  {
+
     var fromId:String!
     var toId:String!
     var text:String?

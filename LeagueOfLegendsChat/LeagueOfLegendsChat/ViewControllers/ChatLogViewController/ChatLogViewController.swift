@@ -555,6 +555,7 @@ class ChatLogViewController : UICollectionViewController {
             self.view.layoutIfNeeded()
         }
     }
+
     
     @objc private func handleSelectImage(){
         photoLibraryIsShowing = !photoLibraryIsShowing

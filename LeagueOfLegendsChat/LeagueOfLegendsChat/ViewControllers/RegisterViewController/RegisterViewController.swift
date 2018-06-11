@@ -56,14 +56,34 @@ class RegisterViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification(notification:)), name: NSNotification.Name.UIKeyboardDidHide, object: nil)
     }
     
-    private func registerAccount(){
+    private func handleRegisterAccount(){
         // handle register account
         guard let email = emailTextField.text,
             let name = nameTextField.text,
             let password = passwordTextField.text,
             let championName = champion?.name,
             let championUrlImage = champion?.imageUrl else { return }
-        auth.createUser(withEmail: email, password: password) { (user, error) in
+        // fetch account to check user already exist
+        // if account is already exist, it will do not allow register new account
+        // if account isn's already exist, it will allow register account
+        auth.fetchProviders(forEmail: email) { (providers, error) in
+            if let error = error {
+                print(error.localizedDescription)
+                return
+            }else {
+                if providers != nil{
+                    // account is already exist
+                    self.presentAlertWithoutAction(title: "Sorry".localized, and: "Email was already exist".localized, completion: nil)
+                }else{
+                    // acount isn't already exist
+                    self.registerNewAccount(email: email, name: name, password: password, championName: championName, championUrlImage: championUrlImage)
+                }
+            }
+        }
+    }
+    
+    private func registerNewAccount(email: String,name: String, password: String, championName: String, championUrlImage: String){
+        Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
             if error != nil{
                 print(error!)
                 return
@@ -78,6 +98,7 @@ class RegisterViewController: UIViewController {
             }
         }
     }
+    
     private func registerUserIntoFirebaseDatabaseWithUID(uid: String, values:[String: Any]){
         self.ref.child("users").child(uid).updateChildValues(values) { (error, ref) in
             // hide activity
@@ -97,9 +118,9 @@ class RegisterViewController: UIViewController {
         }
     }
     
-
+    
     // MARK:- Actions
-
+    
     @IBAction func showChampionsCollectionView(_ sender: UIButton) {
         let championsViewController = ChampionsViewController(nibName: "ChampionsViewController", bundle: nil)
         championsViewController.modalPresentationStyle = .overCurrentContext
@@ -113,7 +134,7 @@ class RegisterViewController: UIViewController {
     
     @IBAction func handleRegisterAccount(_ sender: UIButton) {
         if emailTextField.text == "" || nameTextField.text == "" || passwordTextField.text == "" || confirmPasswordTextField.text == "" || championNameLabel.text == " "{
-            self.presentAlertWithoutAction(title: "Waring".localized, and: "You must enter enough info!".localized, completion: nil)
+            self.presentAlertWithoutAction(title: "Sorry".localized, and: "You must enter enough info!".localized, completion: nil)
         }else{
             // check format email
             if emailTextField.checkTextIsEmail(){
@@ -127,7 +148,7 @@ class RegisterViewController: UIViewController {
                     if (passwordTextField.text?.count)! < 6{
                         self.presentAlertWithoutAction(title: "Error".localized, and: "The password length must rather 6 characters".localized, completion: nil)
                     }else{
-                        registerAccount()
+                        handleRegisterAccount()
                     }
                 }
             }else{
@@ -188,7 +209,17 @@ extension RegisterViewController: UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
+        if textField.tag < 3{
+            // try to find next responder
+            if let nextTextField = textField.superview?.viewWithTag(textField.tag + 1) as? UITextField {
+                nextTextField.becomeFirstResponder()
+            }
+        }else{
+            // last text field is becoming responder
+            // next to register account
+            textField.resignFirstResponder()
+            perform(#selector(handleRegisterAccount(_:)), with: nil)
+        }
         return true
     }
 }
