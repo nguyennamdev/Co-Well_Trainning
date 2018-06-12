@@ -116,8 +116,6 @@ class ContactsRequestTableViewController: UITableViewController {
     
 }
 
-
-
 // MARK: - Table view data source
 extension ContactsRequestTableViewController {
     

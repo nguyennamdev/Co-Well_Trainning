@@ -27,27 +27,24 @@ class ContactsViewController : UIViewController {
         
         contactsTableView.delegate = self
         contactsTableView.dataSource = self
+        self.navigationItem.title = "Contact".localized
+        
+        // observes
+        observeCurrentUser()
+        observeContacts()
+        observeGetNumberOfContactsRequest()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tabBarController?.tabBar.isHidden = false
-        self.contacts = [Contact]()
-        observeContacts()
-        observeCurrentUser()
-        observeGetLengthContactsRequest()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.contacts = nil
     }
     
     // MARK:- Private instance methods
     private func observeCurrentUser(){
         if let currentUID = Auth.auth().currentUser?.uid{
-           let userRef = Database.database().reference().child("users").child(currentUID)
-            userRef.observeSingleEvent(of: .value, with: { (snapshot) in
+            let userRef = Database.database().reference().child("users").child(currentUID)
+            userRef.observe(.value, with: { (snapshot) in
                 self.currentUser = User()
                 self.currentUser?.id = currentUID
                 self.currentUser?.setValueForKeys(values: snapshot.value as! [String : Any])
@@ -57,7 +54,7 @@ class ContactsViewController : UIViewController {
             })
         }
     }
-
+    
     private func observeContacts(){
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         if let uid = Auth.auth().currentUser?.uid{
@@ -81,7 +78,7 @@ class ContactsViewController : UIViewController {
             }
         }
     }
-
+    
     private func fetchContactWithContactId(contactId:String?){
         if let contactId = contactId{
             let contactRef = Database.database().reference().child("users").child(contactId)
@@ -100,8 +97,8 @@ class ContactsViewController : UIViewController {
             }
         }
     }
-
-    private func observeGetLengthContactsRequest(){
+    
+    private func observeGetNumberOfContactsRequest(){
         if let uid = Auth.auth().currentUser?.uid{
             let countContactsRequestRef = Database.database().reference().child("users").child(uid).child("contactsRequest")
             countContactsRequestRef.observe(.value, with: { (snapshot) in
@@ -111,10 +108,10 @@ class ContactsViewController : UIViewController {
         }
     }
     
-    private func getContactByUnwindClosure(contact:Contact?){
+    private func unwindWithContactWasAlready(contact:Contact?){
+        // when user found contact and contact in list current contact, so app will show chat with that contact
         // push to chatLogViewController
         if let contact = contact {
-            // push to chatLogViewController
             let chatLogViewController = ChatLogViewController(collectionViewLayout: UICollectionViewFlowLayout())
             chatLogViewController.contact = contact
             chatLogViewController.currentUser = self.currentUser
@@ -134,7 +131,7 @@ class ContactsViewController : UIViewController {
         let addNewContactViewController = AddNewContactViewController(nibName: "AddNewContactViewController", bundle: nil)
         addNewContactViewController.modalPresentationStyle = .overCurrentContext
         addNewContactViewController.currentUser = self.currentUser
-        addNewContactViewController.unwindWithContactIsAlready = getContactByUnwindClosure(contact:)
+        addNewContactViewController.unwindWithContactIsAlready = unwindWithContactWasAlready(contact:)
         self.present(addNewContactViewController, animated: true, completion: nil)
     }
     
@@ -166,7 +163,7 @@ extension ContactsViewController : UITableViewDelegate {
     
     private func getKeyContactUnblock(fromId: String, toId: String, completeHandle:@escaping (_ key:String?) -> ()){
         // remove contact in list blocked of current user
-      let keyContactUnblockRef = Database.database().reference().child("users").child(fromId).child(Define.CONTACTS_BLOCKED)
+        let keyContactUnblockRef = Database.database().reference().child("users").child(fromId).child(Define.CONTACTS_BLOCKED)
         keyContactUnblockRef.observeSingleEvent(of: .value) { (snapshot) in
             let childrens = snapshot.children.allObjects as? [DataSnapshot]
             if let childrens = childrens{
@@ -185,10 +182,8 @@ extension ContactsViewController : UITableViewDelegate {
     private func blockContact(currentUser: User, contactWillBlock: Contact){
         // add contact to list blocked of current user
         // and contact blocked also add current user to list blocked
-        Database.database().reference().child("users").child(currentUser.id).child(Define.CONTACTS_BLOCKED).childByAutoId()
+    Database.database().reference().child("users").child(currentUser.id).child(Define.CONTACTS_BLOCKED).childByAutoId()
             .setValue(contactWillBlock.id)
-        // call func observeCurrentUser to refresh user data
-        self.observeCurrentUser()
     }
     
     private func unblockContact(fromId:String, toId: String){
@@ -198,16 +193,15 @@ extension ContactsViewController : UITableViewDelegate {
                 let removeBlockRef = Database.database().reference().child("users").child(fromId).child(Define.CONTACTS_BLOCKED)
                 removeBlockRef.child(key).removeValue()
                 self.contactsTableView.reloadData()
-                // call func observeCurrentUser to refresh user data
-                self.observeCurrentUser()
             }
         }
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         var action:UITableViewRowAction!
-        let contact = self.contacts![indexPath.row]
         if let currentUser = self.currentUser{
+            let contact = self.contacts![indexPath.row]
+            // default action to block contact
             action = UITableViewRowAction(style: .destructive, title: "Block".localized, handler: { (action, indexPath) in
                 self.blockContact(currentUser: currentUser, contactWillBlock: contact)
             })

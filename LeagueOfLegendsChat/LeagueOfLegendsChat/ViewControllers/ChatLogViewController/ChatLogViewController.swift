@@ -692,23 +692,21 @@ extension ChatLogViewController : UIImagePickerControllerDelegate, UINavigationC
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        handleImageSelectedForInfo(info: info)
-        handleEndEditing()
-        dismiss(animated: true, completion: nil)
-    }
-    
-    fileprivate func handleImageSelectedForInfo(info:[String:Any]){
         if let imageOriginal = info[UIImagePickerControllerOriginalImage] as? UIImage{
             let imageCapture = imageOriginal
             // handle update image to firebase
             updateFileToFirebaseUsingImage(image: imageCapture, quantityImage: 0.1, completion: { (imageUrl) in
-                // call func sendMessageWithImage to send message
-                self.sendMessageWithUploadImage(imageUrl: imageUrl, image: imageCapture)
+                if let imageUrl = imageUrl {
+                    // call func sendMessageWithImage to send message
+                    self.sendMessageWithUploadImage(imageUrl: imageUrl, image: imageCapture)
+                }
             })
         }
+        handleEndEditing()
+        dismiss(animated: true, completion: nil)
     }
     
-    func updateFileToFirebaseUsingImage(image:UIImage, quantityImage: CGFloat, completion: @escaping (_ imageUrl:String) -> ()){
+    func updateFileToFirebaseUsingImage(image:UIImage, quantityImage: CGFloat, completion: @escaping (_ imageUrl:String?) -> ()){
         let imageName = NSUUID().uuidString
         let storeRef = Storage.storage().reference().child("message_images").child(imageName)
         // get data of image
@@ -716,11 +714,12 @@ extension ChatLogViewController : UIImagePickerControllerDelegate, UINavigationC
             storeRef.putData(uploadData, metadata: nil, completion: { (metadata, error) in
                 if error != nil{
                     print(error!)
-                    return
-                }
-                // upload completed then get imageUrl
-                if let imageUrl = metadata?.downloadURL()?.absoluteString{
-                    completion(imageUrl)
+                    completion(nil)
+                }else{
+                    // upload completed then get imageUrl
+                    if let imageUrl = metadata?.downloadURL()?.absoluteString{
+                        completion(imageUrl)
+                    }
                 }
             })
         }
@@ -733,7 +732,9 @@ extension ChatLogViewController : ChatMessageDelegate {
     func selectedImageFromPhotoLibrary(image: UIImage) {
         // invoke func sendMessageWithImage to send this image
         self.updateFileToFirebaseUsingImage(image: image, quantityImage: 0.7) { (imageUrl) in
-            self.sendMessageWithUploadImage(imageUrl: imageUrl, image: image)
+            if let imageUrl = imageUrl{
+                 self.sendMessageWithUploadImage(imageUrl: imageUrl, image: image)
+            }
         }
     }
     

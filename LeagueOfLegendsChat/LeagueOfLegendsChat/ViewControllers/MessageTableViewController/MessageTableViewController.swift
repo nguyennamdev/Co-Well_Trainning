@@ -18,6 +18,7 @@ class MessagesTableViewController: UITableViewController {
     var ref: DatabaseReference!
     var currentUser:User?
     var messageDictionary:[String: Message]?
+    var messages:[Message]?
     var oldUid:String?
     
     
@@ -34,7 +35,7 @@ class MessagesTableViewController: UITableViewController {
         
         messageDictionary = [String: Message]()
         fetchUser()
-        observeUserMessage(uid: "sa")
+        observeUserMessage()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -47,7 +48,7 @@ class MessagesTableViewController: UITableViewController {
                 self.messageDictionary = [String: Message]()
                 self.tableView.reloadData()
                 fetchUser()
-                observeUserMessage(uid: uid)
+                observeUserMessage()
             }
         }
         // keep uid by oldUid
@@ -56,8 +57,10 @@ class MessagesTableViewController: UITableViewController {
     
     // MARK:- Private instance methods
     private func fetchUser(){
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         guard let uid = Auth.auth().currentUser?.uid else { return }
         Database.database().reference().child("users").child(uid).observe(.value) { (snapshot) in
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
             // get user value
             let values = snapshot.value as? [String: Any]
             let user = User()
@@ -68,7 +71,7 @@ class MessagesTableViewController: UITableViewController {
         }
     }
     
-    private func observeUserMessage(uid:String){
+    private func observeUserMessage(){
         if let uid = Auth.auth().currentUser?.uid {
             let userMessageRef = Database.database().reference()
             userMessageRef.child("user-messages").child(uid).observe(.childAdded, with: { (snapshot) in
@@ -93,6 +96,11 @@ class MessagesTableViewController: UITableViewController {
                     // set row once for a person
                     if let toId = message.chatParterId(){
                         self.messageDictionary![toId] = message
+                        self.messages = Array(self.messageDictionary!.values)
+                        // sort message by timestamp
+                        self.messages?.sort(by: { (m1, m2) -> Bool in
+                            return m1.timestamp.intValue > m2.timestamp.intValue
+                        })
                     }
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
@@ -130,14 +138,13 @@ extension MessagesTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.messageDictionary?.count ?? 0
+        return self.messages?.count ?? 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? MessageTableViewCell
-        let messages = Array<Message>(self.messageDictionary!.values)
-        let message = messages[indexPath.row]
-        setupNameAndProfileImage(message: message, for: cell!)
+        let message = self.messages?[indexPath.row]
+        setupNameAndProfileImage(message: message!, for: cell!)
         cell?.message = message
         cell?.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
         return cell!
@@ -197,9 +204,9 @@ extension MessagesTableViewController {
                         print(error!)
                         return
                     }
-                    // remove in message in message dictionary
+                    // remove message in message dictionary
                     // deleted, so reload data
-                    self.messageDictionary!.removeValue(forKey: chatParterId)
+                    self.messages?.remove(at: indexPath.row)
                     self.tableView.reloadData()
                 })
             }

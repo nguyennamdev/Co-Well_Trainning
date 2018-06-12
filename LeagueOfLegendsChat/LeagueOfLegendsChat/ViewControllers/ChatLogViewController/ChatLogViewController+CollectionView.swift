@@ -122,7 +122,9 @@ extension ChatLogViewController {
             // send sticker
             let sticker = self.stickerImages[indexPath.row]
             self.updateFileToFirebaseUsingImage(image: sticker, quantityImage: 1, completion: { (stickerUrl) in
-                self.sendMessageWithSticker(stickerUrl: stickerUrl, stickerImage: sticker)
+                if let stickerUrl = stickerUrl {
+                    self.sendMessageWithSticker(stickerUrl: stickerUrl, stickerImage: sticker)
+                }
             })
         }
     }
