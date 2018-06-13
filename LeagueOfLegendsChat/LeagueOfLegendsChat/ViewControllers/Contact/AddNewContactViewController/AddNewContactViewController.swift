@@ -220,7 +220,7 @@ class AddNewContactViewController: UIViewController {
                         // contact is already exist, change button title and attritudeText
                         subAttritudeString = NSAttributedString(string: " is already in your contacts on app".localized, attributes: [NSAttributedStringKey.font : UIFont.systemFont(ofSize: 16)])
                         buttonTitle = "Send a message".localized
-                        // set tag for sendButton, because do other task if contact is already exist
+                        // set tag for sendButton, because it do other task if contact is already exist
                         self.sendButton.tag = 1
                     }else{
                         subAttritudeString = NSAttributedString(string: " isn't already in your contacts on app".localized, attributes: [NSAttributedStringKey.font : UIFont.systemFont(ofSize: 16)])

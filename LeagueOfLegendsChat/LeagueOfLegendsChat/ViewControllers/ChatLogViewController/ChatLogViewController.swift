@@ -378,7 +378,8 @@ class ChatLogViewController : UICollectionViewController {
                 self.inputMessageTextField.text = nil
                 // get message id key
                 let messageId = refer.key
-            
+                
+                // add new message id in list message of current user
                 let userMessageRef = Database.database().reference().child("user-messages").child(currentId).child(toContactId)
                 userMessageRef.child("messages").updateChildValues([messageId:1])
                 
@@ -506,6 +507,7 @@ class ChatLogViewController : UICollectionViewController {
                         }
                         // hide block container view
                         self.blockContainerView.isHidden = true
+                        // show input container view
                         self.setupViewsWithoutContactNotBlock()
                     })
                 }

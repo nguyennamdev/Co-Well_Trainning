@@ -19,6 +19,7 @@ class ContactsViewController : UIViewController {
     let cellId = "cellId"
     var contacts:[Contact]?
     var currentUser:User!
+    var oldUid:String?
     
     
     // MARK:- Life cycle
@@ -30,17 +31,35 @@ class ContactsViewController : UIViewController {
         self.navigationItem.title = "Contact".localized
         
         // observes
-        observeCurrentUser()
         observeContacts()
+        observeCurrentUser()
         observeGetNumberOfContactsRequest()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tabBarController?.tabBar.isHidden = false
+        refreshDataWhenLogoutUser()
     }
     
     // MARK:- Private instance methods
+    private func refreshDataWhenLogoutUser(){
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        if oldUid != nil{
+            if uid != oldUid{
+                // if oldUid not equal current uid, it mean user switched account
+                // so must refresh message dictionary
+                self.contacts = [Contact]()
+                self.contactsTableView.reloadData()
+                observeContacts()
+                observeCurrentUser()
+                observeGetNumberOfContactsRequest()
+            }
+        }
+        // keep uid by oldUid
+        self.oldUid = uid
+    }
+    
     private func observeCurrentUser(){
         if let currentUID = Auth.auth().currentUser?.uid{
             let userRef = Database.database().reference().child("users").child(currentUID)
@@ -71,7 +90,7 @@ class ContactsViewController : UIViewController {
                 }else{
                     DispatchQueue.main.async {
                         // user don't have any contact
-                        // when switch user table must reload data, if don't reload table view will show contacts of after user
+                        // when switch user the table must reload data, if don't reload table view will show contacts of after user
                         self.contactsTableView.reloadData()
                     }
                 }
@@ -182,8 +201,13 @@ extension ContactsViewController : UITableViewDelegate {
     private func blockContact(currentUser: User, contactWillBlock: Contact){
         // add contact to list blocked of current user
         // and contact blocked also add current user to list blocked
-    Database.database().reference().child("users").child(currentUser.id).child(Define.CONTACTS_BLOCKED).childByAutoId()
-            .setValue(contactWillBlock.id)
+        let blockContactRef = Database.database().reference().child("users").child(currentUser.id)
+        blockContactRef.child(Define.CONTACTS_BLOCKED).childByAutoId().setValue(contactWillBlock.id) { (error, refer) in
+            if error != nil{
+                print(error!)
+                return
+            }
+        }
     }
     
     private func unblockContact(fromId:String, toId: String){

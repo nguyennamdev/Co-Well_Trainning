@@ -63,5 +63,6 @@
 "New message" = "New message";
 "Email was already exist" = "Email was already exist";
 "Contact" = "Contact";
+"The password is invalid or the user does not have a password" = "The password is invalid or the user does not have a password";
 
 

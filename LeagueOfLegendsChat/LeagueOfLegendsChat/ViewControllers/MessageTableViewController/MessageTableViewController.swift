@@ -40,6 +40,11 @@ class MessagesTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        refreshDataWhenLogoutUser()
+    }
+    
+    // MARK:- Private instance methods
+    private func refreshDataWhenLogoutUser(){
         guard let uid = Auth.auth().currentUser?.uid else { return }
         if oldUid != nil{
             if uid != oldUid{
@@ -55,7 +60,6 @@ class MessagesTableViewController: UITableViewController {
         self.oldUid = uid
     }
     
-    // MARK:- Private instance methods
     private func fetchUser(){
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         guard let uid = Auth.auth().currentUser?.uid else { return }

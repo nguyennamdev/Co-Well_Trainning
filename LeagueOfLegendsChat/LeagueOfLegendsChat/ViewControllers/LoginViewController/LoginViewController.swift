@@ -47,7 +47,7 @@ class LoginViewController: UIViewController {
                     self.activityIndicator.stopAnimating()
                     if error != nil{
                         print(error!)
-                        self.presentAlertWithoutAction(title: "Error".localized, and: (error?.localizedDescription)!, completion: nil)
+                        self.presentAlertWithoutAction(title: "Error".localized, and: (error?.localizedDescription.localized)!, completion: nil)
                         return
                     }
                     // hide activity indicator
@@ -91,8 +91,10 @@ extension LoginViewController: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField.isEqual(emailTextField){
-            textField.text = ""
             textField.textColor = UIColor.black
+        }
+        if textField.isEqual(passwordTextField){
+            textField.text = ""
         }
     }
     
