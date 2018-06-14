@@ -34,8 +34,6 @@ class MessagesTableViewController: UITableViewController {
         self.navigationItem.rightBarButtonItem = newMessageButton
         
         messageDictionary = [String: Message]()
-        fetchUser()
-        observeUserMessage()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -51,10 +49,14 @@ class MessagesTableViewController: UITableViewController {
                 // if oldUid not equal current uid, it mean user switched account
                 // so must refresh message dictionary
                 self.messageDictionary = [String: Message]()
+                self.messages = [Message]()
                 self.tableView.reloadData()
                 fetchUser()
                 observeUserMessage()
             }
+        }else{
+            fetchUser()
+            observeUserMessage()
         }
         // keep uid by oldUid
         self.oldUid = uid
@@ -62,16 +64,17 @@ class MessagesTableViewController: UITableViewController {
     
     private func fetchUser(){
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        guard let uid = Auth.auth().currentUser?.uid else { return }
-        Database.database().reference().child("users").child(uid).observe(.value) { (snapshot) in
-            UIApplication.shared.isNetworkActivityIndicatorVisible = false
-            // get user value
-            let values = snapshot.value as? [String: Any]
-            let user = User()
-            user.id = snapshot.key
-            user.setValueForKeys(values: values!)
-            self.navigationItem.title = user.name
-            self.currentUser = user
+        if let uid = Auth.auth().currentUser?.uid {
+            Database.database().reference().child("users").child(uid).observe(.value) { (snapshot) in
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                // get user value
+                let values = snapshot.value as? [String: Any]
+                let user = User()
+                user.id = snapshot.key
+                user.setValueForKeys(values: values!)
+                self.navigationItem.title = user.name
+                self.currentUser = user
+            }
         }
     }
     

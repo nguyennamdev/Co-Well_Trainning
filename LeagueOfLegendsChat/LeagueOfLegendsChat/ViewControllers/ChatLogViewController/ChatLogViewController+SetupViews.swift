@@ -32,7 +32,7 @@ extension ChatLogViewController {
         mediaActionsView.leftAnchor.constraint(equalTo: inputContainerView.leftAnchor, constant: 8).isActive = true
         mediaActionsView.heightAnchor.constraint(equalToConstant: 24).isActive = true
         
-        widthConstaintMediaActionsView = NSLayoutConstraint(item: mediaActionsView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 56)
+        widthConstaintMediaActionsView = NSLayoutConstraint(item: mediaActionsView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 88) // 88 = 3button x 24 + 2 space x 8
         inputContainerView.addConstraint(widthConstaintMediaActionsView!)
         
         // setup subviews

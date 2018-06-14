@@ -46,7 +46,6 @@ extension ChatLogViewController {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as? PhotoLibraryCollectionViewCell
             cell?.chatMessageDelegate = self
             cell?.image = self.images[indexPath.row]
-            
             return cell!
         case 2:
             // stickerCollectionView
@@ -64,7 +63,7 @@ extension ChatLogViewController : UICollectionViewDelegateFlowLayout{
     
     private func setupSizeForChatCell(sizeForItemAt indexPath:IndexPath) -> CGSize{
         let message = self.messages[indexPath.row]
-        var height:CGFloat = 80
+        var height:CGFloat = 40
         // handle height when message is text
         if let text = message.text{
             height = text.estimateFrameOfString().height + 20

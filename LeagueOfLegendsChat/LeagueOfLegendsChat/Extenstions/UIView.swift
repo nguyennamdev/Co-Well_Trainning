@@ -37,4 +37,39 @@ extension UIView {
         }
     }
     
+    func showToast(toastMessage:String, duration:CGFloat, topAnchor:NSLayoutYAxisAnchor?, leftAnchor:NSLayoutXAxisAnchor?, bottomAnchor:NSLayoutYAxisAnchor?, rightAnchor:NSLayoutXAxisAnchor?){
+        // view to shadow bg and stopping user interaction
+        let toastView = UIView()
+        self.addSubview(toastView)
+        // caculating toast view frame
+        let width = toastMessage.estimateFrameOfString().width + 100
+        let height = toastMessage.estimateFrameOfString().height
+        // layout for toast view
+        toastView.anchorsLayoutView(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, constants: UIEdgeInsets.zero, size: CGSize(width: width, height: height))
+        
+        toastView.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+        toastView.layer.cornerRadius = 10
+        toastView.clipsToBounds = true
+        
+        // label for showing toast message
+        let label = UILabel()
+        toastView.addSubview(label)
+        // layout for label
+        label.anchorsLayoutView(top: toastView.topAnchor, left: toastView.leftAnchor, bottom: toastView.bottomAnchor, right: toastView.rightAnchor)
+        
+        label.text = toastMessage
+        label.textColor = UIColor.white
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 14)
+        
+        // animate toast view
+        UIView.animateKeyframes(withDuration: TimeInterval(duration), delay: 0.1, options: [], animations: {
+            toastView.alpha = 0
+        }, completion: { (completed) in
+            // remove toast view
+            toastView.removeFromSuperview()
+        })
+        
+    }
+    
 }

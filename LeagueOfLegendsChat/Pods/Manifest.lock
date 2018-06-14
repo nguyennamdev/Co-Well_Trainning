@@ -50,12 +50,14 @@ PODS:
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
+  - SoundWave (0.1.1)
 
 DEPENDENCIES:
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
   - Firebase/Storage
+  - SoundWave
 
 SPEC CHECKSUMS:
   Firebase: ebebf41db7f10e0c7668b6eaaa857fbe599aa478
@@ -69,7 +71,8 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 5ad62e8200fa00ed011fe5e08d27fef72c5b1429
   leveldb-library: 10fb39c39e243db4af1828441162405bbcec1404
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
+  SoundWave: ccaf4aac7d56263b871f1bef4c2f84714b73738b
 
-PODFILE CHECKSUM: c27def01d7be0c3aee721dcc2306641de6d095cf
+PODFILE CHECKSUM: fef3335ab453ab91b7e5a010aaf2f7a5d0f75436
 
 COCOAPODS: 1.4.0.beta.2

@@ -32,9 +32,14 @@ class MessageTableViewCell: UITableViewCell {
         didSet{
             if let text = message?.text {
                 self.messageLabel.text = text
-            }else{
+            }else if message?.imageUrl != nil{
                 self.messageLabel.text = "Sent an image".localized
+            }else if message?.stickerUrl != nil{
+                self.messageLabel.text = "Sent a sticker".localized
+            }else if message?.audioUrl != nil{
+                self.messageLabel.text = "Sent an audio".localized
             }
+            
             if let timestamp = message?.timestamp.doubleValue {
                 let timestampDate = NSDate(timeIntervalSince1970: timestamp)
                 let dateFormatter = DateFormatter()

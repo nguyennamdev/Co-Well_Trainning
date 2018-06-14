@@ -20,7 +20,9 @@ class Message  {
     var imageHeight:NSNumber?
     var videoUrl:String?
     var stickerUrl:String?
-    
+    var audioUrl:String?
+    var duration:Double?
+
     func chatParterId() -> String? {
         return fromId == Auth.auth().currentUser?.uid ? toId : fromId
     }
@@ -35,6 +37,8 @@ class Message  {
         self.imageHeight = values[Define.IMAGE_HEIGHT] as? NSNumber
         self.videoUrl = values[Define.VIDEO_URL] as? String
         self.stickerUrl = values[Define.STICKER_URL] as? String
+        self.audioUrl = values["audioUrl"] as? String
+        self.duration = values["duration"] as? Double
     }
     
 }

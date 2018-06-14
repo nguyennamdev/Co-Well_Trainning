@@ -29,11 +29,7 @@ class ContactsViewController : UIViewController {
         contactsTableView.delegate = self
         contactsTableView.dataSource = self
         self.navigationItem.title = "Contact".localized
-        
-        // observes
-        observeContacts()
-        observeCurrentUser()
-        observeGetNumberOfContactsRequest()
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -55,6 +51,11 @@ class ContactsViewController : UIViewController {
                 observeCurrentUser()
                 observeGetNumberOfContactsRequest()
             }
+        }else{
+            // observes
+            observeContacts()
+            observeCurrentUser()
+            observeGetNumberOfContactsRequest()
         }
         // keep uid by oldUid
         self.oldUid = uid

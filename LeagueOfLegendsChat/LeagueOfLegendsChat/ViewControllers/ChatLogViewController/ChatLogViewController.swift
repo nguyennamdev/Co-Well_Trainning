@@ -11,6 +11,9 @@ import FirebaseDatabase
 import FirebaseAuth
 import FirebaseStorage
 import Photos
+import AVFoundation
+import SoundWave
+
 
 private let cellId = "cellId"
 
@@ -29,7 +32,7 @@ class ChatLogViewController : UICollectionViewController {
     
     var photoLibraryIsShowing:Bool = false{
         didSet{
-            chooseImageButton.isSelected = photoLibraryIsShowing ? true : false
+            photosButton.isSelected = photoLibraryIsShowing ? true : false
         }
     }
     var stickersCollectionIsShowing:Bool = false{
@@ -37,12 +40,6 @@ class ChatLogViewController : UICollectionViewController {
             stickerButton.isSelected = stickersCollectionIsShowing ? true : false
         }
     }
-
-    // constaints
-    var bottomConstaintInputContainerView:NSLayoutConstraint?
-    var widthConstaintMediaActionsView:NSLayoutConstraint?
-    var heightConstaintPhotoLibraryCollectionView:NSLayoutConstraint?
-    var heightConstaintStickerCollectionView:NSLayoutConstraint?
     
     var contact:Contact?{
         didSet{
@@ -61,6 +58,18 @@ class ChatLogViewController : UICollectionViewController {
             }
         }
     }
+    
+    var soundRecorder:AVAudioRecorder!
+    var meterLevelTimer:Timer?
+    var isCancelRecord:Bool = false
+    
+    // constaints
+    var bottomConstaintInputContainerView:NSLayoutConstraint?
+    var widthConstaintMediaActionsView:NSLayoutConstraint?
+    var heightConstaintPhotoLibraryCollectionView:NSLayoutConstraint?
+    var heightConstaintStickerCollectionView:NSLayoutConstraint?
+    
+    
     
     // MARK:- Views
     let inputContainerView:UIView = UIView()
@@ -108,7 +117,7 @@ class ChatLogViewController : UICollectionViewController {
         return button
     }()
     
-    let chooseImageButton:UIButton = {
+    let photosButton:UIButton = {
         let button = UIButton(type: UIButtonType.custom)
         button.setImage(#imageLiteral(resourceName: "picture"), for: .normal)
         button.setImage(#imageLiteral(resourceName: "picture_selected"), for: .highlighted)
@@ -117,10 +126,23 @@ class ChatLogViewController : UICollectionViewController {
         return button
     }()
     
-    let captureImageButton:UIButton = {
+    let cameraButton:UIButton = {
         let button = UIButton(type: UIButtonType.custom)
         button.setImage(#imageLiteral(resourceName: "photo-camera"), for: .normal)
         button.addTarget(self, action: #selector(captureImageToSendMessageWithImage), for: .touchUpInside)
+        return button
+    }()
+    
+    lazy var longPress = UILongPressGestureRecognizer(target: self, action: #selector(recordVoiceToSend(sender:)))
+    lazy var panGesture = UIPanGestureRecognizer(target: self, action: #selector(handleMoveSoundWave(sender:)))
+    
+    lazy var microButton:UIButton = {
+        let button = UIButton(type: UIButtonType.custom)
+        button.setImage(#imageLiteral(resourceName: "voice"), for: .normal)
+        button.isUserInteractionEnabled = true
+        button.addTarget(self, action: #selector(showToastRequireHoldButton(sender:)), for: .touchUpInside)
+        button.addGestureRecognizer(longPress)
+        button.addGestureRecognizer(panGesture)
         return button
     }()
     
@@ -158,6 +180,24 @@ class ChatLogViewController : UICollectionViewController {
         return collectionView
     }()
     
+    lazy var soundWaveView:AudioVisualizationView = {
+        let audioView = AudioVisualizationView()
+        audioView.backgroundColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
+        audioView.clipsToBounds = true
+        audioView.layer.cornerRadius = 25
+        audioView.gradientStartColor = UIColor.white
+        audioView.gradientEndColor = UIColor.white
+        return audioView
+    }()
+    
+    let cancelRecordButton:UIButton = {
+        let button = UIButton(type: UIButtonType.custom)
+        button.setImage(#imageLiteral(resourceName: "close_white"), for: .normal)
+        button.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+        button.layer.cornerRadius = 25
+        return button
+    }()
+    
     // MARK:- Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -178,9 +218,15 @@ class ChatLogViewController : UICollectionViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
         // init media buttons
-        mediaButtons = [captureImageButton, chooseImageButton]
-      
-        // observe methods
+        mediaButtons = [cameraButton, photosButton, microButton]
+        
+        // setup recorder
+        setupSoundRecorder()
+        
+        // set delegate for gestures
+        longPress.delegate = self
+        panGesture.delegate = self
+        
         grabPhotos()
     }
     
@@ -230,6 +276,51 @@ class ChatLogViewController : UICollectionViewController {
         setupBlockTitleLabel()
     }
     
+    private func setupSoundRecorder(){
+        // setup audio session
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, with: .defaultToSpeaker)
+            try AVAudioSession.sharedInstance().setActive(true)
+        }catch{
+            print(error)
+        }
+        // get directory file
+        let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let audioUrl = path.appendingPathComponent("myaudio.m4a")
+        // setting recorder
+        let recordSetting = [ AVFormatIDKey : kAudioFormatAppleLossless,
+                              AVEncoderAudioQualityKey: AVAudioQuality.low.rawValue,
+                              AVNumberOfChannelsKey : 2,
+                              AVSampleRateKey : 44100.0 ]
+            as [String : Any]
+        do {
+            self.soundRecorder = try AVAudioRecorder(url: audioUrl, settings: recordSetting)
+            self.soundRecorder.delegate = self
+            self.soundRecorder.isMeteringEnabled = true
+            self.soundRecorder.prepareToRecord()
+        }catch let err{
+            print(err)
+        }
+    }
+    
+    private func setupSoundWaveView(){
+        // show sound wave
+        self.view.addSubview(self.soundWaveView)
+        self.soundWaveView.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
+        // layout for sound wave view
+        self.soundWaveView.anchorsLayoutView(top: nil, left: nil, bottom: inputContainerView.topAnchor, right: nil, constants: UIEdgeInsets(top: 0, left: 0, bottom: 24, right: 0), size: CGSize(width: 100, height: 50))
+        self.soundWaveView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+    }
+    
+    private func setupCancelRecordButton(){
+        self.view.addSubview(self.cancelRecordButton)
+        // layout for cancel record button
+        self.cancelRecordButton.anchorsLayoutView(top: nil, left: nil, bottom: nil, right: nil, constants: UIEdgeInsets.zero, size: CGSize(width: 50, height: 50))
+        self.cancelRecordButton.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+        self.cancelRecordButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+    }
+    
+    
     // MARK:- Observe methods
     private func observeMessages(){
         guard let uid = Auth.auth().currentUser?.uid, let toId = self.contact?.id else { return }
@@ -259,7 +350,7 @@ class ChatLogViewController : UICollectionViewController {
             }
         }
     }
-
+    
     private func observeBubbleColor(){
         guard let uid = Auth.auth().currentUser?.uid, let toId = self.contact?.id else { return }
         let bubbleColorRef = Database.database().reference().child("user-messages").child(uid).child(toId)
@@ -273,7 +364,7 @@ class ChatLogViewController : UICollectionViewController {
             }
         }
     }
-
+    
     private func observeStickers(){
         let stickerRef = Database.database().reference().child("stickers")
         stickerRef.observeSingleEvent(of: .value) { (snapshot) in
@@ -288,6 +379,7 @@ class ChatLogViewController : UICollectionViewController {
                         self.downloadImageToLocalFile(imageName: fileName, stickerFolderName: stickerFolderName)
                     })
                 }else{
+                    self.stickerImages = [UIImage]()
                     // sticker saved on local file
                     fileNames.forEach({ (fileName) in
                         let imageSaved = self.getStickerSavedInLocal(by: stickerFolderName, imageName: fileName)
@@ -404,6 +496,11 @@ class ChatLogViewController : UICollectionViewController {
         sendMessageWithProperties(properties: values)
     }
     
+    func sendMessageWithAudioRecord(audioUrl:String, duration: Double){
+        let values = ["audioUrl": audioUrl, "duration": duration] as [String: Any]
+        sendMessageWithProperties(properties: values)
+    }
+    
     private func getKeyContactUnblock(fromId: String, toId: String, completeHandle:@escaping (_ key:String?) -> ()){
         // remove contact in list blocked of current user
         Database.database().reference().child("users").child(fromId).child(Define.CONTACTS_BLOCKED).observe(.value) { (snapshot) in
@@ -428,7 +525,7 @@ class ChatLogViewController : UICollectionViewController {
         let fileManager = FileManager.default
         
         let url = URL(fileURLWithPath: directory).appendingPathComponent("stickers/\(stickerFolderName)")
-    
+        
         if !fileManager.fileExists(atPath: url.path){
             return false
         }
@@ -525,12 +622,12 @@ class ChatLogViewController : UICollectionViewController {
             // hide photoLibraryCollection
             heightConstaintPhotoLibraryCollectionView?.constant = 0
             // change state of choose button
-            chooseImageButton.isSelected = false
+            photosButton.isSelected = false
             
             self.tabBarController?.tabBar.isHidden = false
             // scroll to last message
             if messages.count > 0{
-                 self.collectionView?.scrollToItem(at: IndexPath(item: self.messages.count - 1, section: 0), at: UICollectionViewScrollPosition.bottom, animated: true)
+                self.collectionView?.scrollToItem(at: IndexPath(item: self.messages.count - 1, section: 0), at: UICollectionViewScrollPosition.bottom, animated: true)
             }
             // animate
             UIView.animate(withDuration: 0.5, delay: 0.1, options: UIViewAnimationOptions.curveEaseIn, animations: {
@@ -557,7 +654,7 @@ class ChatLogViewController : UICollectionViewController {
             self.view.layoutIfNeeded()
         }
     }
-
+    
     
     @objc private func handleSelectImage(){
         photoLibraryIsShowing = !photoLibraryIsShowing
@@ -599,7 +696,7 @@ class ChatLogViewController : UICollectionViewController {
         animate()
         self.view.endEditing(true)
     }
-
+    
     private func changeBubbleColor(colorHex:String){
         if let uid = Auth.auth().currentUser?.uid, let contactId = self.contact?.id {
             let bubbleColorRef = Database.database().reference().child("user-messages").child(uid).child(contactId)
@@ -621,14 +718,127 @@ class ChatLogViewController : UICollectionViewController {
         present(colorChatViewController, animated: true, completion: nil)
     }
     
+    @objc private func showToastRequireHoldButton(sender:UIButton){
+        self.view.showToast(toastMessage: "Touch and hold button to send clip voice", duration: 3, topAnchor: nil, leftAnchor: mediaActionsView.leftAnchor, bottomAnchor: inputContainerView.topAnchor, rightAnchor: nil)
+    }
+    
+    @objc private func recordVoiceToSend(sender:UILongPressGestureRecognizer){
+        if sender.state == UIGestureRecognizerState.began{
+            // when user hold button, app will record voice
+           self.meterLevelTimer = Timer.scheduledTimer(timeInterval: 0.02, target: self, selector: #selector(handleMeterLevel), userInfo: nil, repeats: true)
+            // start record
+            if self.soundRecorder.isRecording{
+                self.soundRecorder.stop()
+                self.soundRecorder.deleteRecording()
+            }
+            self.soundRecorder.record()
+            // show sound wave view
+            self.setupSoundWaveView()
+            // show button cancel
+            self.setupCancelRecordButton()
+        }
+        if sender.state == UIGestureRecognizerState.ended{
+            handleSendAudioMessage()
+            self.meterLevelTimer?.invalidate()
+            self.soundWaveView.stop()
+            // hide sound wave view and cancel record button
+            self.soundWaveView.removeFromSuperview()
+            self.cancelRecordButton.removeFromSuperview()
+        }
+    }
+    
+    private func handleSendAudioMessage(){
+        if self.soundRecorder.isRecording {
+            // if isCancelRecord != true, it will send record message
+            if !isCancelRecord {
+                // require second record is great than 1 second
+                let sec = Int(self.soundRecorder.currentTime.truncatingRemainder(dividingBy: 60))
+                let duration = Double(self.soundRecorder.currentTime)
+                self.soundRecorder.stop()
+                if sec > 1 {
+                    uploadFileToFirebaseWithAudioRecord(duration: duration)
+                }else if sec > 30 {
+                    presentAlertWithoutAction(title: "Sorry".localized, and: "Recording time is less than 30 seconds".localized, completion: {
+                        // delete record
+                        self.soundRecorder.deleteRecording()
+                    })
+                }
+            }else{
+                self.soundRecorder.stop()
+                self.soundRecorder.deleteRecording()
+            }
+        }
+    }
+    
+    private func uploadFileToFirebaseWithAudioRecord(duration:Double){
+        let audioFile = getAudioFile()
+        // upload audio file to firebase store
+        let fileName = NSUUID().uuidString
+        let uploadTask = Storage.storage().reference().child("message_audios").child(fileName)
+        uploadTask.putFile(from: audioFile, metadata: nil, completion: { (metadata, error) in
+            if error != nil{
+                print(metadata!)
+                return
+            }
+            if let audioUrl = metadata?.downloadURL()?.absoluteString {
+                // send message with audio url
+                self.sendMessageWithAudioRecord(audioUrl: audioUrl, duration: duration)
+            }
+        })
+    }
+    
+    private func getAudioFile() -> URL{
+        let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let audioUrl = documentDirectory.appendingPathComponent("myaudio.m4a")
+        return audioUrl
+    }
+    
+    @objc private func handleMeterLevel(){
+        soundRecorder.updateMeters()
+        // caculate % of decibel
+        let meter = pow(10.0, (Double(self.soundRecorder.averagePower(forChannel: 0)) / 50))
+        self.soundWaveView.audioVisualizationMode = .write
+        self.soundWaveView.addMeteringLevel(Float(meter))
+    }
+    
+    @objc private func handleMoveSoundWave(sender:UIPanGestureRecognizer){
+        // translation sound wave view
+        let translation = sender.translation(in: self.view)
+        soundWaveView.center = CGPoint(x: soundWaveView.center.x + translation.x, y: soundWaveView.center.y + translation.y)
+        sender.setTranslation(CGPoint.zero, in: self.view)
+        // translattion cancel record button
+        cancelRecordButton.center.x = cancelRecordButton.center.x + translation.x
+      
+        if soundWaveView.center.y <= self.view.center.y{
+            // when sound wave view move to  cancel record button zone
+            // it will cancel record
+            self.isCancelRecord = true
+            UIView.animate(withDuration: 0.1, delay: 0, options: .autoreverse, animations: {
+                self.cancelRecordButton.alpha = 0
+                self.soundWaveView.backgroundColor = UIColor.red
+                self.cancelRecordButton.center = self.soundWaveView.center
+            }, completion: nil)
+        }else {
+            // sound wave view move out cancel record button zone
+            // it is recording
+            self.isCancelRecord = false
+            UIView.animate(withDuration: 0.1, delay: 0, options: .autoreverse, animations: {
+                self.cancelRecordButton.center.x = self.cancelRecordButton.center.x + translation.x
+                self.cancelRecordButton.alpha = 1
+                self.soundWaveView.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
+            }, completion: nil)
+        }
+    }
+
 }
+
 
 // MARK:- UITextFieldDelegate
 extension ChatLogViewController : UITextFieldDelegate {
     
     @objc fileprivate func showMediaButtons(){
         // make width of stack widen
-        widthConstaintMediaActionsView?.constant = 56
+        widthConstaintMediaActionsView?.constant = 88
         // remove existing buttons
         mediaActionsView.removeArrangedSubview(extendButton)
         extendButton.removeFromSuperview()
@@ -730,12 +940,13 @@ extension ChatLogViewController : UIImagePickerControllerDelegate, UINavigationC
 
 // MARK:- ChatMessageDelegate
 extension ChatLogViewController : ChatMessageDelegate {
+
     
     func selectedImageFromPhotoLibrary(image: UIImage) {
         // invoke func sendMessageWithImage to send this image
         self.updateFileToFirebaseUsingImage(image: image, quantityImage: 0.7) { (imageUrl) in
             if let imageUrl = imageUrl{
-                 self.sendMessageWithUploadImage(imageUrl: imageUrl, image: image)
+                self.sendMessageWithUploadImage(imageUrl: imageUrl, image: image)
             }
         }
     }
@@ -780,5 +991,46 @@ extension ChatLogViewController : ChatMessageDelegate {
         }
     }
 }
+
+// MARK:- AVAudioRecorderDelegate
+extension ChatLogViewController : AVAudioRecorderDelegate{
+    
+    func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
+        // do something
+        self.meterLevelTimer?.invalidate()
+    }
+}
+
+// MARK:- UIGestureRecognizerDelegate
+extension ChatLogViewController : UIGestureRecognizerDelegate{
+ 
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

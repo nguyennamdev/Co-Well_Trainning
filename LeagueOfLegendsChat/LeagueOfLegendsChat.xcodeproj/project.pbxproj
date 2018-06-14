@@ -42,7 +42,7 @@
 		84B62E1D20C94A3F00E3F380 /* NewMessageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B62E1B20C94A3F00E3F380 /* NewMessageTableViewController.swift */; };
 		84B62E1E20C94A3F00E3F380 /* NewMessageTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84B62E1C20C94A3F00E3F380 /* NewMessageTableViewController.xib */; };
 		84B711CD20C3A09200345F5E /* ChatLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B711CC20C3A09200345F5E /* ChatLogViewController.swift */; };
-		84B711CF20C3A41500345F5E /* ChatLogViewController+LayoutViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B711CE20C3A41500345F5E /* ChatLogViewController+LayoutViews.swift */; };
+		84B711CF20C3A41500345F5E /* ChatLogViewController+SetupViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B711CE20C3A41500345F5E /* ChatLogViewController+SetupViews.swift */; };
 		84B711D120C3C9DE00345F5E /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B711D020C3C9DE00345F5E /* Message.swift */; };
 		84B711DC20C3F8DC00345F5E /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B711DB20C3F8DC00345F5E /* String.swift */; };
 		84B9ED2520BE3B0F0057C885 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84B9ED2720BE3B0F0057C885 /* Localizable.strings */; };
@@ -50,6 +50,7 @@
 		84B9ED2F20BE94180057C885 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B9ED2E20BE94180057C885 /* UserInfo.swift */; };
 		84B9ED3120BEA5F20057C885 /* BaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B9ED3020BEA5F20057C885 /* BaseCell.swift */; };
 		84B9ED3320BEA63B0057C885 /* UserProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B9ED3220BEA63B0057C885 /* UserProfileTableViewCell.swift */; };
+		84BEFF7E20D15C9D00E11C98 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84BEFF7D20D15C9D00E11C98 /* AVFoundation.framework */; };
 		84D463B920C0F31200394075 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84D463BB20C0F31200394075 /* LoginViewController.xib */; };
 		84D463BE20C0F43700394075 /* RegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84D463C020C0F43700394075 /* RegisterViewController.xib */; };
 		84D475F120BD461900965E6A /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D475F020BD461900965E6A /* UserViewController.swift */; };
@@ -108,7 +109,7 @@
 		84B62E1B20C94A3F00E3F380 /* NewMessageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageTableViewController.swift; sourceTree = "<group>"; };
 		84B62E1C20C94A3F00E3F380 /* NewMessageTableViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewMessageTableViewController.xib; sourceTree = "<group>"; };
 		84B711CC20C3A09200345F5E /* ChatLogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogViewController.swift; sourceTree = "<group>"; };
-		84B711CE20C3A41500345F5E /* ChatLogViewController+LayoutViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatLogViewController+LayoutViews.swift"; sourceTree = "<group>"; };
+		84B711CE20C3A41500345F5E /* ChatLogViewController+SetupViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatLogViewController+SetupViews.swift"; sourceTree = "<group>"; };
 		84B711D020C3C9DE00345F5E /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		84B711DB20C3F8DC00345F5E /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		84B9ED2220BE39EB0057C885 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -118,6 +119,7 @@
 		84B9ED2E20BE94180057C885 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		84B9ED3020BEA5F20057C885 /* BaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCell.swift; sourceTree = "<group>"; };
 		84B9ED3220BEA63B0057C885 /* UserProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileTableViewCell.swift; sourceTree = "<group>"; };
+		84BEFF7D20D15C9D00E11C98 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		84D463BC20C0F31400394075 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LoginViewController.xib; sourceTree = "<group>"; };
 		84D463BD20C0F34100394075 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/LoginViewController.strings; sourceTree = "<group>"; };
 		84D463C120C0F43800394075 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/RegisterViewController.xib; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84BEFF7E20D15C9D00E11C98 /* AVFoundation.framework in Frameworks */,
 				B869C83C52F29191A022C1EB /* Pods_LeagueOfLegendsChat.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -352,7 +355,7 @@
 			isa = PBXGroup;
 			children = (
 				84B711CC20C3A09200345F5E /* ChatLogViewController.swift */,
-				84B711CE20C3A41500345F5E /* ChatLogViewController+LayoutViews.swift */,
+				84B711CE20C3A41500345F5E /* ChatLogViewController+SetupViews.swift */,
 				84E1E7CD20C83B8E00C1AB0A /* ChatLogViewController+CollectionView.swift */,
 			);
 			path = ChatLogViewController;
@@ -439,6 +442,7 @@
 		F8CFCDC36C1B7551E507606D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				84BEFF7D20D15C9D00E11C98 /* AVFoundation.framework */,
 				8B6A45ADFB259431E8D667BF /* Pods_LeagueOfLegendsChat.framework */,
 			);
 			name = Frameworks;
@@ -564,6 +568,7 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-LeagueOfLegendsChat/Pods-LeagueOfLegendsChat-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/SoundWave/SoundWave.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -571,6 +576,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SoundWave.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -635,7 +641,7 @@
 				84A12F3620BC5AC20040CFB1 /* UITextField+CheckTextIsEmail.swift in Sources */,
 				840D52B520BBA28500AB3083 /* UserDefaults+UserLoggin.swift in Sources */,
 				84B531E820BB95AE00230950 /* AppDelegate.swift in Sources */,
-				84B711CF20C3A41500345F5E /* ChatLogViewController+LayoutViews.swift in Sources */,
+				84B711CF20C3A41500345F5E /* ChatLogViewController+SetupViews.swift in Sources */,
 				84B62E1820C93E2800E3F380 /* MessageTableViewCell.swift in Sources */,
 				84AF293020C28C9900309729 /* ContactsResquestDelegate.swift in Sources */,
 				84B9ED3120BEA5F20057C885 /* BaseCell.swift in Sources */,

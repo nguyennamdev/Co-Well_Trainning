@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FirebaseAuth
+
 class IntroAppViewController: UIViewController {
     
     @IBOutlet weak var titleLabel: UILabel!
@@ -27,6 +29,13 @@ class IntroAppViewController: UIViewController {
                      Introduction(title: "Information about the app".localized, backgroundImage: #imageLiteral(resourceName: "background3"), contentImage: #imageLiteral(resourceName: "yasuo"), contentText: "Content Third Intro".localized)
         ]
         setupPageControl()
+        
+        // logout user when reinstall
+        do{
+            try Auth.auth().signOut()
+        }catch {
+            print(error)
+        }
       
     }
     // MARK:- Private instance methods

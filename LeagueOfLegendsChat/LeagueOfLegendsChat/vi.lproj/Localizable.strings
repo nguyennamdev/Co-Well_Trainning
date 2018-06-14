@@ -64,10 +64,8 @@
 "Email was already exist" = "Email này đã được đăng ký từ trước";
 "Contact" = "Danh bạ";
 "The password is invalid or the user does not have a password" = "Mật khẩu không hợp lệ hoặc người dùng không có mật khẩu";
-
-
-
-
-
+"Recording time is less than 30 seconds" = "Thời gian ghi âm chỉ dưới 30 giây";
+"Sent a sticker" = "Đã gửi một nhãn dán";
+"Sent an audio" = "Đã gửi một tin âm thanh";
 
 
